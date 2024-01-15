@@ -1,0 +1,44 @@
+<mat-card class="login-card">
+    <div>
+        <mat-card-header>
+            <mat-card-title>
+                <h1>太陽能節碳評估系統</h1>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-tab-group>
+                <mat-tab label="SIGN IN">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" id="username" formControlName="username">
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" formControlName="password">
+                        </div>
+                        <button mat-raised-button color="accent" type="submit" [disabled]="!loginForm.valid">SIGN IN</button>
+                    </form>
+                    
+                </mat-tab>
+                <mat-tab label="SIGN UP">
+                    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" id="username" formControlName="username">
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" formControlName="password">
+                        </div>
+                        <div>
+                            <label for="password">Confirm Password</label>
+                            <input type="password" id="password" formControlName="password">
+                        </div>
+                        <button mat-raised-button color="accent" type="submit" [disabled]="!signupForm.valid">SIGN UP</button>
+                    </form>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </div>
+</mat-card>
