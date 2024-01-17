@@ -1,44 +1,66 @@
-<mat-card class="login-card">
-    <div>
-        <mat-card-header>
-            <mat-card-title>
-                <h1>太陽能節碳評估系統</h1>
-            </mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <mat-tab-group>
-                <mat-tab label="SIGN IN">
-                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                        <div>
-                            <label for="username">Username</label>
-                            <input type="text" id="username" formControlName="username">
+<div fxFil style="width: 100%;">
+    <img src="/assets/solar_energy_background.jpg" class="bg-img"/>
+    <div fxLayout="row">
+    <mat-card class="login-card">
+        <div class="logo-div">
+            <mat-card-header>
+                        太陽能節碳評估系統
+            </mat-card-header>
+        </div>
+            <mat-card-content>
+                <mat-tab-group  color="success" >
+                    <mat-tab label="登入">
+                        <div class="content-div">
+                            <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+                                <div>
+                                    <mat-form-field class="input-div">
+                                        <mat-label  for="username">Username</mat-label>
+                                        <input type="text" matInput id="username" formControlName="username">
+                                        <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+                                        <!-- <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com"> -->
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="input-div">
+                                        <mat-label for="password">Password</mat-label>
+                                        <input type="password" matInput id="password" formControlName="password">
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button type="submit" class="submit-button"
+                                    [disabled]="!signinForm.valid">SIGN IN</button>
+
+                            </form>
                         </div>
-                        <div>
-                            <label for="password">Password</label>
-                            <input type="password" id="password" formControlName="password">
+                    </mat-tab>
+                    <mat-tab label="註冊">
+                        <div class="content-div">
+                            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                                <div>
+                                    <mat-form-field class="input-div">
+                                        <mat-label for="username">Username</mat-label>
+                                        <input type="text" matInput id="username" formControlName="username">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="input-div">
+                                        <mat-label for="password">Password</mat-label>
+                                        <input type="password" matInput id="password" formControlName="password">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="input-div">
+                                        <mat-label for="confirmPassword">Confirm Password</mat-label>
+                                        <input type="password" matInput id="confirmPassword" formControlName="confirmPassword">
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="accent" type="submit" class="submit-button"
+                                    [disabled]="!signupForm.valid">SIGN
+                                    UP</button>
+                            </form>
                         </div>
-                        <button mat-raised-button color="accent" type="submit" [disabled]="!loginForm.valid">SIGN IN</button>
-                    </form>
-                    
-                </mat-tab>
-                <mat-tab label="SIGN UP">
-                    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                        <div>
-                            <label for="username">Username</label>
-                            <input type="text" id="username" formControlName="username">
-                        </div>
-                        <div>
-                            <label for="password">Password</label>
-                            <input type="password" id="password" formControlName="password">
-                        </div>
-                        <div>
-                            <label for="password">Confirm Password</label>
-                            <input type="password" id="password" formControlName="password">
-                        </div>
-                        <button mat-raised-button color="accent" type="submit" [disabled]="!signupForm.valid">SIGN UP</button>
-                    </form>
-                </mat-tab>
-            </mat-tab-group>
-        </mat-card-content>
-    </div>
-</mat-card>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+    </mat-card>
+</div>
+</div>
