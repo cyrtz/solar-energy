@@ -1,20 +1,20 @@
 <div fxFil style="width: 100%;">
     <img src="/assets/solar_energy_background.jpg" class="bg-img"/>
     <div fxLayout="row">
-    <mat-card class="login-card">
-        <div class="logo-div">
-            <mat-card-header>
-                        太陽能節碳評估系統
-            </mat-card-header>
-        </div>
+        <mat-card class="login-card">
+            <div class="logo-div">
+                <mat-card-header>
+                    太陽能節碳評估系統
+                </mat-card-header>
+            </div>
             <mat-card-content>
-                <mat-tab-group  color="success" >
+                <mat-tab-group color="primary">
                     <mat-tab label="登入">
                         <div class="content-div">
                             <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
                                 <div>
                                     <mat-form-field class="input-div">
-                                        <mat-label  for="username">Username</mat-label>
+                                        <mat-label for="username">Username</mat-label>
                                         <input type="text" matInput id="username" formControlName="username">
                                         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                                         <!-- <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com"> -->
@@ -26,7 +26,7 @@
                                         <input type="password" matInput id="password" formControlName="password">
                                     </mat-form-field>
                                 </div>
-                                <button mat-raised-button type="submit" class="submit-button"
+                                <button mat-raised-button type="submit" class="submit-button" color="primary"
                                     [disabled]="!signinForm.valid">SIGN IN</button>
 
                             </form>
@@ -50,17 +50,17 @@
                                 <div>
                                     <mat-form-field class="input-div">
                                         <mat-label for="confirmPassword">Confirm Password</mat-label>
-                                        <input type="password" matInput id="confirmPassword" formControlName="confirmPassword">
+                                        <input type="password" matInput id="confirmPassword"
+                                            formControlName="confirmPassword">
                                     </mat-form-field>
                                 </div>
-                                <button mat-raised-button color="accent" type="submit" class="submit-button"
-                                    [disabled]="!signupForm.valid">SIGN
-                                    UP</button>
+                                <button mat-raised-button color="primary" type="submit" class="submit-button"
+                                    [disabled]="!signupForm.valid">SIGN UP</button>
                             </form>
                         </div>
                     </mat-tab>
                 </mat-tab-group>
             </mat-card-content>
-    </mat-card>
-</div>
+        </mat-card>
+    </div>
 </div>
