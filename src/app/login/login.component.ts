@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { LoginService } from '../service/login.service';
 import { ILoginRequest, IRegisterRequest } from '../models/login-form';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -26,21 +28,22 @@ export class LoginComponent {
   constructor(
     private loginService: LoginService,
     private router: Router,
+    public dialog: MatDialog,
   ) { }
 
   login() {
     const value = this.loginForm.getRawValue();
     this.loginService.login(value as unknown as ILoginRequest).subscribe(res => {
-      if (res.isSuccess === true ) {
-        // this.router.navigate(['/app-home']);
-        console.log(res);
+      if (res.isSuccess === true) {
+        this.router.navigate(['/app-home']);
+        // console.log(res);
       } else {
-        // alert(res.message);
-        console.log(res);
+        this.opneDialog('0ms', '0ms');
       }
       console.log(res);
     });
-  }
+    // this.opneDialog('0ms', '0ms');
+  };
 
   register() {
     const value = this.registerForm.getRawValue();
@@ -49,8 +52,14 @@ export class LoginComponent {
       console.log(res);
     });
   }
+  opneDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration
+    });
 
-}
+  };
   // onSubmit(): void {
   //   console.log(this.signinForm?.value);
   // }
@@ -62,4 +71,4 @@ export class LoginComponent {
   // get isFormInvalid(): boolean {
   //   return this.formArray.controls.length ===0 || this.signinForm!.invalid;
   // }
-
+};
