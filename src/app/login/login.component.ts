@@ -5,12 +5,24 @@ import { ILoginRequest, IRegisterRequest } from '../models/login-form';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
+// export class SnackBarAnnotated{
+//   durationInSeconds = 5;
+
+//   constructor(private _snackBar: MatSnackBar) { }
+
+//   openSnackBar() { 
+//     this._snackBar
+//   }
+// }
+
 export class LoginComponent {
 
   loginForm = new FormGroup({
@@ -29,25 +41,32 @@ export class LoginComponent {
     private loginService: LoginService,
     private router: Router,
     public dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   login() {
     const value = this.loginForm.getRawValue();
     this.loginService.login(value as unknown as ILoginRequest).subscribe(res => {
-      if (res.isSuccess === true) {
-        this.router.navigate(['/app-home']);
-        // console.log(res);
-      } else {
-        this.opneDialog('0ms', '0ms');
-      }
-      console.log(res);
-    });
-    // this.opneDialog('0ms', '0ms');
+        if (res.isSuccess === true) {
+          this.router.navigate(['/app-home']);
+          // console.log(res);
+        } else {
+          this.opneDialog('0ms', '0ms');
+        }
+        console.log(res);
+      });
+      // this.router.navigate(['/app-home'])
+
+      // this.opneDialog('0ms', '0ms');
+    // this.router.navigate(['/app-home'])
   };
 
   register() {
     const value = this.registerForm.getRawValue();
-
+    this.snackBar.open('註冊成功', '關閉', {
+      duration: 2000,
+      verticalPosition: 'top',
+    });
     this.loginService.register(value as unknown as IRegisterRequest).subscribe(res => {
       console.log(res);
     });
