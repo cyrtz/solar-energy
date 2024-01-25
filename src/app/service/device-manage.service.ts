@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { DeviceList, IDeviceResponse, INewDeviceRequest, INewDeviceResponse } from '../models/device-manage';
+import { IDeviceResponse, INewDeviceRequest, INewDeviceResponse, deviceList } from '../models/device-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,9 @@ export class DeviceManageService {
   ) { }
 
   // 取得設備列表
-  getDevices(): Observable<IDeviceResponse<DeviceList[]>>{
-    return this.http.get<IDeviceResponse<DeviceList[]>>(this.baseUrl + '/DeviceManage/DeviceManage/GetDeviceInfo');
+  getDevices(): Observable<IDeviceResponse<deviceList>>{
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/GetDeviceList';
+    return this.http.get<IDeviceResponse<deviceList>>(url);
   }
   // 新增設備
   addDevice(params: INewDeviceRequest): Observable<INewDeviceResponse>{

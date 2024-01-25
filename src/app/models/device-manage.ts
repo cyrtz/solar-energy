@@ -4,7 +4,11 @@ export interface IDeviceResponse<T> {
     message: string;
 }
 
-export interface DeviceList {
+export interface deviceList{
+    deviceList: deviceListRes[];
+}
+
+export interface deviceListRes {
     devName: string;
     devGuid: string;
     batteryPower: string;
