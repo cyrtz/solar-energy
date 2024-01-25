@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
+import { DeviceManageComponent } from './device-manage/device-manage.component';
+import { NewDeviceDialogComponent } from './new-device-dialog/new-device-dialog.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,8 +26,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+
 // import { DeviceManageComponent } from './service/device-manage/dvice-manage.component';
-import { DeviceManageComponent } from './device-manage/device-manage.component';
+
 
 
 @NgModule({
@@ -35,7 +41,8 @@ import { DeviceManageComponent } from './device-manage/device-manage.component';
     HomeComponent,
     DialogComponent,
     DeviceDetailComponent,
-    DeviceManageComponent
+    DeviceManageComponent,
+    NewDeviceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +63,9 @@ import { DeviceManageComponent } from './device-manage/device-manage.component';
     MatDividerModule,
     NgApexchartsModule,
     MatTableModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
