@@ -47,28 +47,33 @@ export class LoginComponent {
   login() {
     const value = this.loginForm.getRawValue();
     this.loginService.login(value as unknown as ILoginRequest).subscribe(res => {
-        if (res.isSuccess === true) {
-          this.router.navigate(['/app-home']);
-          // console.log(res);
-        } else {
-          this.opneDialog('0ms', '0ms');
-        }
-        console.log(res);
-      });
-      // this.router.navigate(['/app-home'])
+      if (res.isSuccess === true) {
+        this.router.navigate(['/app-home']);
+        // console.log(res);
+      } else {
+        this.opneDialog('0ms', '0ms');
+      }
+      console.log(res);
+    });
+    // this.router.navigate(['/app-home'])
 
-      // this.opneDialog('0ms', '0ms');
+    // this.opneDialog('0ms', '0ms');
     // this.router.navigate(['/app-home'])
   };
 
   register() {
     const value = this.registerForm.getRawValue();
-    this.snackBar.open('註冊成功', '關閉', {
-      duration: 2000,
-      verticalPosition: 'top',
-    });
     this.loginService.register(value as unknown as IRegisterRequest).subscribe(res => {
-      console.log(res);
+      // console.log(res);
+      if (res.isSuccess === true) {
+        this.snackBar.open('註冊成功', '關閉', {
+          duration: 2000,
+        });
+      } else {
+        this.snackBar.open(res.message, '關閉', {
+          duration: 2000,
+        });
+      }
     });
   }
   opneDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

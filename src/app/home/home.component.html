@@ -1,20 +1,23 @@
 <mat-drawer-container class="drawer-container" style="width: 100vw;height: 100vh;">
-    <mat-drawer #drawer mode="side" opened class="drawer-div">
-        <div style="height: 64px;">
-            <button mat-icon-button class="sidenav-menu-icon">
-                <mat-icon>menu</mat-icon>
-            </button>
-        </div>
-        <div class="navbar">
-            <button mat-button>首頁</button>
+    <mat-drawer #drawer mode="side" class="drawer-div">
+        <div fxLayout="column" class="navbar-spacer">
+            <div class="navbar-header" fxFlex="8">
+                <img src="assets/img/nutc_logo2.png" alt="logo" class="logo">
+            </div>
+            <div class="navbar-content" fxFlex="84">
+                <button mat-button>首頁</button>
+            </div>
+            <div class="navbar-footer" fxFlex="8">
+                <button mat-button>登出</button>
+            </div>
         </div>
     </mat-drawer>
     <mat-drawer-content fxLayout="column">
-        <div  style="position: sticky; top: 0;z-index: 20000;">
-            <div class="toolbar-spacer"  fxLayoutAlign="space-between center">
+        <div style="position: sticky; top: 0;z-index: 20000;">
+            <div class="toolbar-spacer" fxLayoutAlign="space-between center">
                 <div class="toolbar-content" fxLayout="row" fxLayoutAlign="start center">
                     <button mat-icon-button class="menu-icon" (click)="drawer.toggle()">
-                        <mat-icon>menu</mat-icon>
+                        <mat-icon>{{ drawer.opened ? 'close' : 'menu' }}</mat-icon>
                     </button>
                     <div>太陽能節碳評估系統</div>
                 </div>

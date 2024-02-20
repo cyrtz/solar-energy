@@ -7,7 +7,4 @@ import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
-  ngOnInit(): void {}
-
 }

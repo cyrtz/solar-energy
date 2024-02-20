@@ -17,7 +17,7 @@ export class NewDeviceDialogComponent {
   // 定義一個事件發布器
   @Output() dialogClosed = new EventEmitter<void>();
 
-  newDiveceForm = new FormGroup({
+  newDeviceForm = new FormGroup({
     devName: new FormControl(''),
     address: new FormControl(''),
     place: new FormControl(''),
@@ -30,7 +30,7 @@ export class NewDeviceDialogComponent {
 
   // 新增設備
   add(): void {
-    const value = this.newDiveceForm.getRawValue();
+    const value = this.newDeviceForm.getRawValue();
     this.deviceService.addDevice(value as unknown as INewDeviceRequest)
     .subscribe(res => {
       console.log(res.message);

@@ -1,16 +1,20 @@
 <div class="dialog-title">
     <h1 mat-dialog-title style="color: darkcyan;">新增設備</h1>
 </div>
-<div mat-dialog-content class="newDiveceForm">
-    <form [formGroup]="newDiveceForm">
-        <label for="devName"> Device Name </label>
-        <input id="devName" formControlName="devName" />
-
-        <label for="address"> Address </label>
-        <input id="address" formControlName="address" />
-
-        <label for="place"> Place </label>
-        <input id="place" formControlName="place" />
+<div mat-dialog-content class="newDeviceForm">
+    <form [formGroup]="newDeviceForm">
+        <div>
+            <label for="devName"> Device Name </label>
+            <input id="devName" formControlName="devName" />
+        </div>
+        <div>
+            <label for="address"> Address </label>
+            <input id="address" formControlName="address" />
+        </div>
+        <div>
+            <label for="place"> Place </label>
+            <input id="place" formControlName="place" />
+        </div>
     </form>
 </div>
 <div mat-dialog-actions class="dialog-action">
