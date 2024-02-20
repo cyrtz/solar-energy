@@ -1,0 +1,27 @@
+.dialog-title{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #6b916b;
+    h1 {
+        color: white;
+        font-size: 24px;
+    }
+}
+.dialog-body{
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 35%;
+    width: 60%;
+    p {
+        font-size: 24px;
+    }
+}
+.dialog-action{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+    width: 100%;
+}

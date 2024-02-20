@@ -12,6 +12,7 @@ import {
 } from "ng-apexcharts";
 import { dataSeries } from '../models/data-series';
 
+
 // import { IDataRecord } from './data-series';
 
 export type ChartOptions = {

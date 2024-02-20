@@ -1,0 +1,35 @@
+<div class="dialog-title">
+    <h1 mat-dialog-title>編輯設備</h1>
+</div>
+<div mat-dialog-content class="editDeviceForm">
+    <form class="editDeviceForm" [formGroup]="editDeviceForm">
+        <div class="formInput">
+            <mat-form-field appearance="outline">
+                <mat-label for="deviceOldName"> 設備名稱 </mat-label>
+                <input matInput id="deviceOldName" formControlName="deviceOldName" [(ngModel)]="this.device.deviceName" readonly/>
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field appearance="outline">
+                <mat-label for="deviceName"> 新設備名稱 </mat-label>
+                <input matInput id="deviceName" formControlName="deviceName" placeholder="勿取重複名稱"/>
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field appearance="outline">
+                <mat-label for="deviceAddress"> 位址 </mat-label>
+                <input matInput id="deviceAddress" formControlName="deviceAddress" [(ngModel)]="this.device.deviceAddress" />
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field appearance="outline">
+                <mat-label for="devicePlace"> 位置 </mat-label>
+                <input matInput id="devicePlace" formControlName="devicePlace" [(ngModel)]="this.device.devicePlace"/>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="dialog-action">
+    <button mat-raised-button mat-dialog-close>取消</button>
+    <button mat-raised-button [mat-dialog-close]="true" (click)="edit()" color="accent">修改</button>
+</div>

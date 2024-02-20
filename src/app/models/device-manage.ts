@@ -9,12 +9,12 @@ export interface deviceList{
 }
 
 export interface deviceListRes {
-    devName: string;
-    devGuid: string;
-    batteryPower: string;
-    address: string;
-    place: string;
+    deviceGuid: string;
+    deviceName: string;
+    deviceAddress: string;
+    devicePlace: string;
     createTime: string;
+    updateTime: string;
 }
 export interface INewDeviceRequest {
     devName: string;
@@ -22,6 +22,25 @@ export interface INewDeviceRequest {
     place: string;
 }
 export interface INewDeviceResponse {
+    data: string;
+    isSuccess: boolean;
+    message: string;
+}
+export interface IDeleteDeviceRequest {
+    deviceGuid: string;
+}
+export interface IDeleteDeviceResponse {
+    data: string;
+    isSuccess: boolean;
+    message: string;
+}
+export interface IEditDeviceRequest {
+    deviceOldName: string;
+    deviceName: string;
+    deviceAddress: string;
+    devicePlace: string;
+}
+export interface IEditDeviceResponse {
     data: string;
     isSuccess: boolean;
     message: string;

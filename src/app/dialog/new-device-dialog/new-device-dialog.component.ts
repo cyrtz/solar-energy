@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { DeviceManageService } from '../service/device-manage.service';
-import { INewDeviceRequest } from '../models/device-manage';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DeviceManageService } from '../../service/device-manage.service';
+import { INewDeviceRequest } from '../../models/device-manage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EventEmitter, Output } from '@angular/core';
@@ -14,23 +14,28 @@ import { EventEmitter, Output } from '@angular/core';
 
 export class NewDeviceDialogComponent {
 
-  // 定義一個事件發布器
+  // 定義一個"關閉事件"發布器
   @Output() dialogClosed = new EventEmitter<void>();
 
-  newDiveceForm = new FormGroup({
-    devName: new FormControl(''),
-    address: new FormControl(''),
-    place: new FormControl(''),
+  newDeviceForm = new FormGroup({
+    deviceName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    deviceAddress: new FormControl('', Validators.required),
+    devicePlace: new FormControl('', Validators.required),
   })
 
+  get deviceName() { return this.newDeviceForm.get('deviceName'); }
+  
   constructor(
     private deviceService: DeviceManageService,
-    public dialog: MatDialog,
+    // public dialog: MatDialog,
   ) { }
 
   // 新增設備
   add(): void {
-    const value = this.newDiveceForm.getRawValue();
+    const value = this.newDeviceForm.getRawValue();
     this.deviceService.addDevice(value as unknown as INewDeviceRequest)
     .subscribe(res => {
       console.log(res.message);
