@@ -1,6 +1,6 @@
 <div fxFill>
     <div fxLayout="row" fxLayoutAlign="space-evenly start">
-        <div fxFlex="40"fxLayoutAlign="center">
+        <div fxFlex="40" fxLayoutAlign="center">
             <mat-card class="example-card">
                 <mat-card-header>
                     <!-- <mat-card-subtitle></mat-card-subtitle> -->
@@ -25,13 +25,9 @@
                 <mat-card-content>
                     <!-- <p>歷史紀錄折線圖</p> -->
                     <div style="text-align:center">
-                        <apx-chart
-                          [series]="chartOptions.series!"
-                          [chart]="chartOptions.chart!"
-                          [xaxis]="chartOptions.xaxis!"
-                          [title]="chartOptions.title!"
-                        ></apx-chart>
-                      </div>
+                        <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
+                            [xaxis]="chartOptions.xaxis!" [title]="chartOptions.title!"></apx-chart>
+                    </div>
                     <mat-divider></mat-divider>
                     <p>今日碳排試算結果：</p>
                 </mat-card-content>

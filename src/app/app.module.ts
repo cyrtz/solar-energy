@@ -8,8 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
 import { DeviceManageComponent } from './device-manage/device-manage.component';
-import { NewDeviceDialogComponent } from './new-device-dialog/new-device-dialog.component';
-
+import { NewDeviceDialogComponent } from './dialog/new-device-dialog/new-device-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -29,9 +28,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
-
-// import { DeviceManageComponent } from './service/device-manage/dvice-manage.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule} from '@angular/material/sort';
+import { DeleteDeviceDialogComponent } from './dialog/delete-device-dialog/delete-device-dialog.component';
+import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-device-dialog.component';
 
 
 @NgModule({
@@ -42,7 +42,9 @@ import { MatMenuModule } from '@angular/material/menu';
     DialogComponent,
     DeviceDetailComponent,
     DeviceManageComponent,
-    NewDeviceDialogComponent
+    NewDeviceDialogComponent,
+    DeleteDeviceDialogComponent,
+    EditDeviceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatTableModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
