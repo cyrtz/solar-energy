@@ -22,17 +22,19 @@
                     <div>太陽能節碳評估系統</div>
                 </div>
                 <div>
-                    <button mat-icon-button class="cloud-icon" [matMenuTriggerFor]="weatherdata">
+                    <button mat-icon-button class="cloud-icon">
                         <mat-icon>cloud</mat-icon>
                     </button>
                 </div>
+                <div class="tempdiv">{{ temperature }}°C</div>
             </div>
 
-            <mat-menu #weatherdata="matMenu">
-                <div>
-                    天氣資訊
+            <!-- <mat-menu #weatherdata="matMenu">
+                <div class="weatherblock" fxLayout="column">
+                    <p>天氣：</p>
+                    <p>氣溫：{{ temperature }}°C</p>
                 </div>
-            </mat-menu>
+            </mat-menu> -->
         </div>
         <div style="z-index: 10000;">
             <!-- <app-device-detail></app-device-detail> -->
