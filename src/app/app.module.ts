@@ -32,6 +32,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
 import { DeleteDeviceDialogComponent } from './dialog/delete-device-dialog/delete-device-dialog.component';
 import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-device-dialog.component';
+import { UserManagerComponent } from './user-manager/user-manager.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-devi
     DeviceManageComponent,
     NewDeviceDialogComponent,
     DeleteDeviceDialogComponent,
-    EditDeviceDialogComponent
+    EditDeviceDialogComponent,
+    UserManagerComponent
   ],
   imports: [
     BrowserModule,
