@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { LoginService } from '../service/login.service';
+import { LoginService } from '../service/login/login.service';
 import { ILoginRequest, IRegisterRequest } from '../models/login-form';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../dialog/login-dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

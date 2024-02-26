@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { deviceListRes } from '../models/device-manage';
-import { DeviceManageService } from '../service/device-manage.service';
+import { DeviceManageService } from '../service/device-manager/device-manage.service';
 import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';

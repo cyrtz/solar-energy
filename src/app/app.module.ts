@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { DialogComponent } from './dialog/dialog.component';
+import { DialogComponent } from './dialog/login-dialog/dialog.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
 import { DeviceManageComponent } from './device-manage/device-manage.component';
 import { NewDeviceDialogComponent } from './dialog/new-device-dialog/new-device-dialog.component';

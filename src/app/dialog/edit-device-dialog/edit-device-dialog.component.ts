@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IEditDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
-import { DeviceManageService } from 'src/app/service/device-manage.service';
+import { DeviceManageService } from 'src/app/service/device-manager/device-manage.service';
 
 @Component({
   selector: 'app-edit-device-dialog',
