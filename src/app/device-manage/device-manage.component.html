@@ -1,8 +1,18 @@
-<div class="tableOperate">
-    <mat-form-field>
-        <input matInput #filter placeholder="搜尋">
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="newDialog('0ms', '0ms')">新增設備</button>
+<div fxLayout="row" fxLayoutAlign="start center" class="pageheader">
+    <div fxLayout="row" class="pagetitle" fxLayoutAlign="start center" fxFlex="30">
+        <div fxLayoutAlign="start center">
+            <mat-icon color="accent">construction</mat-icon>
+            <mat-icon color="accent">remove</mat-icon>
+        </div>
+        <div>設備管理</div>
+    </div>
+    <div class="tableOperate" fxLayoutAlign="end start" fxFlex="70">
+    <!-- <div fxLayoutAlign="space-between center" fxFlex="80"> -->
+        <mat-form-field style="margin-right: 20px;">
+            <input matInput #filter placeholder="搜尋">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="newDialog('0ms', '0ms')">新增設備</button>
+    </div>
 </div>
 <div class="deviceTable">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -57,7 +67,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator [pageSizeOptions]="[6]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 </div>
 <!-- <button mat-flat-button routerLink="/app-device-detail/{{element.devName}}"> -->
