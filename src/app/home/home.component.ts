@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
 import { WeatherdataService } from '../service/weather/weatherdata.service';
-import { timer } from 'rxjs';
 import { interval } from 'rxjs';
 
 @Component({

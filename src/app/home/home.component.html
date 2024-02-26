@@ -5,11 +5,11 @@
                 <img src="assets/img/nutc_logo2.png" alt="logo" class="logo">
             </div>
             <div class="navbar-content" fxFlex="82">
-                <button mat-button>首頁</button>
-                <button mat-button>會員管理</button>
+                <button mat-button [routerLink]="'../app-home/app-device-manage'">設備管理</button>
+                <button mat-button [routerLink]="'../app-home/app-user-manager'">會員管理</button>
             </div>
             <div class="navbar-footer" fxFlex="8">
-                <button mat-button>登出</button>
+                <button mat-button [routerLink]="''">登出</button>
             </div>
         </div>
     </mat-drawer>
@@ -22,11 +22,11 @@
                     </button>
                     <div style="font-weight: bold;">太陽能節碳評估系統</div>
                 </div>
-                <div class="weatheroverviewdiv">
+                <div class="weatheroverviewdiv" fxLayoutAlign="end center">
                     <!-- <button mat-icon-button class="cloud-icon">
                         <mat-icon>{{ weatheroverview }}</mat-icon>
                     </button> -->
-                    <div>{{ weatheroverview }}</div>
+                    {{ weatheroverview }}
                 </div>
                 <div class="tempdiv">{{ temperature }}°C</div>
             </div>
@@ -40,7 +40,8 @@
         </div>
         <div style="z-index: 10000;">
             <!-- <app-device-detail></app-device-detail> -->
-            <app-device-manage></app-device-manage>
+            <!-- <app-device-manage></app-device-manage> -->
+            <router-outlet></router-outlet>
         </div>
     </mat-drawer-content>
 </mat-drawer-container>
