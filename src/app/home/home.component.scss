@@ -58,11 +58,6 @@
     color: white;
 }
 
-// .cloud-icon{
-//     display: flex;
-//     justify-self: start;
-// }
-
 .toolbar-content {
     width: 100%;
     //     display: flex;
@@ -76,6 +71,9 @@
     font-size: 20px;
     margin-right: 10px;
     width: 100px;
+    .weather-icon{
+        width: 30px;
+    }
 }
 
 .tempdiv{

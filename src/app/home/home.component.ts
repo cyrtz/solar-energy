@@ -27,15 +27,21 @@ export class HomeComponent implements OnInit {
         if (res.isSuccess) {
           this.temperature = res.data.airTemperature;
           this.weatheroverview = res.data.weather;
-          // if (this.weatheroverview === '晴') {
-          //   this.weatheroverview = 'sunny';
-          // } else if (this.weatheroverview === '多雲' || this.weatheroverview === '陰') {
-          //   this.weatheroverview = 'cloud';
-          // } else if (this.weatheroverview === '雨' || this.weatheroverview === '陰有雨') {
-          //   this.weatheroverview = 'rainy';
-          // } else {
-          //   this.weatheroverview = this.weatheroverview;
-          // }
+          if (this.weatheroverview === '晴') {
+            this.weatheroverview = 'assets/img/weather/01.svg';
+          } else if (this.weatheroverview === '多雲') {
+            this.weatheroverview = 'assets/img/weather/04.svg';
+          } else if (this.weatheroverview === '陰'){
+            this.weatheroverview = 'assets/img/weather/07.svg';
+          } else if (this.weatheroverview === '雨') {
+            this.weatheroverview = 'assets/img/weather/11.svg';
+          } else if (this.weatheroverview === '陰有雨') {
+            this.weatheroverview = 'assets/img/weather/14.svg';
+          }
+          else {
+            this.weatheroverview = this.weatheroverview;
+          }
+          
         } else {
           console.log('Error: ' + res.message);
         }
