@@ -2,18 +2,26 @@
     height: 56px;
     margin-top: 1.3rem
 }
+
 .pagetitle {
+    // background: url('assets/img/tag.png') no-repeat 0 0;
+    background: #4E6E62;
     height: 56px;
     font-size: 24px;
-    font-weight: bold;
-    color: #4E6E62;
-    margin-left: 1.3rem;
+    color: white;
+    margin-left: 1rem;
+
+    .title-icon {
+        margin-left: 1.3rem;
+    }
+
     // margin: 1.3rem 1.3rem 0 1.3rem;
 }
+
 .tableOperate {
     // display: flex;
     // justify-content: space-between;
-    margin: 1.3rem 1.3rem 0 0;
+    margin: 1.3rem 1rem 0 0;
 
     button {
         height: 56px;
@@ -25,9 +33,11 @@
 .deviceTable {
     margin: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+
     table th {
         font-size: 20px;
     }
+
     table td {
         font-size: 18px;
     }

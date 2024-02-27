@@ -1,8 +1,15 @@
 .pagetitle {
+    // background: url('assets/img/tag.png') no-repeat 0 0;
+    background: #4E6E62;
     height: 56px;
     font-size: 24px;
-    font-weight: bold;
-    color: #4E6E62;
-    margin-left: 1.3rem;
+    color: white;
+    margin-top: 1.3rem;
+    margin-left: 1rem;
+
+    .title-icon {
+        margin-left: 1.3rem;
+    }
+
     // margin: 1.3rem 1.3rem 0 1.3rem;
 }

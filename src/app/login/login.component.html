@@ -14,7 +14,7 @@
                             <form [formGroup]="loginForm">
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
-                                        <mat-label for="username">Account</mat-label>
+                                        <mat-label for="username">帳號</mat-label>
                                         <input type="text" matInput formControlName="userAccount">
                                         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                                         <!-- <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com"> -->
@@ -22,12 +22,12 @@
                                 </div>
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
-                                        <mat-label for="password">Password</mat-label>
+                                        <mat-label for="password">密碼</mat-label>
                                         <input type="password" matInput formControlName="userPassword">
                                     </mat-form-field>
                                 </div>
                                 <button mat-raised-button class="submit-button" color="accent" (click)="login()"
-                                    [disabled]="!loginForm.valid">SIGN IN</button>
+                                    [disabled]="!loginForm.valid">登入</button>
 
                             </form>
                         </div>
@@ -37,25 +37,25 @@
                             <form [formGroup]="registerForm">
                                 <div>
                                     <mat-form-field class="input-div" color="primary" appearance="outline">
-                                        <mat-label for="username">Account</mat-label>
+                                        <mat-label for="username">帳號</mat-label>
                                         <input type="text" matInput formControlName="userAccount">
                                     </mat-form-field>
                                 </div>
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
-                                        <mat-label for="email">Email</mat-label>
+                                        <mat-label for="email">電子郵件</mat-label>
                                         <input type="email" matInput formControlName="userEmail">
                                     </mat-form-field>
                                 </div>
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
-                                        <mat-label for="phone">Phone</mat-label>
+                                        <mat-label for="phone">電話</mat-label>
                                         <input type="text" matInput formControlName="userPhone">
                                     </mat-form-field>
                                 </div>
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
-                                        <mat-label for="password">Password</mat-label>
+                                        <mat-label for="password">密碼</mat-label>
                                         <input type="password" matInput formControlName="userPassword">
                                     </mat-form-field>
                                 </div>
@@ -69,7 +69,7 @@
                                     </mat-form-field>
                                 </div> -->
                                 <button mat-raised-button color="accent" class="submit-button" (click)="register()"
-                                    [disabled]="!registerForm.valid">SIGN UP</button>
+                                    [disabled]="!registerForm.valid">註冊</button>
                             </form>
                         </div>
                     </mat-tab>
