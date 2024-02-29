@@ -33,7 +33,7 @@ import { MatSortModule} from '@angular/material/sort';
 import { DeleteDeviceDialogComponent } from './dialog/delete-device-dialog/delete-device-dialog.component';
 import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-device-dialog.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,8 @@ import { UserManagerComponent } from './user-manager/user-manager.component';
     MatSidenavModule,
     MatMenuModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
