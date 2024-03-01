@@ -88,7 +88,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(1,6);
+      this.getDevices(0,6);
     });
   }
   // 開啟刪除設備對話框
@@ -103,7 +103,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(1,6);
+      this.getDevices(0,6);
     });
   }
   // 開啟編輯設備對話框
@@ -118,7 +118,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(1,6);
+      this.getDevices(0,6);
     });
   }
 }
