@@ -16,8 +16,11 @@ export class DeviceManageService {
   ) { }
 
   // 取得設備列表
-  getDevices(): Observable<IDeviceResponse<deviceList>>{
-    const url = this.baseUrl + '/DeviceManage/DeviceManage/GetDeviceList';
+  getDevices(pageIndex: number, pageSize: number): Observable<IDeviceResponse<deviceList>>{
+    // 使用字符串插值：可以正常執行
+    const url = this.baseUrl + `/DeviceManage/DeviceManage/GetPageDeviceList?page=${pageIndex+1}&pageSize=${pageSize}`;
+    // 使用字符串拼接：不能正常執行
+    // const url = this.baseUrl + '/DeviceManage/DeviceManage/GetPageDeviceList?page='+ pageIndex+1 +'&pageSize='+ pageSize;
     return this.http.get<IDeviceResponse<deviceList>>(url);
   }
   // 新增設備

@@ -23,12 +23,12 @@
         </ng-container>
         <!-- deviceAddress Column -->
         <ng-container matColumnDef="deviceAddress">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="centerAlign"> 位址 </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="centerAlign"> 單位 </th>
             <td mat-cell *matCellDef="let element"> {{element.deviceAddress}} </td>
         </ng-container>
         <!-- devicePlace Column -->
         <ng-container matColumnDef="devicePlace">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="centerAlign"> 位置 </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="centerAlign"> 地點 </th>
             <td mat-cell *matCellDef="let element">
                 {{element.devicePlace}}
                 <!-- <button type="button" class="delete" title="delete eauipment" (click)="delete(element)">x</button> -->
@@ -67,7 +67,8 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[6]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <!-- [length]="totalCount" 需要返回參數 -->
+    <mat-paginator #paginator [length]="20" pageIndex="0" pageSize="6" [pageSizeOptions]="[6,8,10]">
     </mat-paginator>
 </div>
 <!-- <button mat-flat-button routerLink="/app-device-detail/{{element.devName}}"> -->

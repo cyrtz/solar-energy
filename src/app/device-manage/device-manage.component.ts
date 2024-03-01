@@ -4,7 +4,7 @@ import { DeviceManageService } from '../service/device-manager/device-manage.ser
 import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { DeleteDeviceDialogComponent } from '../dialog/delete-device-dialog/delete-device-dialog.component';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
@@ -29,15 +29,20 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
   // 取得搜尋框
   @ViewChild('filter') filter!: ElementRef;
   // 取得分頁
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('paginator') paginator!: MatPaginator;
   // 取得排序
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
-    this.getDevices();
+    this.getDevices(0, 6);
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
+    if (this.paginator) {
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.getDevices(page.pageIndex, page.pageSize);
+      });
+    }
     this.dataSource.sort = this.sort;
     // 訂閱搜尋框的 keyup 事件
     fromEvent(this.filter.nativeElement, 'keyup')
@@ -57,8 +62,8 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
   }
 
   // 取得設備列表
-  getDevices(): void {
-    this.deviceService.getDevices()
+  getDevices(page: number, pageSize: number): void {
+    this.deviceService.getDevices(page, pageSize)
       .subscribe(
         res => {
           this.deviceData = res.data.deviceList;
@@ -67,7 +72,8 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
           });
           this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
           // 在資料載入後設定 paginator
-          this.dataSource.paginator = this.paginator;
+          // 從後端取得資料時，就不用指定data srouce的paginator了
+          // this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         })
   }
@@ -82,7 +88,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices();
+      this.getDevices(1,6);
     });
   }
   // 開啟刪除設備對話框
@@ -97,7 +103,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices();
+      this.getDevices(1,6);
     });
   }
   // 開啟編輯設備對話框
@@ -112,7 +118,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices();
+      this.getDevices(1,6);
     });
   }
 }
