@@ -5,7 +5,6 @@ import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
 import { DeleteDeviceDialogComponent } from '../dialog/delete-device-dialog/delete-device-dialog.component';
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
 import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-device-dialog.component';
@@ -31,8 +30,6 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
   @ViewChild('filter') filter!: ElementRef;
   // 取得分頁
   @ViewChild('paginator') paginator!: MatPaginator;
-  // 取得排序
-  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.getDevices(this.currentPage, 6);
@@ -44,7 +41,6 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
         this.getDevices(page.pageIndex, page.pageSize);
       });
     }
-    this.dataSource.sort = this.sort;
     // 訂閱搜尋框的 keyup 事件
     fromEvent(this.filter.nativeElement, 'keyup')
       .pipe(
@@ -74,7 +70,6 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
           }else {
             this.currentPage = page;
           }
-          this.dataSource.sort = this.sort;
         })
   }
   // 開啟新增設備對話框
