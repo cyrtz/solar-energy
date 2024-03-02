@@ -17,10 +17,11 @@ import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-dev
 })
 
 export class DeviceManageComponent implements OnInit, AfterViewInit {
-  // displayedColumns: string[] = ['deviceName', 'deviceAddress', 'devicePlace', 'batteryPower', 'operation'];
   displayedColumns: string[] = ['deviceName', 'deviceAddress', 'devicePlace', 'operation'];
   deviceData: deviceListRes[] = [];
   dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
+  // 當前頁碼
+  currentPage: number = 0;
   constructor(
     private deviceService: DeviceManageService,
     public dialog: MatDialog,
@@ -34,7 +35,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
-    this.getDevices(0, 6);
+    this.getDevices(this.currentPage, 6);
   }
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
@@ -67,13 +68,12 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
       .subscribe(
         res => {
           this.deviceData = res.data.deviceList;
-          // this.deviceData.forEach(device => {
-          //   device.deviceGuid = device.deviceGuid;
-          // });
           this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
-          // 在資料載入後設定 paginator
-          // 從後端取得資料時，就不用指定data srouce的paginator了
-          // this.dataSource.paginator = this.paginator;
+          if (page === 0) {
+            this.currentPage = 0;
+          }else {
+            this.currentPage = page;
+          }
           this.dataSource.sort = this.sort;
         })
   }
@@ -88,7 +88,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(0,6);
+      this.getDevices(this.currentPage,6);
     });
   }
   // 開啟刪除設備對話框
@@ -103,7 +103,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(0,6);
+      this.getDevices(this.currentPage,6);
     });
   }
   // 開啟編輯設備對話框
@@ -118,7 +118,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(0,6);
+      this.getDevices(this.currentPage,6);
     });
   }
 }
