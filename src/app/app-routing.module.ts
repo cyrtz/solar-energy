@@ -12,10 +12,10 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {path: 'app-device-manage', component: DeviceManageComponent},
-      {path: 'app-device-detail', component: DeviceDetailComponent},
+      {path: 'app-device-detail/:deviceGuid', component: DeviceDetailComponent},
       {path: 'app-user-manager', component: UserManagerComponent}
     ]
-  }
+  },
 ];
 
 @NgModule({

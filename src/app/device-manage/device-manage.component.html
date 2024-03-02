@@ -57,7 +57,7 @@
                     <mat-icon style="color: #AE0000;">delete</mat-icon>
                 </button>
                 <!-- 詳細資訊 -->
-                <button mat-icon-button matTooltip="詳細資訊">
+                <button [routerLink]="['/app-home/app-device-detail', element.deviceGuid]" mat-icon-button matTooltip="詳細資訊">
                     <mat-icon color="primary">info</mat-icon>
                 </button>
             </td>

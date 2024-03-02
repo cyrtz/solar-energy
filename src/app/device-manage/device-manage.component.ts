@@ -67,9 +67,9 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
       .subscribe(
         res => {
           this.deviceData = res.data.deviceList;
-          this.deviceData.forEach(device => {
-            device.deviceGuid = device.deviceGuid;
-          });
+          // this.deviceData.forEach(device => {
+          //   device.deviceGuid = device.deviceGuid;
+          // });
           this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
           // 在資料載入後設定 paginator
           // 從後端取得資料時，就不用指定data srouce的paginator了
