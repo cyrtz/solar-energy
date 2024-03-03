@@ -34,6 +34,7 @@ import { DeleteDeviceDialogComponent } from './dialog/delete-device-dialog/delet
 import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-device-dialog.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RegisterDialogComponent } from './dialog/register-dialog/register-dialog/register-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NewDeviceDialogComponent,
     DeleteDeviceDialogComponent,
     EditDeviceDialogComponent,
-    UserManagerComponent
+    UserManagerComponent,
+    RegisterDialogComponent
   ],
   imports: [
     BrowserModule,
