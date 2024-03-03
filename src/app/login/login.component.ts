@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/login-dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RegisterDialogComponent } from '../dialog/register-dialog/register-dialog/register-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +52,7 @@ export class LoginComponent {
         this.router.navigate(['/app-home']);
         // console.log(res);
       } else {
-        this.opneDialog('0ms', '0ms');
+        this.opneLoginDialog('0ms', '0ms');
       }
       console.log(res);
     });
@@ -66,9 +67,8 @@ export class LoginComponent {
     this.loginService.register(value as unknown as IRegisterRequest).subscribe(res => {
       // console.log(res);
       if (res.isSuccess === true) {
-        this.snackBar.open('註冊成功', '關閉', {
-          duration: 2000,
-        });
+        this.openRegisterDialog('0ms', '0ms');
+
       } else {
         this.snackBar.open(res.message, '關閉', {
           duration: 2000,
@@ -76,7 +76,7 @@ export class LoginComponent {
       }
     });
   }
-  opneDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  opneLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(DialogComponent, {
       width: '250px',
       enterAnimationDuration,
@@ -84,6 +84,14 @@ export class LoginComponent {
     });
 
   };
+  openRegisterDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(RegisterDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration
+    });
+  };
+};
   // onSubmit(): void {
   //   console.log(this.signinForm?.value);
   // }
@@ -95,4 +103,4 @@ export class LoginComponent {
   // get isFormInvalid(): boolean {
   //   return this.formArray.controls.length ===0 || this.signinForm!.invalid;
   // }
-};
+
