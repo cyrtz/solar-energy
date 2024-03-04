@@ -53,19 +53,3 @@ export interface ITotalPageResponse {
     isSuccess: boolean;
     message: string;
 }
-export interface ISearchDeviceResponse<T> {
-    data: T;
-    isSuccess: boolean;
-    message: string;
-}
-export interface searchDeviceList{
-    deviceList: searchDeviceListRes[];
-}
-export interface searchDeviceListRes {
-    deviceGuid: string;
-    deviceName: string;
-    deviceAddress: string;
-    devicePlace: string;
-    createTime: string;
-    updateTime: string;
-}

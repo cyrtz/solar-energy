@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { deviceListRes, searchDeviceListRes } from '../models/device-manage';
+import { deviceListRes } from '../models/device-manage';
 import { DeviceManageService } from '../service/device-manager/device-manage.service';
 import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +18,6 @@ import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-dev
 export class DeviceManageComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['deviceName', 'deviceAddress', 'devicePlace', 'operation'];
   deviceData: deviceListRes[] = [];
-  searchDeviceData: searchDeviceListRes[] = [];
   dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
   // 當前頁碼
   currentPage: number = 0;
@@ -87,12 +86,9 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     this.deviceService.searchDevice(currentFilterData as unknown as string)
     .subscribe(
       res => {
-        console.log(currentFilterData);
         console.log(res);
-        // this.searchDeviceData = res.data.deviceList;
-        // this.searchDeviceData = res.isSuccess ? res.data.deviceList : [];
-        // console.log(this.searchDeviceData);
-        // this.dataSource = new MatTableDataSource<searchDeviceListRes>(this.searchDeviceData);
+        this.deviceData = res.data.deviceList;
+        this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
       }
     )
   }

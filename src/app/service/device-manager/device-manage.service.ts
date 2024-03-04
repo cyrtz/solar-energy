@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, INewDeviceRequest, INewDeviceResponse, ISearchDeviceResponse, ITotalPageResponse, deviceList, searchDeviceList } from '../../models/device-manage';
+import { IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, INewDeviceRequest, INewDeviceResponse, ITotalPageResponse, deviceList } from '../../models/device-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -39,9 +39,8 @@ export class DeviceManageService {
     return this.http.post<IEditDeviceResponse>(this.baseUrl + '/DeviceManage/DeviceManage/UpdateDevice', params);
   }
   // 搜尋設備
-  // searchDevice(params: ISearchDeviceRequest): Observable<IDeviceResponse<deviceList>> {
-  searchDevice(params: string): Observable<ISearchDeviceResponse<searchDeviceList>> {
-    return this.http.post<ISearchDeviceResponse<searchDeviceList>>(this.baseUrl + '/DeviceManage/DeviceManage/SearchDeviceList', params);
-
+    searchDevice(params: string): Observable<IDeviceResponse<deviceList>> {
+    const url = this.baseUrl + `/DeviceManage/DeviceManage/SearchDeviceList?deviceName=${params}`;
+    return this.http.post<IDeviceResponse<deviceList>>(url, params);
   }
 }
