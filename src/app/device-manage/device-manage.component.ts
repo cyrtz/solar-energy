@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { deviceListRes } from '../models/device-manage';
+import { deviceListRes, searchDeviceListRes } from '../models/device-manage';
 import { DeviceManageService } from '../service/device-manager/device-manage.service';
 import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,43 +18,44 @@ import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-dev
 export class DeviceManageComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['deviceName', 'deviceAddress', 'devicePlace', 'operation'];
   deviceData: deviceListRes[] = [];
+  searchDeviceData: searchDeviceListRes[] = [];
   dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
   // 當前頁碼
   currentPage: number = 0;
+  totalPage: number = 0;
   constructor(
     private deviceService: DeviceManageService,
     public dialog: MatDialog,
   ) { }
 
-  // 取得搜尋框
-  @ViewChild('filter') filter!: ElementRef;
   // 取得分頁
   @ViewChild('paginator') paginator!: MatPaginator;
+  // 取得搜尋框
+  @ViewChild('filter') filter!: ElementRef;
+  currentFilterData!: string;
 
   ngOnInit(): void {
     this.getDevices(this.currentPage, 6);
+    this.getTotalPage();
   }
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
     if (this.paginator) {
       this.paginator.page.subscribe((page: PageEvent) => {
         this.getDevices(page.pageIndex, page.pageSize);
+        this.getTotalPage();
       });
     }
     // 訂閱搜尋框的 keyup 事件
-    fromEvent(this.filter.nativeElement, 'keyup')
+    fromEvent(this.filter.nativeElement, 'input')
       .pipe(
         // 500 毫秒後觸發
-        debounceTime(500),
+        debounceTime(1000),
         // 值改變時觸發
         distinctUntilChanged()
       ).subscribe(() => {
-        // 設定過濾器，過濾 deviceName
-        this.dataSource.filterPredicate = (data: deviceListRes, filter: string): boolean => {
-          return data.deviceName.indexOf(filter) !== -1;
-        }
-        // 搜尋框的值改變時，套用過濾器
-        this.dataSource.filter = (this.filter.nativeElement as HTMLInputElement).value;
+        this.currentFilterData = (this.filter.nativeElement as HTMLInputElement).value;
+        this.searchDevice(this.currentFilterData);
       });
   }
 
@@ -72,6 +73,29 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
           }
         })
   }
+  // 取得總頁數
+  getTotalPage(): void {
+    this.deviceService.getTotalPage()
+    .subscribe(
+      res => {
+        this.totalPage = res.data;
+      }
+    )
+  }
+  // 搜尋設備
+  searchDevice(currentFilterData: string): void {
+    this.deviceService.searchDevice(currentFilterData as unknown as string)
+    .subscribe(
+      res => {
+        console.log(currentFilterData);
+        console.log(res);
+        // this.searchDeviceData = res.data.deviceList;
+        // this.searchDeviceData = res.isSuccess ? res.data.deviceList : [];
+        // console.log(this.searchDeviceData);
+        // this.dataSource = new MatTableDataSource<searchDeviceListRes>(this.searchDeviceData);
+      }
+    )
+  }
   // 開啟新增設備對話框
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewDeviceDialogComponent, {
@@ -84,6 +108,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.getDevices(this.currentPage,6);
+      this.getTotalPage();
     });
   }
   // 開啟刪除設備對話框
@@ -99,6 +124,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.getDevices(this.currentPage,6);
+      this.getTotalPage();
     });
   }
   // 開啟編輯設備對話框
@@ -114,6 +140,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.getDevices(this.currentPage,6);
+      this.getTotalPage();
     });
   }
 }

@@ -45,3 +45,27 @@ export interface IEditDeviceResponse {
     isSuccess: boolean;
     message: string;
 }
+// export interface ISearchDeviceRequest {
+//     deviceName: string;
+// }
+export interface ITotalPageResponse {
+    data: number;
+    isSuccess: boolean;
+    message: string;
+}
+export interface ISearchDeviceResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
+export interface searchDeviceList{
+    deviceList: searchDeviceListRes[];
+}
+export interface searchDeviceListRes {
+    deviceGuid: string;
+    deviceName: string;
+    deviceAddress: string;
+    devicePlace: string;
+    createTime: string;
+    updateTime: string;
+}
