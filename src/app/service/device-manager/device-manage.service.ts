@@ -41,6 +41,6 @@ export class DeviceManageService {
   // 搜尋設備
     searchDevice(params: string): Observable<IDeviceResponse<deviceList>> {
     const url = this.baseUrl + `/DeviceManage/DeviceManage/SearchDeviceList?deviceName=${params}`;
-    return this.http.post<IDeviceResponse<deviceList>>(url, params);
+    return this.http.get<IDeviceResponse<deviceList>>(url);
   }
 }
