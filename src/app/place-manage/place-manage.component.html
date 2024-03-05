@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="start center">
+<div fxLayout="row" fxLayoutAlign="start center" class="pageheader">
     <div fxLayout="row" class="pagetitle" fxLayoutAlign="start center" fxFlex="40">
         <div fxLayoutAlign="start center" class="title-icon">
             <mat-icon>domain_add</mat-icon>
@@ -6,4 +6,10 @@
         </div>
         <div>單位管理</div>
     </div>
+    <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
+        <mat-form-field style="margin-right: 20px;" appearance="outline">
+            <mat-label>搜尋單位名稱</mat-label>
+            <input matInput #filter>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="newDialog('0ms', '0ms')">新增單位</button>
 </div>

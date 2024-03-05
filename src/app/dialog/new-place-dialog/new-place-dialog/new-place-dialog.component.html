@@ -1,0 +1,20 @@
+<div class="dialog-title">
+    <h1 mat-dialog-title>新增單位</h1>
+</div>
+<div mat-dialog-content>
+    <form class="newPlaceForm" [formGroup]="newPlaceForm">
+        <div class="formInput">
+            <mat-form-field appearance="outline">
+                <mat-label for="placeName"> 單位名稱 </mat-label>
+                <input matInput id="placeName" formControlName="placeName" required/>
+                <!-- <mat-error *ngIf="placeName?.errors?.['required']">
+                    請輸入單位名稱
+                </mat-error>   -->
+            </mat-form-field>   
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="dialog-action">
+    <button mat-raised-button mat-dialog-close>取消</button>
+    <button mat-raised-button [mat-dialog-close]="true" color="accent" >新增</button>
+</div>

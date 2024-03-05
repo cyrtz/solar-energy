@@ -40,6 +40,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog/new-place-dialog.component';
 // import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
@@ -55,7 +56,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     EditDeviceDialogComponent,
     RegisterDialogComponent,
     PlaceManageComponent,
-    UserManageComponent
+    UserManageComponent,
+    NewPlaceDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,34 @@
+.formInput {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    mat-form-field{
+        width: 80%;
+    }
+}
+.dialog-title{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #6b916b;
+    h1 {
+        color: white;
+        font-size: 24px;
+    }
+
+}
+.newDeviceForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0px;
+    width: 100%;
+    height: 100%;
+}
+.dialog-action{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+    width: 100%;
+}
