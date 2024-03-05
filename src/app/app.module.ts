@@ -33,11 +33,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DeleteDeviceDialogComponent } from './dialog/delete-device-dialog/delete-device-dialog.component';
 import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-device-dialog.component';
-import { UserManagerComponent } from './user-manager/user-manager.component';
+// import { UserManagerComponent } from './user-manager/user-manager.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RegisterDialogComponent } from './dialog/register-dialog/register-dialog/register-dialog.component';
 import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PlaceManageComponent } from './place-manage/place-manage.component';
+import { UserManageComponent } from './user-manage/user-manage.component';
 // import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
@@ -51,8 +53,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     NewDeviceDialogComponent,
     DeleteDeviceDialogComponent,
     EditDeviceDialogComponent,
-    UserManagerComponent,
-    RegisterDialogComponent
+    // UserManagerComponent,
+    RegisterDialogComponent,
+    PlaceManageComponent,
+    UserManageComponent
   ],
   imports: [
     BrowserModule,

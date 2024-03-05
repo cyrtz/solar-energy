@@ -6,7 +6,7 @@
             </div>
             <div class="navbar-content" fxFlex="82">
                 <button mat-button [routerLink]="'../app-home/app-device-manage'">設備管理</button>
-                <button mat-button [routerLink]="'../app-home/app-user-manager'">會員管理</button>
+                <button mat-button [routerLink]="'../app-home/app-user-manage'">會員管理</button>
             </div>
             <div class="navbar-footer" fxFlex="8">
                 <button mat-button [routerLink]="''">登出</button>
@@ -33,7 +33,6 @@
         </div>
         <div style="z-index: 10000;">
             <router-outlet></router-outlet>
-            <!-- <app-device-detail></app-device-detail> -->
         </div>
     </mat-drawer-content>
 </mat-drawer-container>
