@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDeleteDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
-import { DeviceManageService } from 'src/app/service/device-manager/device-manage.service';
+import { DeviceManageService } from 'src/app/service/device-manage/device-manage.service';
 
 @Component({
   selector: 'app-delete-device-dialog',

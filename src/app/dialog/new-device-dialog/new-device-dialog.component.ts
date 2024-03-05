@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DeviceManageService } from '../../service/device-manager/device-manage.service';
+import { DeviceManageService } from '../../service/device-manage/device-manage.service';
 import { INewDeviceRequest } from '../../models/device-manage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
