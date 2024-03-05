@@ -86,9 +86,10 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     this.deviceService.searchDevice(currentFilterData as unknown as string)
     .subscribe(
       res => {
-        console.log(res);
         this.deviceData = res.data.deviceList;
         this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
+        this.currentPage = 0;
+        this.totalPage = this.deviceData.length;
       }
     )
   }

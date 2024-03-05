@@ -39,7 +39,7 @@ export class DeviceManageService {
     return this.http.post<IEditDeviceResponse>(this.baseUrl + '/DeviceManage/DeviceManage/UpdateDevice', params);
   }
   // 搜尋設備
-    searchDevice(params: string): Observable<IDeviceResponse<deviceList>> {
+  searchDevice(params: string): Observable<IDeviceResponse<deviceList>> {
     const url = this.baseUrl + `/DeviceManage/DeviceManage/SearchDeviceList?deviceName=${params}`;
     return this.http.get<IDeviceResponse<deviceList>>(url);
   }
