@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     )
   }
   getWeatherDataInterval() {
-    const source = interval(300000);
+    const source = interval(1800000);
     source.subscribe(() => {
       this.getWeatherData();
     });

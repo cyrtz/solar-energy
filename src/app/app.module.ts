@@ -29,12 +29,16 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule} from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DeleteDeviceDialogComponent } from './dialog/delete-device-dialog/delete-device-dialog.component';
 import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-device-dialog.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RegisterDialogComponent } from './dialog/register-dialog/register-dialog/register-dialog.component';
+import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
+// import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -75,8 +79,12 @@ import { RegisterDialogComponent } from './dialog/register-dialog/register-dialo
     MatPaginatorModule,
     MatSortModule,
     MatTooltipModule,
+    MatDatepickerModule,
+    MatCommonModule,
+    MatNativeDateModule,
+    // MatMomentDateModule
   ],
-  providers: [],
+  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'zh-TW'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
