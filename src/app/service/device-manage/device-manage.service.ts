@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, INewDeviceRequest, INewDeviceResponse, ITotalPageResponse, deviceList } from '../../models/device-manage';
+import { IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, INewDeviceRequest, INewDeviceResponse, ISearchTotalPageResponse, ITotalPageResponse, deviceList } from '../../models/device-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -23,24 +23,33 @@ export class DeviceManageService {
     // const url = this.baseUrl + '/DeviceManage/DeviceManage/GetPageDeviceList?page='+ pageIndex+1 +'&pageSize='+ pageSize;
     return this.http.get<IDeviceResponse<deviceList>>(url);
   }
+  // 取得總頁數
   getTotalPage(): Observable<ITotalPageResponse> {
-    return this.http.get<ITotalPageResponse>(this.baseUrl + '/DeviceManage/DeviceManage/GetTotalPage');
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/GetTotalPage';
+    return this.http.get<ITotalPageResponse>(url);
   }
   // 新增設備
   addDevice(params: INewDeviceRequest): Observable<INewDeviceResponse> {
-    return this.http.post<INewDeviceResponse>(this.baseUrl + '/DeviceManage/DeviceManage/AddDevice', params);
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/AddDevice';
+    return this.http.post<INewDeviceResponse>(url, params);
   }
   // 刪除設備
   deleteDevice(params: IDeleteDeviceRequest): Observable<IDeleteDeviceResponse> {
-    return this.http.post<INewDeviceResponse>(this.baseUrl + '/DeviceManage/DeviceManage/DeleteDevice', params);
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/DeleteDevice';
+    return this.http.post<INewDeviceResponse>(url, params);
   }
   // 編輯設備
   editDevice(params: IEditDeviceRequest): Observable<IEditDeviceResponse> {
-    return this.http.post<IEditDeviceResponse>(this.baseUrl + '/DeviceManage/DeviceManage/UpdateDevice', params);
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/UpdateDevice';
+    return this.http.post<IEditDeviceResponse>(url, params);
   }
   // 搜尋設備
-  searchDevice(params: string): Observable<IDeviceResponse<deviceList>> {
-    const url = this.baseUrl + `/DeviceManage/DeviceManage/SearchDeviceList?deviceName=${params}`;
+  searchDevice(deviceName: string, page: number, pageSize: number): Observable<IDeviceResponse<deviceList>> {
+    const url = this.baseUrl + `/DeviceManage/DeviceManage/SearchDeviceList?deviceName=${deviceName}&page=${page + 1}&pageSize=${pageSize}`;
     return this.http.get<IDeviceResponse<deviceList>>(url);
+  }
+  getSearchTotalPage(deviceName: string): Observable<ISearchTotalPageResponse> {
+    const url = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalPage?deviceName=${deviceName}`;
+    return this.http.get<ISearchTotalPageResponse>(url);
   }
 }

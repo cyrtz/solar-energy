@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { deviceListRes } from '../models/device-manage';
 import { DeviceManageService } from '../service/device-manage/device-manage.service';
 import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
@@ -6,20 +6,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { DeleteDeviceDialogComponent } from '../dialog/delete-device-dialog/delete-device-dialog.component';
-import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs';
+import { debounceTime, delay, distinctUntilChanged, fromEvent } from 'rxjs';
 import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-device-dialog.component';
-
 @Component({
   selector: 'app-device-manage',
   templateUrl: './device-manage.component.html',
   styleUrls: ['./device-manage.component.scss'],
 })
 
-export class DeviceManageComponent implements OnInit, AfterViewInit {
+export class DeviceManageComponent implements OnInit {
   displayedColumns: string[] = ['deviceName', 'deviceAddress', 'devicePlace', 'operation'];
   deviceData: deviceListRes[] = [];
   dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
-  // 當前頁碼
+  isSearch: boolean = false;
+  currentFilterData!: string;
+  searchInput: string = '';
   currentPage: number = 0;
   totalPage: number = 0;
   constructor(
@@ -30,68 +31,89 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
   // 取得分頁
   @ViewChild('paginator') paginator!: MatPaginator;
   // 取得搜尋框
-  @ViewChild('filter') filter!: ElementRef;
-  currentFilterData!: string;
+  @ViewChild('filter') set filterElement(filter: ElementRef) {
+    if (filter) {
+      // 訂閱搜尋框的 input 事件
+      fromEvent(filter.nativeElement, 'input')
+        .pipe(
+          debounceTime(1000),
+        ).subscribe(() => {
+          this.currentFilterData = this.searchInput;
+          if (this.currentFilterData.trim() != '') {
+            this.searchDevice(this.currentFilterData.trim(), 0, 6);
+            this.getSearchTotalPage(this.currentFilterData.trim());
+          } else {
+            this.isSearch = false;
+            this.getDevices(0, 6);
+            this.getTotalPage();
+          }
+        });
+    }
+  }
 
   ngOnInit(): void {
     this.getDevices(this.currentPage, 6);
     this.getTotalPage();
   }
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    if (this.paginator) {
-      this.paginator.page.subscribe((page: PageEvent) => {
-        this.getDevices(page.pageIndex, page.pageSize);
-        this.getTotalPage();
-      });
-    }
-    // 訂閱搜尋框的 keyup 事件
-    fromEvent(this.filter.nativeElement, 'input')
-      .pipe(
-        // 500 毫秒後觸發
-        debounceTime(1000),
-        // 值改變時觸發
-        distinctUntilChanged()
-      ).subscribe(() => {
-        this.currentFilterData = (this.filter.nativeElement as HTMLInputElement).value;
-        this.searchDevice(this.currentFilterData);
-      });
-  }
 
   // 取得設備列表
   getDevices(page: number, pageSize: number): void {
-    this.deviceService.getDevices(page, pageSize)
+    if (this.isSearch) {
+      this.searchDevice(this.currentFilterData, page, pageSize);
+      this.getSearchTotalPage(this.currentFilterData);
+    } else {
+      (this.deviceService.getDevices(page, pageSize)
+        .subscribe(
+          res => {
+            this.deviceData = res.data.deviceList;
+            this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
+            if (page === 0) {
+              this.currentPage = 0;
+            } else {
+              this.currentPage = page;
+            }
+          }))
+    }
+  }
+  // 取得總頁數
+  getTotalPage(): void {
+    if (this.isSearch) {
+      this.getSearchTotalPage(this.currentFilterData);
+    } else
+      this.deviceService.getTotalPage()
+        .subscribe(
+          res => {
+            this.totalPage = res.data;
+          }
+        )
+  }
+  // 搜尋設備
+  searchDevice(currentFilterData: string, page: number, pageSize: number): void {
+    this.isSearch = true;
+    this.deviceService.searchDevice(currentFilterData, page, pageSize)
       .subscribe(
         res => {
           this.deviceData = res.data.deviceList;
           this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
-          if (page === 0) {
-            this.currentPage = 0;
-          }else {
-            this.currentPage = page;
-          }
-        })
+          this.currentPage = 0;
+        }
+      )
   }
-  // 取得總頁數
-  getTotalPage(): void {
-    this.deviceService.getTotalPage()
-    .subscribe(
-      res => {
-        this.totalPage = res.data;
-      }
-    )
+  // 取得搜尋總頁數
+  getSearchTotalPage(currentFilterData: string): void {
+    this.deviceService.getSearchTotalPage(currentFilterData)
+      .subscribe(
+        res => {
+          this.totalPage = res.data;
+          // this.searchTotalPage = res.data;
+        }
+      )
   }
-  // 搜尋設備
-  searchDevice(currentFilterData: string): void {
-    this.deviceService.searchDevice(currentFilterData as unknown as string)
-    .subscribe(
-      res => {
-        this.deviceData = res.data.deviceList;
-        this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
-        this.currentPage = 0;
-        this.totalPage = this.deviceData.length;
-      }
-    )
+  // 分頁事件
+  onPageChange(event: PageEvent): void {
+    console.log(event);
+    this.getDevices(event.pageIndex, event.pageSize);
+    this.getTotalPage();
   }
   // 開啟新增設備對話框
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -104,7 +126,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(this.currentPage,6);
+      this.getDevices(this.currentPage, 6);
       this.getTotalPage();
     });
   }
@@ -120,7 +142,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(this.currentPage,6);
+      this.getDevices(this.currentPage, 6);
       this.getTotalPage();
     });
   }
@@ -136,7 +158,7 @@ export class DeviceManageComponent implements OnInit, AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getDevices(this.currentPage,6);
+      this.getDevices(this.currentPage, 6);
       this.getTotalPage();
     });
   }

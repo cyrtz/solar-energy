@@ -10,7 +10,7 @@
     <!-- <div fxLayoutAlign="space-between center" fxFlex="80"> -->
         <mat-form-field style="margin-right: 20px;" appearance="outline">
             <mat-label>搜尋設備名稱</mat-label>
-            <input matInput #filter>
+            <input matInput #filter [(ngModel)]="searchInput">
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="newDialog('0ms', '0ms')">新增設備</button>
     </div>
@@ -58,7 +58,7 @@
     </table>
 
     <!-- [length]="totalCount" 需要返回參數 -->
-    <mat-paginator #paginator [length]="this.totalPage" pageIndex="0" pageSize="6" [pageSizeOptions]="[6,8,10]">
+    <mat-paginator #paginator (page)="onPageChange($event)" [length]="this.totalPage" pageIndex="0" pageSize="6" [pageSizeOptions]="[6,8,10]">
     </mat-paginator>
 </div>
 <!-- <button mat-flat-button routerLink="/app-device-detail/{{element.devName}}"> -->

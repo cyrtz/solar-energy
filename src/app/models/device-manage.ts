@@ -53,3 +53,8 @@ export interface ITotalPageResponse {
     isSuccess: boolean;
     message: string;
 }
+export interface ISearchTotalPageResponse {
+    data: number;
+    isSuccess: boolean;
+    message: string;
+}

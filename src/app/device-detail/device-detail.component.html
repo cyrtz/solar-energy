@@ -7,7 +7,9 @@
                     <mat-card-title style="font-size: 30px;">太陽能板</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <p>電池電量：</p>
+                    <p>
+                        電池電量：
+                    </p>
                     <mat-divider></mat-divider>
                     <p>太陽能接收數據：</p>
                 </mat-card-content>
@@ -19,7 +21,7 @@
         <div fxFlex="60" fxLayoutAlign="center">
             <mat-card class="example-card">
                 <!--<mat-card-header>
-                   <mat-card-subtitle></mat-card-subtitle> 
+                <mat-card-subtitle></mat-card-subtitle> 
                     <mat-card-title style="font-size: 30px;">碳排量</mat-card-title>
                 </mat-card-header> -->
                 <mat-card-content>
@@ -32,7 +34,7 @@
                     <p>碳排試算</p>
                     <mat-form-field color="primary">
                         <mat-label>選擇日期</mat-label>
-                        <input matInput [matDatepicker]="picker" >
+                        <input matInput [matDatepicker]="picker">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
