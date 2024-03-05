@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -37,10 +38,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
-
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatNativeDateModule } from '@angular/material/core';
+// import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -64,6 +64,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
+    FormsModule,
     MatCardModule,
     MatTabsModule,
     MatButtonModule,
@@ -84,7 +85,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatDatepickerModule,
     MatCommonModule,
     MatNativeDateModule,
-    NgApexchartsModule,
+    // MatMomentDateModule
   ],
   providers: [ {provide: MAT_DATE_LOCALE, useValue: 'zh-TW'}],
   bootstrap: [AppComponent]
