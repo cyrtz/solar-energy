@@ -1,48 +1,75 @@
-<div fxFill>
-    <div fxLayout="row" fxLayoutAlign="space-evenly start">
-        <div fxFlex="40" fxLayoutAlign="center">
-            <mat-card class="example-card">
+<div fxFill >
+    <div fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div>
+                <button mat-icon-button [routerLink]="'/app-home/app-device-manage'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+            </div>
+            <!-- <div fxLayoutAlign="start">
+                <div>裝置名稱{{deviceName}}</div>
+                <div>單位名稱</div>
+                <div>地點名稱</div>
+            </div> -->
+        </div>
+        <div class="device-data">
+            <mat-card style=" margin: 10px;">
                 <mat-card-header>
-                    <!-- <mat-card-subtitle></mat-card-subtitle> -->
-                    <mat-card-title style="font-size: 30px;">太陽能板</mat-card-title>
+                    <mat-card-title>裝置名稱</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <p>
-                        電池電量：
-                    </p>
                     <mat-divider></mat-divider>
-                    <p>太陽能接收數據：</p>
+                    <div fxLayout="column">
+                        <div>單位名稱</div>
+                        <div>地點名稱</div>
+                    </div>
                 </mat-card-content>
-                <mat-card-footer>
-                    <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
-                </mat-card-footer>
             </mat-card>
         </div>
-        <div fxFlex="60" fxLayoutAlign="center">
-            <mat-card class="example-card">
-                <!--<mat-card-header>
+        <div fxLayout="row" fxLayoutAlign="space-evenly start">
+            <div fxFlex="40" fxLayoutAlign="center">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title style="font-size: 20px;">太陽能板數據</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            電池電量：{{batteryPower}}%
+                        </p>
+                        <mat-divider></mat-divider>
+                        <p>太陽能接收數據：</p>
+                    </mat-card-content>
+                    <mat-card-footer>
+                        <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+            <div fxFlex="60" fxLayoutAlign="center">
+                <mat-card class="example-card">
+                    <!--<mat-card-header>
                 <mat-card-subtitle></mat-card-subtitle> 
                     <mat-card-title style="font-size: 30px;">碳排量</mat-card-title>
                 </mat-card-header> -->
-                <mat-card-content>
-                    <p>歷史紀錄折線圖</p>
-                    <!-- <div style="text-align:center">
+                    <mat-card-content>
+                        <p>歷史紀錄折線圖</p>
+                        <!-- <div style="text-align:center">
                         <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
                             [xaxis]="chartOptions.xaxis!" [title]="chartOptions.title!"></apx-chart>
                     </div>  -->
-                    <mat-divider></mat-divider>
-                    <p>碳排試算</p>
-                    <mat-form-field color="primary">
-                        <mat-label>選擇日期</mat-label>
-                        <input matInput [matDatepicker]="picker">
-                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </mat-card-content>
-                <mat-card-footer>
-                    <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
-                </mat-card-footer>
-            </mat-card>
+                        <mat-divider></mat-divider>
+                        <p>碳排試算</p>
+                        <mat-form-field color="primary">
+                            <mat-label>選擇日期</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-footer>
+                        <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+                    </mat-card-footer>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>
