@@ -11,7 +11,7 @@ export class LoginService {
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = 'http://192.168.50.132:5142';
+  baseUrl = 'http://192.168.50.132:5141';
 
   login(params: ILoginRequest): Observable<IApiResponse<"">>{
       const ApiUrl = this.baseUrl + '/Account/AccountInfo/Login';

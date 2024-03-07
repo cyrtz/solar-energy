@@ -25,7 +25,7 @@ import { RegisterDialogComponent } from '../dialog/register-dialog/register-dial
 // }
 
 export class LoginComponent {
-
+  hide = true;
   loginForm = new FormGroup({
     userAccount: new FormControl('', Validators.required),
     userPassword: new FormControl('', Validators.required),
@@ -35,7 +35,9 @@ export class LoginComponent {
     userAccount: new FormControl('', Validators.required),
     userPassword: new FormControl('', Validators.required),
     userPhone: new FormControl('', Validators.required),
-    userEmail: new FormControl('', Validators.required),
+    userEmail: new FormControl('', [
+      Validators.required,
+      Validators.email]),
   });
 
   constructor(
@@ -44,6 +46,8 @@ export class LoginComponent {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) { }
+
+  get userEmail() { return this.registerForm.get('userEmail'); }
 
   login() {
     const value = this.loginForm.getRawValue();
@@ -92,15 +96,15 @@ export class LoginComponent {
     });
   };
 };
-  // onSubmit(): void {
-  //   console.log(this.signinForm?.value);
-  // }
-  // 取得 FormArray
-  // get formArray(): FormArray {
-  //   return this.signinForm?.get('memberList')! as FormArray;
-  // }
-  // 判斷表單是否無效
-  // get isFormInvalid(): boolean {
-  //   return this.formArray.controls.length ===0 || this.signinForm!.invalid;
-  // }
+// onSubmit(): void {
+//   console.log(this.signinForm?.value);
+// }
+// 取得 FormArray
+// get formArray(): FormArray {
+//   return this.signinForm?.get('memberList')! as FormArray;
+// }
+// 判斷表單是否無效
+// get isFormInvalid(): boolean {
+//   return this.formArray.controls.length ===0 || this.signinForm!.invalid;
+// }
 

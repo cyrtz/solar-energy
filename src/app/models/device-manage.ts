@@ -11,8 +11,8 @@ export interface deviceList{
 export interface deviceListRes {
     deviceGuid: string;
     deviceName: string;
-    deviceAddress: string;
-    devicePlace: string;
+    deviceUnitName: string;
+    devicePlaceName: string;
     createTime: string;
     updateTime: string;
 }
@@ -37,8 +37,8 @@ export interface IDeleteDeviceResponse {
 export interface IEditDeviceRequest {
     deviceOldName: string;
     deviceName: string;
-    deviceAddress: string;
-    devicePlace: string;
+    deviceUnitName: string;
+    devicePlaceName: string;
 }
 export interface IEditDeviceResponse {
     data: string;

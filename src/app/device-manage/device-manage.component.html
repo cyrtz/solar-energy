@@ -22,16 +22,16 @@
             <th mat-header-cell *matHeaderCellDef style="background-color:#6b916b; color: white;" class="centerAlign"> 設備名稱 </th>
             <td mat-cell *matCellDef="let element"> {{element.deviceName}} </td>
         </ng-container>
-        <!-- deviceAddress Column -->
-        <ng-container matColumnDef="deviceAddress">
+        <!-- deviceUnitName Column -->
+        <ng-container matColumnDef="deviceUnitName">
             <th mat-header-cell *matHeaderCellDef style="background-color:#6b916b; color: white;" class="centerAlign"> 單位 </th>
-            <td mat-cell *matCellDef="let element"> {{element.deviceAddress}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.deviceUnitName}} </td>
         </ng-container>
-        <!-- devicePlace Column -->
-        <ng-container matColumnDef="devicePlace">
+        <!-- devicePlaceName Column -->
+        <ng-container matColumnDef="devicePlaceName">
             <th mat-header-cell *matHeaderCellDef style="background-color:#6b916b; color: white;" class="centerAlign"> 地點 </th>
             <td mat-cell *matCellDef="let element">
-                {{element.devicePlace}}
+                {{element.devicePlaceName}}
             </td>
         </ng-container>
         <!-- operation Column -->

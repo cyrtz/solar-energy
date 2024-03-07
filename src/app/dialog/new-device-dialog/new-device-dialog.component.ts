@@ -20,13 +20,15 @@ export class NewDeviceDialogComponent {
   newDeviceForm = new FormGroup({
     deviceName: new FormControl('', [
       Validators.required,
-      Validators.minLength(2),
+      Validators.pattern('^[a-zA-Z0-9_]*$'),
     ]),
-    deviceAddress: new FormControl('', Validators.required),
-    devicePlace: new FormControl('', Validators.required),
+    deviceUnitName: new FormControl('', Validators.required),
+    devicePlaceName: new FormControl('', Validators.required),
   })
 
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
+  get deviceUnitName() { return this.newDeviceForm.get('deviceUnitName'); }
+  get devicePlaceName() { return this.newDeviceForm.get('devicePlaceName'); }
   
   constructor(
     private deviceService: DeviceManageService,

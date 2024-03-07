@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IEditDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
 import { DeviceManageService } from 'src/app/service/device-manage/device-manage.service';
@@ -17,10 +17,18 @@ export class EditDeviceDialogComponent {
   @Output() dialogClosed = new EventEmitter<void>();
 
   editDeviceForm = new FormGroup({
-    deviceOldName: new FormControl(''),
-    deviceName: new FormControl(''),
-    deviceAddress: new FormControl(''),
-    devicePlace: new FormControl(''),
+    deviceOldName: new FormControl('',[
+      Validators.required,
+    ]),
+    deviceName: new FormControl('',[
+      Validators.required,
+    ]),
+    deviceUnitName: new FormControl('',[
+      Validators.required,
+    ]),
+    devicePlaceName: new FormControl('',[
+      Validators.required,
+    ]),
   })
   constructor(
     private deviceService: DeviceManageService,
@@ -35,7 +43,7 @@ export class EditDeviceDialogComponent {
     const value = this.editDeviceForm.getRawValue();
     this.deviceService.editDevice(value as unknown as IEditDeviceRequest)
     .subscribe(res => {
-      console.log(res.message);
+      // console.log(res.message);
       // 發布事件
       this.dialogClosed.emit();
     });

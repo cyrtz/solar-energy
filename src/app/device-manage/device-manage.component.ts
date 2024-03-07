@@ -15,7 +15,7 @@ import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-dev
 })
 
 export class DeviceManageComponent implements OnInit {
-  displayedColumns: string[] = ['deviceName', 'deviceAddress', 'devicePlace', 'operation'];
+  displayedColumns: string[] = ['deviceName', 'deviceUnitName', 'devicePlaceName', 'operation'];
   deviceData: deviceListRes[] = [];
   dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
   isSearch: boolean = false;
@@ -111,7 +111,6 @@ export class DeviceManageComponent implements OnInit {
   }
   // 分頁事件
   onPageChange(event: PageEvent): void {
-    console.log(event);
     this.getDevices(event.pageIndex, event.pageSize);
     this.getTotalPage();
   }
@@ -157,6 +156,7 @@ export class DeviceManageComponent implements OnInit {
     // 訂閱 dialogClosed 事件
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
+      
       console.log('dialogClosed');
       this.getDevices(this.currentPage, 6);
       this.getTotalPage();

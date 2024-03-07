@@ -14,18 +14,18 @@
         </div>
         <div class="formInput">
             <mat-form-field appearance="outline">
-                <mat-label for="deviceAddress"> 單位 </mat-label>
-                <input matInput id="deviceAddress" formControlName="deviceAddress" required/>
-                <mat-error *ngIf="deviceName?.errors?.['required']">
+                <mat-label for="deviceUnitName"> 單位 </mat-label>
+                <input matInput id="deviceUnitName" formControlName="deviceUnitName" required/>
+                <mat-error *ngIf="deviceUnitName?.errors?.['required']">
                     請輸入單位
                 </mat-error>  
             </mat-form-field>
         </div>
         <div class="formInput">
             <mat-form-field appearance="outline">
-                <mat-label for="devicePlace"> 地點 </mat-label>
-                <input matInput id="devicePlace" formControlName="devicePlace" required/>
-                <mat-error *ngIf="deviceName?.errors?.['required']">
+                <mat-label for="devicePlaceName"> 地點 </mat-label>
+                <input matInput id="devicePlaceName" formControlName="devicePlaceName" required/>
+                <mat-error *ngIf="devicePlaceName?.errors?.['required']">
                     請輸入地點
                 </mat-error>  
             </mat-form-field>
