@@ -9,7 +9,7 @@ import { IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDevi
 
 export class DeviceManageService {
 
-  private baseUrl = 'http://192.168.50.132:5141' // URL to web api
+  private baseUrl = 'http://192.168.50.132:5142' // URL to web api
 
   constructor(
     private http: HttpClient,

@@ -50,13 +50,14 @@
                                         <input type="email" matInput formControlName="userEmail">
                                     </mat-form-field>
                                 </div>
-                                <div *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)"
-                                    class="alert alert-danger">
-                                    <div>
-                                        <div *ngIf="userEmail?.errors?.['required']">Email 是必要的</div>
-                                        <div *ngIf="userEmail?.errors?.['email']">Email 格式無效</div>
-                                    </div>
-                                </div>
+                                <mat-hint *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)" class="alert alert-danger">
+                                    <span *ngIf="userEmail?.errors?.['required']">
+                                        Email 是必要的
+                                    </span>
+                                    <span *ngIf="userEmail?.errors?.['email']">
+                                        Email 格式無效
+                                    </span>
+                                </mat-hint>
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
                                         <mat-label for="phone">電話</mat-label>
