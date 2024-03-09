@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IEditDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
@@ -9,7 +9,7 @@ import { DeviceManageService } from 'src/app/service/device-manage/device-manage
   templateUrl: './edit-device-dialog.component.html',
   styleUrls: ['./edit-device-dialog.component.scss']
 })
-export class EditDeviceDialogComponent {
+export class EditDeviceDialogComponent implements OnInit{
   // 接收從父元件傳遞的設備數據
   device: deviceListRes;
 
@@ -30,11 +30,20 @@ export class EditDeviceDialogComponent {
       Validators.required,
     ]),
   })
+
   constructor(
     private deviceService: DeviceManageService,
     @Inject(MAT_DIALOG_DATA) public data: deviceListRes
     ) {
       this.device = data;
+    }
+    ngOnInit(): void {
+      this.editDeviceForm.patchValue({
+        deviceOldName: this.device.deviceName,
+        deviceName: '',
+        deviceUnitName: this.device.deviceUnitName,
+        devicePlaceName: this.device.devicePlaceName,
+      });
     }
 
   // 編輯設備
