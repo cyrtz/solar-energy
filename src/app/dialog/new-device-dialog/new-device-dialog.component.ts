@@ -23,16 +23,26 @@ export class NewDeviceDialogComponent implements AsyncValidator{
         Validators.required,
         Validators.minLength(2),
       ],
-      asyncValidators: [this.validate.bind(this)],
+      asyncValidators: [
+        this.validate.bind(this),
+        this.cannotEmpty.bind(this),],
     }),
-    deviceUnitName: new FormControl('', [
+    deviceUnitName: new FormControl('', {
+      validators:[
       Validators.required,
       Validators.minLength(2),
-    ]),
-    devicePlaceName: new FormControl('', [
+    ],
+    asyncValidators: [
+      this.cannotEmpty.bind(this),
+    ]}),
+    devicePlaceName: new FormControl('', {
+      validators:[
       Validators.required,
       Validators.minLength(2),
-    ]),
+    ],
+    asyncValidators: [
+      this.cannotEmpty.bind(this),
+    ]}),
   })
 
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
@@ -62,5 +72,11 @@ export class NewDeviceDialogComponent implements AsyncValidator{
       }),
       catchError(() => of(null))
     );
+  }
+  cannotEmpty(control: AbstractControl): Observable<ValidationErrors | null> {
+    if (control.value.trim() === '') {
+      return of({ 'cannotEmpty': true });
+    }
+    return of(null);
   }
 }

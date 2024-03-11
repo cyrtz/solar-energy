@@ -14,6 +14,9 @@
                     <span *ngIf="deviceName?.errors?.['minlength']">
                         設備名稱至少要有2個字
                     </span>
+                    <span *ngIf="deviceName?.errors?.['cannotEmpty']">
+                        地點不可為空
+                    </span>
                     <span *ngIf="deviceName?.errors?.['uniqueAlterEgo']">
                         設備名稱已存在
                     </span>
@@ -25,11 +28,14 @@
                 <mat-label for="deviceUnitName"> 單位 </mat-label>
                 <input matInput id="deviceUnitName" formControlName="deviceUnitName" required/>
                 <mat-error align="end">
-                    <span *ngIf="deviceName?.errors?.['required']">
+                    <span *ngIf="deviceUnitName?.errors?.['required']">
                         請輸入單位
                     </span>
-                    <span *ngIf="deviceName?.errors?.['minlength']">
+                    <span *ngIf="deviceUnitName?.errors?.['minlength']">
                         單位至少要有2個字
+                    </span>
+                    <span *ngIf="deviceUnitName?.errors?.['cannotEmpty']">
+                        單位不可為空
                     </span>
                 </mat-error> 
             </mat-form-field>
@@ -39,11 +45,14 @@
                 <mat-label for="devicePlaceName"> 地點 </mat-label>
                 <input matInput id="devicePlaceName" formControlName="devicePlaceName" required/>
                 <mat-error align="end">
-                    <span *ngIf="deviceName?.errors?.['required']">
+                    <span *ngIf="devicePlaceName?.errors?.['required']">
                         請輸入地點
                     </span>
-                    <span *ngIf="deviceName?.errors?.['minlength']">
+                    <span *ngIf="devicePlaceName?.errors?.['minlength']">
                         地點至少要有2個字
+                    </span>
+                    <span *ngIf="devicePlaceName?.errors?.['cannotEmpty']">
+                        地點不可為空
                     </span>
                 </mat-error> 
             </mat-form-field>
