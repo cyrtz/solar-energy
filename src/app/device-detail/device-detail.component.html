@@ -1,4 +1,4 @@
-<div fxFill >
+<div fxFill>
     <div fxLayout="column">
         <div fxLayout="row" fxLayoutAlign="start center">
             <div>
@@ -12,32 +12,34 @@
                 <div>地點名稱</div>
             </div> -->
         </div>
-        <div class="device-data">
-            <mat-card style=" margin: 10px;">
-                <mat-card-header>
-                    <mat-card-title>裝置名稱</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-divider></mat-divider>
-                    <div fxLayout="column">
-                        <div>單位名稱</div>
-                        <div>地點名稱</div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+        <div class="header">
+            <!-- <mat-card style=" margin: 10px;"> -->
+            <div fxLayout="row" class="device-detail" fxLayoutAlign="start end"
+                style=" margin-left: 10px; margin-top: 10px;">
+                <div class="devicename">{{this.deviceDetail.deviceName}}</div>
+                <div style="font-size: 20px; margin-right: 10px;">{{this.deviceDetail.deviceUnitName}}</div>
+                <div style="font-size: 20px; margin-right: 10px;">{{this.deviceDetail.devicePlaceName}}</div>
+            </div>
+            <!-- </mat-card> -->
+
         </div>
+        <!-- <mat-divider></mat-divider> -->
         <div fxLayout="row" fxLayoutAlign="space-evenly start">
             <div fxFlex="40" fxLayoutAlign="center">
                 <mat-card class="example-card">
-                    <mat-card-header>
-                        <mat-card-title style="font-size: 20px;">太陽能板數據</mat-card-title>
-                    </mat-card-header>
                     <mat-card-content>
-                        <p>
-                            電池電量：{{batteryPower}}%
-                        </p>
-                        <mat-divider></mat-divider>
-                        <p>太陽能接收數據：</p>
+                        <div style="font-size: 20px;">太陽能板數據</div>
+                        <mat-list>
+                            <mat-list-item>
+                                電池電量：{{this.deviceDetail.batteryPower}}%
+                            </mat-list-item>
+                            <mat-list-item>
+                                電壓：{{this.deviceDetail.battVoltage}}V
+                            </mat-list-item>
+                            <mat-list-item>
+                                電流：{{this.deviceDetail.battAmpere}}A
+                            </mat-list-item>
+                        </mat-list>
                     </mat-card-content>
                     <mat-card-footer>
                         <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
@@ -46,24 +48,19 @@
             </div>
             <div fxFlex="60" fxLayoutAlign="center">
                 <mat-card class="example-card">
-                    <!--<mat-card-header>
-                <mat-card-subtitle></mat-card-subtitle> 
-                    <mat-card-title style="font-size: 30px;">碳排量</mat-card-title>
-                </mat-card-header> -->
                     <mat-card-content>
-                        <p>歷史紀錄折線圖</p>
-                        <!-- <div style="text-align:center">
-                        <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
-                            [xaxis]="chartOptions.xaxis!" [title]="chartOptions.title!"></apx-chart>
-                    </div>  -->
-                        <mat-divider></mat-divider>
-                        <p>碳排試算</p>
-                        <mat-form-field color="primary">
-                            <mat-label>選擇日期</mat-label>
-                            <input matInput [matDatepicker]="picker">
-                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
+                        <div style="font-size: 20px;">碳排試算</div>
+                        <mat-list>
+                            <mat-list-item style="height: 100%;">
+                                <mat-form-field color="primary">
+                                    <mat-label>選擇日期</mat-label>
+                                    <input matInput [matDatepicker]="picker">
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </mat-list-item>
+                        </mat-list>
+                        
                     </mat-card-content>
                     <mat-card-footer>
                         <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->

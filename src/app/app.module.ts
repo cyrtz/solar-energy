@@ -41,7 +41,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog/new-place-dialog.component';
-// import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -87,9 +87,9 @@ import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dia
     MatDatepickerModule,
     MatCommonModule,
     MatNativeDateModule,
-    // MatMomentDateModule
+    MatListModule
   ],
-  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'zh-TW'}],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'zh-TW' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
