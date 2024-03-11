@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, INewDeviceRequest, INewDeviceResponse, ISearchTotalPageResponse, ITotalPageResponse, deviceList } from '../../models/device-manage';
+import { IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, IIsExistsResponse, INewDeviceRequest, INewDeviceResponse, ISearchTotalPageResponse, ITotalPageResponse, deviceList } from '../../models/device-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +51,9 @@ export class DeviceManageService {
   getSearchTotalPage(deviceName: string): Observable<ISearchTotalPageResponse> {
     const url = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalPage?deviceName=${deviceName}`;
     return this.http.get<ISearchTotalPageResponse>(url);
+  }
+  isExists(deviceName: string): Observable<IIsExistsResponse> {
+    const url = this.baseUrl + `/DeviceManage/DeviceManage/GetNameExists?deviceName=${deviceName}`;
+    return this.http.get<IIsExistsResponse>(url);
   }
 }

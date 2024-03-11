@@ -26,7 +26,7 @@ export class DeleteDeviceDialogComponent {
   delete(): void {
     // 創建物件 request 並設定 deviceGuid
     const request: IDeleteDeviceRequest = {
-      deviceGuid: this.device.deviceGuid,
+      deviceInfoGuid: this.device.deviceInfoGuid,
       // 其他需要的屬性
     };
   

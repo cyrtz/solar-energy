@@ -9,7 +9,7 @@ export interface deviceList{
 }
 
 export interface deviceListRes {
-    deviceGuid: string;
+    deviceInfoGuid: string;
     deviceName: string;
     deviceUnitName: string;
     devicePlaceName: string;
@@ -27,7 +27,7 @@ export interface INewDeviceResponse {
     message: string;
 }
 export interface IDeleteDeviceRequest {
-    deviceGuid: string;
+    deviceInfoGuid: string;
 }
 export interface IDeleteDeviceResponse {
     data: string;
@@ -55,6 +55,11 @@ export interface ITotalPageResponse {
 }
 export interface ISearchTotalPageResponse {
     data: number;
+    isSuccess: boolean;
+    message: string;
+}
+export interface IIsExistsResponse {
+    data: boolean;
     isSuccess: boolean;
     message: string;
 }

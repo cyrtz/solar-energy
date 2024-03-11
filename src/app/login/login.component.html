@@ -16,6 +16,16 @@
                                     <mat-form-field class="input-div" appearance="outline">
                                         <mat-label for="username">帳號</mat-label>
                                         <input type="text" matInput formControlName="userAccount">
+                                        <mat-error align="end">
+                                            <span *ngIf="userAccountLogin?.invalid && (userAccountLogin?.dirty || userAccountLogin?.touched)">
+                                                <span *ngIf="userAccountLogin?.errors?.['required']">
+                                                    帳號 是必要的
+                                                </span>
+                                                <span span *ngIf="userAccountLogin?.errors?.['pattern']">
+                                                    格式無效
+                                                </span>
+                                            </span>
+                                        </mat-error>
                                         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                                         <!-- <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com"> -->
                                     </mat-form-field>
@@ -27,6 +37,19 @@
                                         <button mat-icon-button matSuffix (click)="hide =!hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         </button>
+                                        <mat-error align="end">
+                                            <span *ngIf="userPasswordLogin?.invalid && (userPasswordLogin?.dirty || userPasswordLogin?.touched)">
+                                                <span *ngIf="userPasswordLogin?.errors?.['required']">
+                                                    密碼 是必要的
+                                                </span>
+                                                <span *ngIf="userPasswordLogin?.errors?.['pattern']">
+                                                    格式無效
+                                                </span>
+                                                <span *ngIf="userPasswordLogin?.errors?.['minlength']">
+                                                    長度不足
+                                                </span>
+                                            </span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <button mat-raised-button class="submit-button" color="accent" (click)="login()"
@@ -42,26 +65,54 @@
                                     <mat-form-field class="input-div" color="primary" appearance="outline">
                                         <mat-label for="username">帳號</mat-label>
                                         <input type="text" matInput formControlName="userAccount">
+                                        <mat-error align="end">
+                                            <span *ngIf="userAccount?.invalid && (userAccount?.dirty || userAccount?.touched)">
+                                                <span *ngIf="userAccount?.errors?.['required']">
+                                                    帳號 是必要的
+                                                </span>
+                                                <span span *ngIf="userAccount?.errors?.['pattern']">
+                                                    格式無效
+                                                </span>
+                                            </span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
                                         <mat-label for="email">電子郵件</mat-label>
                                         <input type="email" matInput formControlName="userEmail">
+                                        <mat-error align="end">
+                                            <span *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)">
+                                                <span *ngIf="userEmail?.errors?.['required']">
+                                                    Email 是必要的
+                                                </span>
+                                                <span *ngIf="userEmail?.errors?.['email']">
+                                                    格式無效
+                                                </span>
+                                            </span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
-                                <mat-hint *ngIf="userEmail?.invalid && (userEmail?.dirty || userEmail?.touched)" class="alert alert-danger">
-                                    <span *ngIf="userEmail?.errors?.['required']">
-                                        Email 是必要的
-                                    </span>
-                                    <span *ngIf="userEmail?.errors?.['email']">
-                                        Email 格式無效
-                                    </span>
-                                </mat-hint>
                                 <div>
                                     <mat-form-field class="input-div" appearance="outline">
                                         <mat-label for="phone">電話</mat-label>
                                         <input type="text" matInput formControlName="userPhone">
+                                        <mat-error align="end">
+                                            <span *ngIf="userPhone?.invalid && (userPhone?.dirty || userPhone?.touched)">
+                                                <span *ngIf="userPhone?.errors?.['required']">
+                                                    電話 是必要的
+                                                </span>
+                                                <span *ngIf="userPhone?.errors?.['pattern']">
+                                                    格式無效
+                                                </span>
+                                                <span *ngIf="userPhone?.errors?.['minlength']">
+                                                    長度不足
+                                                </span>
+                                                <span *ngIf="userPhone?.errors?.['maxlength']">
+                                                    長度過長
+                                                </span>
+                                            </span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div>
@@ -71,6 +122,19 @@
                                         <button mat-icon-button matSuffix (click)="hide =!hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         </button>
+                                        <mat-error align="end">
+                                            <span *ngIf="userPassword?.invalid && (userPassword?.dirty || userPassword?.touched)">
+                                                <span *ngIf="userPassword?.errors?.['required']">
+                                                    密碼 是必要的
+                                                </span>
+                                                <span *ngIf="userPassword?.errors?.['pattern']">
+                                                    格式無效
+                                                </span>
+                                                <span *ngIf="userPassword?.errors?.['minlength']">
+                                                    長度不足
+                                                </span>
+                                            </span>
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
 

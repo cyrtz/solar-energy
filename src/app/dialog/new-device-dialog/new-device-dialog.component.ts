@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, AsyncValidator } from '@angular/forms';
 import { DeviceManageService } from '../../service/device-manage/device-manage.service';
 import { INewDeviceRequest } from '../../models/device-manage';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { EventEmitter, Output } from '@angular/core';
+import { Observable, catchError, map, of, pipe } from 'rxjs';
 
 @Component({
   selector: 'app-new-device-dialog',
@@ -12,18 +12,27 @@ import { EventEmitter, Output } from '@angular/core';
   styleUrls: ['./new-device-dialog.component.scss']
 })
 
-export class NewDeviceDialogComponent {
+export class NewDeviceDialogComponent implements AsyncValidator{
 
   // 定義一個"關閉事件"發布器
   @Output() dialogClosed = new EventEmitter<void>();
 
   newDeviceForm = new FormGroup({
-    deviceName: new FormControl('', [
+    deviceName: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(2),
+      ],
+      asyncValidators: [this.validate.bind(this)],
+    }),
+    deviceUnitName: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9_]*$'),
+      Validators.minLength(2),
     ]),
-    deviceUnitName: new FormControl('', Validators.required),
-    devicePlaceName: new FormControl('', Validators.required),
+    devicePlaceName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
   })
 
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
@@ -32,7 +41,6 @@ export class NewDeviceDialogComponent {
   
   constructor(
     private deviceService: DeviceManageService,
-    // public dialog: MatDialog,
   ) { }
 
   // 新增設備
@@ -40,9 +48,19 @@ export class NewDeviceDialogComponent {
     const value = this.newDeviceForm.getRawValue();
     this.deviceService.addDevice(value as unknown as INewDeviceRequest)
     .subscribe(res => {
-      console.log(res.message);
       // 發布事件
       this.dialogClosed.emit();
     });
+  }
+  validate(control: AbstractControl): Observable<ValidationErrors | null> {
+    return this.deviceService.isExists(control.value).pipe(
+      map(res => {
+        if (res.data === false) {
+          return { uniqueAlterEgo: true };
+        }
+        return null;
+      }),
+      catchError(() => of(null))
+    );
   }
 }

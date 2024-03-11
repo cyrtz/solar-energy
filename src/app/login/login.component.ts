@@ -27,17 +27,37 @@ import { RegisterDialogComponent } from '../dialog/register-dialog/register-dial
 export class LoginComponent {
   hide = true;
   loginForm = new FormGroup({
-    userAccount: new FormControl('', Validators.required),
-    userPassword: new FormControl('', Validators.required),
+    userAccount: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z]*'),
+    ]),
+    userPassword: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z0-9]*'),
+      Validators.minLength(4),
+    ]),
   });
 
   registerForm = new FormGroup({
-    userAccount: new FormControl('', Validators.required),
-    userPassword: new FormControl('', Validators.required),
-    userPhone: new FormControl('', Validators.required),
+    userAccount: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z]*'),
+    ]),
     userEmail: new FormControl('', [
       Validators.required,
-      Validators.email]),
+      Validators.email
+    ]),
+    userPhone: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
+      Validators.pattern('^[0-9]*$'),
+    ]),
+    userPassword: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[a-zA-Z0-9]*'),
+      Validators.minLength(4),
+    ]),
   });
 
   constructor(
@@ -47,7 +67,13 @@ export class LoginComponent {
     private snackBar: MatSnackBar,
   ) { }
 
+  get userAccountLogin() { return this.loginForm.get('userAccount'); }
+  get userPasswordLogin() { return this.loginForm.get('userPassword'); }
   get userEmail() { return this.registerForm.get('userEmail'); }
+  get userAccount() { return this.registerForm.get('userAccount'); }
+  get userPhone() { return this.registerForm.get('userPhone'); }
+  get userPassword() { return this.registerForm.get('userPassword'); }
+
 
   login() {
     const value = this.loginForm.getRawValue();
