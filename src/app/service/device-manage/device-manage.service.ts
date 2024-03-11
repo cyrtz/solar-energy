@@ -30,17 +30,17 @@ export class DeviceManageService {
   }
   // 新增設備
   addDevice(params: INewDeviceRequest): Observable<INewDeviceResponse> {
-    const url = this.baseUrl + '/DeviceManage/DeviceManage/AddDevice';
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/AddDeviceInfo';
     return this.http.post<INewDeviceResponse>(url, params);
   }
   // 刪除設備
   deleteDevice(params: IDeleteDeviceRequest): Observable<IDeleteDeviceResponse> {
-    const url = this.baseUrl + '/DeviceManage/DeviceManage/DeleteDevice';
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/DeleteDeviceInfo';
     return this.http.post<INewDeviceResponse>(url, params);
   }
   // 編輯設備
   editDevice(params: IEditDeviceRequest): Observable<IEditDeviceResponse> {
-    const url = this.baseUrl + '/DeviceManage/DeviceManage/UpdateDevice';
+    const url = this.baseUrl + '/DeviceManage/DeviceManage/UpdateDeviceInfo';
     return this.http.post<IEditDeviceResponse>(url, params);
   }
   // 搜尋設備
