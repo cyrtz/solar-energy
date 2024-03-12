@@ -4,9 +4,9 @@
 <div mat-dialog-content class="newDeviceForm">
     <form class="newDeviceForm" [formGroup]="newDeviceForm">
         <div class="formInput">
-            <mat-form-field appearance="outline">
+            <mat-form-field>
                 <mat-label for="deviceName"> 設備名稱 </mat-label>
-                <input matInput id="deviceName" formControlName="deviceName" required/>
+                <input matInput id="deviceName" formControlName="deviceName" required />
                 <mat-error align="end">
                     <span *ngIf="deviceName?.errors?.['required']">
                         請輸入設備名稱
@@ -21,29 +21,27 @@
                         設備名稱已存在
                     </span>
                 </mat-error>
-            </mat-form-field>   
-        </div>
-        <div class="formInput">
-            <mat-form-field appearance="outline">
-                <mat-label for="deviceUnitName"> 單位 </mat-label>
-                <input matInput id="deviceUnitName" formControlName="deviceUnitName" required/>
-                <mat-error align="end">
-                    <span *ngIf="deviceUnitName?.errors?.['required']">
-                        請輸入單位
-                    </span>
-                    <span *ngIf="deviceUnitName?.errors?.['minlength']">
-                        單位至少要有2個字
-                    </span>
-                    <span *ngIf="deviceUnitName?.errors?.['cannotEmpty']">
-                        單位不可為空
-                    </span>
-                </mat-error> 
             </mat-form-field>
         </div>
         <div class="formInput">
-            <mat-form-field appearance="outline">
+            <mat-form-field>
+                <mat-label>單位</mat-label>
+                <mat-select formControlName="deviceUnitName">
+                    <mat-option *ngFor="let unit of unitsNameList" [value]="unit.value">
+                        {{unit.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end">
+                    <span *ngIf="deviceUnitName?.errors?.['required']">
+                        單位是必要的
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field>
                 <mat-label for="devicePlaceName"> 地點 </mat-label>
-                <input matInput id="devicePlaceName" formControlName="devicePlaceName" required/>
+                <input matInput id="devicePlaceName" formControlName="devicePlaceName" required />
                 <mat-error align="end">
                     <span *ngIf="devicePlaceName?.errors?.['required']">
                         請輸入地點
@@ -54,12 +52,13 @@
                     <span *ngIf="devicePlaceName?.errors?.['cannotEmpty']">
                         地點不可為空
                     </span>
-                </mat-error> 
+                </mat-error>
             </mat-form-field>
         </div>
     </form>
 </div>
 <div mat-dialog-actions class="dialog-action">
     <button mat-raised-button mat-dialog-close>取消</button>
-    <button mat-raised-button [mat-dialog-close]="true" (click)="add()" color="accent" [disabled]="!newDeviceForm.valid">新增</button>
+    <button mat-raised-button [mat-dialog-close]="true" (click)="add()" color="accent"
+        [disabled]="!newDeviceForm.valid">新增</button>
 </div>

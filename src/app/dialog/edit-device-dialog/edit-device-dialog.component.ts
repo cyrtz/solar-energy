@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Output, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, catchError, map, of } from 'rxjs';
-import { IEditDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
+import { IEditDeviceRequest, IUnitListResponse, deviceListRes } from 'src/app/models/device-manage';
 import { DeviceManageService } from 'src/app/service/device-manage/device-manage.service';
 
 @Component({
@@ -17,6 +17,17 @@ export class EditDeviceDialogComponent implements OnInit{
   // 定義一個"關閉事件"發布器
   @Output() dialogClosed = new EventEmitter<void>();
 
+  unitsNameList: IUnitListResponse[] = [
+    { value: '中科大', viewValue: '中科大' },
+    { value: '新大', viewValue: '新大' },
+    { value: '舊大', viewValue: '舊大' },
+  ];
+  devicePlaceNameList: IUnitListResponse[] = [
+    { value: '頂樓', viewValue: '頂樓' },
+    { value: '操場', viewValue: '操場' },
+    { value: '廣場', viewValue: '廣場' },
+  ];
+
   editDeviceForm = new FormGroup({
     deviceOldName: new FormControl(''),
     deviceName: new FormControl('',{
@@ -29,22 +40,20 @@ export class EditDeviceDialogComponent implements OnInit{
         this.cannotEmpty.bind(this),
       ],
     }),
-    deviceUnitName: new FormControl('',{
-      validators:[
-      Validators.required,
-      Validators.minLength(2),
-    ],
-    asyncValidators: [
-      this.cannotEmpty.bind(this),
-    ]}),
-    devicePlaceName: new FormControl('',{
-      validators:[
-      Validators.required,
-      Validators.minLength(2),
-    ],
-    asyncValidators: [
-      this.cannotEmpty.bind(this),
-    ]}),
+    deviceUnitName: new FormControl('', {
+      validators: [
+        Validators.required,
+      ],
+    }),
+    devicePlaceName: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(2),
+      ],
+      asyncValidators: [
+        this.cannotEmpty.bind(this),
+      ]
+    }),
   })
   get deviceName() { return this.editDeviceForm.get('deviceName'); }
   get deviceUnitName() { return this.editDeviceForm.get('deviceUnitName'); }

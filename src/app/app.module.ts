@@ -20,6 +20,7 @@ import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-devi
 import { PlaceManageComponent } from './place-manage/place-manage.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { RegisterDialogComponent } from './dialog/register-dialog/register-dialog/register-dialog.component';
+import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog/new-place-dialog.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -40,8 +41,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
-import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog/new-place-dialog.component';
 import { MatListModule } from '@angular/material/list';
+import { MatSelect, MatSelectModule, matSelectAnimations } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { MatListModule } from '@angular/material/list';
     MatDatepickerModule,
     MatCommonModule,
     MatNativeDateModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'zh-TW' }],
   bootstrap: [AppComponent]
