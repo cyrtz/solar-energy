@@ -6,6 +6,16 @@
         </div>
         <div>設備管理</div>
     </div>
+    <div fxLayoutAlign="start center">
+        <mat-form-field>
+            <mat-label>單位</mat-label>
+            <mat-select formControlName="deviceUnitName">
+                <mat-option *ngFor="let unit of unitsNameList" [value]="unit.value">
+                    {{unit.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
     <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
     <!-- <div fxLayoutAlign="space-between center" fxFlex="80"> -->
         <mat-form-field style="margin-right: 20px;" appearance="outline">

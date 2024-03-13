@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { deviceListRes } from '../models/device-manage';
+import { IUnitListResponse, deviceListRes } from '../models/device-manage';
 import { DeviceManageService } from '../service/device-manage/device-manage.service';
 import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,6 +23,12 @@ export class DeviceManageComponent implements OnInit {
   searchInput: string = '';
   currentPage: number = 0;
   totalPage: number = 0;
+  unitsNameList: IUnitListResponse[] = [
+    { value: '中科大', viewValue: '中科大' },
+    { value: '新大', viewValue: '新大' },
+    { value: '舊大', viewValue: '舊大' },
+  ];
+
   constructor(
     private deviceService: DeviceManageService,
     public dialog: MatDialog,

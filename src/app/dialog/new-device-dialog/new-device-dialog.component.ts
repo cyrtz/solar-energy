@@ -4,7 +4,7 @@ import { DeviceManageService } from '../../service/device-manage/device-manage.s
 import { INewDeviceRequest, IUnitListResponse } from '../../models/device-manage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
-import { Observable, catchError, map, of, pipe } from 'rxjs';
+import { Observable, catchError, concatMap, delay, exhaustMap, map, of, pipe, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-new-device-dialog',
@@ -35,7 +35,9 @@ export class NewDeviceDialogComponent implements AsyncValidator {
       ],
       asyncValidators: [
         this.validate.bind(this),
-        this.cannotEmpty.bind(this),],
+        this.cannotEmpty.bind(this),
+      ],
+      // updateOn: 'blur'
     }),
     deviceUnitName: new FormControl('', {
       validators: [
@@ -70,17 +72,27 @@ export class NewDeviceDialogComponent implements AsyncValidator {
         this.dialogClosed.emit();
       });
   }
+  // 驗證設備名稱是否重複
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.deviceService.isExists(control.value).pipe(
-      map(res => {
-        if (res.data === false) {
-          return { uniqueAlterEgo: true };
-        }
-        return null;
+      switchMap(res => {
+        return of(res.data === false ? { uniqueAlterEgo: true } : null);
       }),
       catchError(() => of(null))
     );
   }
+  // validate(control: AbstractControl): Observable<ValidationErrors | null> {
+  //   return this.deviceService.isExists(control.value).pipe(
+  //     concatMap(res => {
+  //       if (res.data === false) {
+  //         return of({ uniqueAlterEgo: true });
+  //       }
+  //       return of(null);
+  //     }),
+  //     catchError(() => of(null))
+  //   );
+  // }
+  // 驗證是否為空
   cannotEmpty(control: AbstractControl): Observable<ValidationErrors | null> {
     if (control.value.trim() === '') {
       return of({ 'cannotEmpty': true });
