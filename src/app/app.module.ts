@@ -43,6 +43,7 @@ import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatSelect, MatSelectModule, matSelectAnimations } from '@angular/material/select';
+import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { MatSelect, MatSelectModule, matSelectAnimations } from '@angular/materi
     RegisterDialogComponent,
     PlaceManageComponent,
     UserManageComponent,
-    NewPlaceDialogComponent
+    NewPlaceDialogComponent,
+    DeletePlaceDialogComponent
   ],
   imports: [
     BrowserModule,

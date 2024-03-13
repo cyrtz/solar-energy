@@ -25,3 +25,18 @@
         font-size: 16px;
     }
 }
+
+.place-table{
+    margin: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+
+    table th {
+        font-size: 20px;
+        background: #6B916B;
+        color: white;
+    }
+
+    table td {
+        font-size: 18px;
+    }
+}
