@@ -7,6 +7,7 @@ import { DeviceDetailComponent } from './device-detail/device-detail.component';
 // import { UserManagerComponent } from './user-manager/user-manager.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { PlaceManageComponent } from './place-manage/place-manage.component';
+import { InteractiveMapComponent } from './interactive-map/interactive-map.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
       {path: 'app-device-detail/:deviceGuid', component: DeviceDetailComponent},
       {path: 'app-user-manage', component: UserManageComponent},
       {path: 'app-place-manage', component: PlaceManageComponent},
+      {path: 'app-interactive-map', component: InteractiveMapComponent}
     ]
   },
 ];
