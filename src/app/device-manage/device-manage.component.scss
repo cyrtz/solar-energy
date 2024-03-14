@@ -18,11 +18,23 @@
     // margin: 1.3rem 1.3rem 0 1.3rem;
 }
 
+// ::ng deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder{
+//     color: yellow !important;
+// }
+
 .tableOperate {
     // display: flex;
     // justify-content: space-between;
     margin: 1.3rem 1rem 0 0;
 
+    // .mat-form-field .mat-mdc-form-field .ng-tns-c1205077789-1 .mat-mdc-form-field-type-mat-input .mat-form-field-apprance-outline .mat-form-field-hide-placeholder .mat-primary .ng-untoched .ng-pristine .ng-valid .ng-star-insered > .mat-mdc-text-field-wrapper.mdc-text-field.ng-tns-c1205077789-1.mdc-text-field--outlined {
+    //     background: white !important;
+    // }
+    
+    // .test > .mat-mdc-form-field .ng-tns-c1205077789-1 .mat-mdc-form-field-type-mat-input .mat-form-field-appearance-outline .mat-form-field-hide-placeholder .mat-primary .ng-untouched .ng-pristine .ng-valid .ng-star-inserted > .mat-mdc-text-field-wrapper .mdc-text-field .ng-tns-c1205077789-1 .mdc-text-field--outlined{
+    //     border: white !important;
+    // }
+    
     button {
         height: 56px;
         width: 100px;
@@ -36,6 +48,8 @@
 
     table th {
         font-size: 20px;
+        background: #6B916B;
+        color: white;
     }
 
     table td {
