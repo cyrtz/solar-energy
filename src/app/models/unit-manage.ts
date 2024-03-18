@@ -13,6 +13,7 @@ export interface unitList{
 }
 
 export interface unitListResponse {
+    Id: number;
     deviceUnitName: string;
     deviceUnitGuid: number;
 }

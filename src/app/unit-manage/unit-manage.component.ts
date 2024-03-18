@@ -6,15 +6,16 @@ import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialo
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
 import { unitList, unitListResponse } from '../models/unit-manage';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-unit-manage',
   templateUrl: './unit-manage.component.html',
   styleUrls: ['./unit-manage.component.scss']
 })
-export class UnitManageComponent implements AfterViewInit{
-  displayedColumns: string[] = ['deviceUnitName', 'operation'];
-  unitData: unitListResponse[] = [];
+export class UnitManageComponent implements AfterViewInit {
+  displayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
+  unitData!: unitListResponse[];
   dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -36,11 +37,18 @@ export class UnitManageComponent implements AfterViewInit{
   getUnitList() {
     this.unitService.getUnits().subscribe(res => {
       // console.log(res.data.unitList);
+      res.data.unitList.forEach((element, index) => {
+        return element.Id = index + 1;
+      });
       this.unitData = res.data.unitList;
-      console.log(this.unitData);
+      // console.log("d",this.unitData);
       this.dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
-      // console.log(this.dataSource);
+      // this.unitData.forEach(element => {
+      //   console.log(element.Id)
+      // });
+
     });
+    // console.log(this.dataSource);
   }
 
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -72,10 +80,10 @@ export interface UnitData {
 }
 
 const UNIT_DATA: UnitData[] = [
-  {position: 1, unitName: '中科大'},
-  {position: 2, unitName: '中興大'},
-  {position: 3, unitName: '中正大'},
-  {position: 4, unitName: '中山大'},
-  {position: 5, unitName: '台科大'},
+  { position: 1, unitName: '中科大' },
+  { position: 2, unitName: '中興大' },
+  { position: 3, unitName: '中正大' },
+  { position: 4, unitName: '中山大' },
+  { position: 5, unitName: '台科大' },
 ];
 
