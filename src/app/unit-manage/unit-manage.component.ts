@@ -55,15 +55,6 @@ export interface PeriodicElement {
   position: number;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, unitname: 'Hydrogen'},
-  {position: 2, unitname: 'Helium'},
-  {position: 3, unitname: 'Lithium'},
-  {position: 4, unitname: 'Beryllium'},
-  {position: 5, unitname: 'Boron'},
-  
-];
-
 export interface UnitData {
   unitName: string;
   position: number;
