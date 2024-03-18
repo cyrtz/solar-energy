@@ -1,17 +1,16 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog/new-place-dialog.component';
-import { DeletePlaceDialogComponent } from '../dialog/delete-place-dialog/delete-place-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
+import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 
 @Component({
-  selector: 'app-place-manage',
-  templateUrl: './place-manage.component.html',
-  styleUrls: ['./place-manage.component.scss']
+  selector: 'app-unit-manage',
+  templateUrl: './unit-manage.component.html',
+  styleUrls: ['./unit-manage.component.scss']
 })
-
-export class PlaceManageComponent implements AfterViewInit{
+export class UnitManageComponent implements AfterViewInit{
   displayedColumns: string[] = ['position', 'unitName', 'operation'];
   dataSource = new MatTableDataSource<UnitData>(UNIT_DATA);
 
@@ -29,14 +28,14 @@ export class PlaceManageComponent implements AfterViewInit{
     console.log(this.dataSource)
   }
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    const dialogRef = this.dialog.open(NewPlaceDialogComponent, {
+    const dialogRef = this.dialog.open(NewUnitDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
       width: '500px',
     });
   }
   deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    const dialogRef = this.dialog.open(DeletePlaceDialogComponent, {
+    const dialogRef = this.dialog.open(DeleteUnitDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
       width: '500px',
@@ -77,3 +76,4 @@ const UNIT_DATA: UnitData[] = [
   {position: 4, unitName: '中山大'},
   {position: 5, unitName: '台科大'},
 ];
+
