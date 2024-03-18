@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IGetUnitResponse, INewUnitRequest, INewUnitResponse } from 'src/app/models/unit-manage';
+import { IGetUnitResponse, INewUnitRequest, INewUnitResponse, unitList } from 'src/app/models/unit-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,8 @@ export class UnitManageService {
     return this.http.post<INewUnitResponse<"">>(ApiUrl, params);
   }
 
-  getUnitList(): Observable<IGetUnitResponse<"">>{
+  getUnits(): Observable<IGetUnitResponse<unitList>>{
     const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/GetDeviceUnitList';
-    return this.http.get<IGetUnitResponse<"">>(ApiUrl);
+    return this.http.get<IGetUnitResponse<unitList>>(ApiUrl);
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { INewUnitRequest } from 'src/app/models/unit-manage';
 import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.service';
@@ -10,6 +10,8 @@ import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.servi
 })
 export class NewUnitDialogComponent {
   get unitName() { return this.newUnitForm.get('unitName'); }
+
+  @Output() dialogClosed = new EventEmitter<void>();
 
   newUnitForm = new FormGroup({
     deviceUnitName: new FormControl('', Validators.required),
@@ -24,8 +26,8 @@ export class NewUnitDialogComponent {
     
     console.log(params);
     this.unitService.addUnit(params).subscribe( res => {
-      // console.log(value);
-      console.log(res);
+      // console.log(res);
+      this.dialogClosed.emit();
     });
   }
 }

@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
+import { UnitManageService } from '../service/unit-manage/unit-manage.service';
+import { unitList, unitListResponse } from '../models/unit-manage';
 
 @Component({
   selector: 'app-unit-manage',
@@ -11,8 +13,9 @@ import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-u
   styleUrls: ['./unit-manage.component.scss']
 })
 export class UnitManageComponent implements AfterViewInit{
-  displayedColumns: string[] = ['position', 'unitName', 'operation'];
-  dataSource = new MatTableDataSource<UnitData>(UNIT_DATA);
+  displayedColumns: string[] = ['deviceUnitName', 'operation'];
+  unitData: unitListResponse[] = [];
+  dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -22,11 +25,24 @@ export class UnitManageComponent implements AfterViewInit{
 
   constructor(
     public dialog: MatDialog,
+    private unitService: UnitManageService,
   ) { }
 
-  test(){
-    console.log(this.dataSource)
+
+  ngOnInit(): void {
+    this.getUnitList();
   }
+
+  getUnitList() {
+    this.unitService.getUnits().subscribe(res => {
+      // console.log(res.data.unitList);
+      this.unitData = res.data.unitList;
+      console.log(this.unitData);
+      this.dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+      // console.log(this.dataSource);
+    });
+  }
+
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewUnitDialogComponent, {
       enterAnimationDuration,
@@ -48,11 +64,6 @@ export class UnitManageComponent implements AfterViewInit{
     //   this.getTotalPage();
     // });
   }
-}
-
-export interface PeriodicElement {
-  unitname: string;
-  position: number;
 }
 
 export interface UnitData {
