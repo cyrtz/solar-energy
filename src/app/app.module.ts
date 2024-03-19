@@ -45,6 +45,7 @@ import { InteractiveMapComponent } from './interactive-map/interactive-map.compo
 import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { NewUnitDialogComponent } from './dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from './dialog/delete-unit-dialog/delete-unit-dialog.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DeleteUnitDialogComponent } from './dialog/delete-unit-dialog/delete-un
     InteractiveMapComponent,
     UnitManageComponent,
     NewUnitDialogComponent,
-    DeleteUnitDialogComponent
+    DeleteUnitDialogComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

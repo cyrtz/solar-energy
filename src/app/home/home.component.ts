@@ -11,6 +11,7 @@ import { interval } from 'rxjs';
 export class HomeComponent implements OnInit {
   temperature = 0;
   weatheroverview = '';
+  isShow: boolean = false;
 
   constructor(
     private WeatherdataService: WeatherdataService
@@ -57,5 +58,9 @@ export class HomeComponent implements OnInit {
     source.subscribe(() => {
       this.getWeatherData();
     });
+  }
+
+  test(){
+    this.isShow = false;
   }
 }

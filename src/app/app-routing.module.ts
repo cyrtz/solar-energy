@@ -8,17 +8,20 @@ import { DeviceDetailComponent } from './device-detail/device-detail.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { InteractiveMapComponent } from './interactive-map/interactive-map.component';
 import { UnitManageComponent } from './unit-manage/unit-manage.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'app-home',
     component: HomeComponent,
     children: [
+      {path: '', redirectTo: 'app-dashboard', pathMatch: 'full'},
       {path: 'app-device-manage', component: DeviceManageComponent},
       {path: 'app-device-detail/:deviceGuid', component: DeviceDetailComponent},
       {path: 'app-user-manage', component: UserManageComponent},
       {path: 'app-unit-manage', component: UnitManageComponent},
-      {path: 'app-interactive-map', component: InteractiveMapComponent}
+      {path: 'app-interactive-map', component: InteractiveMapComponent},
+      {path: 'app-dashboard', component: DashboardComponent},
     ]
   },
 ];

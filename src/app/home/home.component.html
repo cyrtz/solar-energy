@@ -5,11 +5,11 @@
                 <img src="assets/img/nutc_logo2.png" alt="logo" class="logo">
             </div>
             <div class="navbar-content" fxFlex="82">
-                <button mat-button [routerLink]="'../app-home/app-dashboard'">首頁</button>
-                <button mat-button [routerLink]="'../app-home/app-interactive-map'">互動式地圖</button>
-                <button mat-button [routerLink]="'../app-home/app-device-manage'">設備管理</button>
-                <button mat-button [routerLink]="'../app-home/app-unit-manage'">單位管理</button>
-                <button mat-button [routerLink]="'../app-home/app-user-manage'">會員管理</button>
+                <button mat-button [routerLink]="'../app-home/app-dashboard'">戰情室</button>
+                <button mat-button [routerLink]="'../app-home/app-interactive-map'" (click)="test()">設備地圖</button>
+                <button mat-button [routerLink]="'../app-home/app-device-manage'" (click)="test()">設備管理</button>
+                <button mat-button [routerLink]="'../app-home/app-unit-manage'"(click)="test()">單位管理</button>
+                <button mat-button [routerLink]="'../app-home/app-user-manage'"(click)="test()">會員管理</button>
                 <button mat-button [routerLink]="'../app-home/'">異常檢測</button>
             </div>
             <div class="navbar-footer" fxFlex="8">
@@ -36,6 +36,9 @@
             </div>
         </div>
         <div style="z-index: 10000; height: 100vh; background-color: #F5F7E6;">
+            <!-- <div *ngIf="!isShow">
+                <app-dashboard></app-dashboard>
+            </div> -->
             <router-outlet></router-outlet>
         </div>
     </mat-drawer-content>
