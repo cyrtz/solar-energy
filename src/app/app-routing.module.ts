@@ -9,6 +9,7 @@ import { UserManageComponent } from './user-manage/user-manage.component';
 import { InteractiveMapComponent } from './interactive-map/interactive-map.component';
 import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ErrorDetectComponent } from './error-detect/error-detect.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path: 'app-unit-manage', component: UnitManageComponent},
       {path: 'app-interactive-map', component: InteractiveMapComponent},
       {path: 'app-dashboard', component: DashboardComponent},
+      {path: 'app-error-detect', component: ErrorDetectComponent},
     ]
   },
 ];

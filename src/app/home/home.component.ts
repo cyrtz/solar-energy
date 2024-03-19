@@ -59,8 +59,4 @@ export class HomeComponent implements OnInit {
       this.getWeatherData();
     });
   }
-
-  test(){
-    this.isShow = false;
-  }
 }
