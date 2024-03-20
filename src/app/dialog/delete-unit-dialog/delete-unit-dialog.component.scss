@@ -1,0 +1,20 @@
+.dialog-title{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #6b916b;
+    h1 {
+        color: white;
+        font-size: 24px;
+    }
+}
+.dialog-body{
+    font-size: 24px;
+    margin: 1rem;
+}
+.dialog-action{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+    width: 100%;
+}

@@ -30,7 +30,7 @@
       <ng-container matColumnDef="operation">
         <th mat-header-cell *matHeaderCellDef>操作</th>
         <td mat-cell *matCellDef="let element">
-            <button mat-icon-button matTooltip="刪除" (click)="deleteDialog('0ms', '0ms')">
+            <button mat-icon-button matTooltip="刪除" (click)="deleteDialog('0ms', '0ms', element)">
                 <mat-icon style="color: #AE0000;">delete</mat-icon>
             </button>
         </td>

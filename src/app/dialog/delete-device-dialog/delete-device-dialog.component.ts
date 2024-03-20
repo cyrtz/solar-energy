@@ -18,10 +18,10 @@ export class DeleteDeviceDialogComponent {
   constructor(
     private deviceService: DeviceManageService,
     @Inject(MAT_DIALOG_DATA) public data: deviceListRes
-    ) {
-      this.device = data;
-    }
-    
+  ) {
+    this.device = data;
+  }
+
   // 刪除設備
   delete(): void {
     // 創建物件 request 並設定 deviceGuid
@@ -29,16 +29,16 @@ export class DeleteDeviceDialogComponent {
       deviceGuid: this.device.deviceGuid,
       // 其他需要的屬性
     };
-  
+
     this.deviceService.deleteDevice(request)
-    .subscribe(
-      res => {
-        // 使用dialog做回應
-        console.log(res);
-        // dialogClosed 事件觸發時重新取得設備列表
-        // 發布事件
-        this.dialogClosed.emit();
-      }
-    );
+      .subscribe(
+        res => {
+          // 使用dialog做回應
+          console.log(res);
+          // dialogClosed 事件觸發時重新取得設備列表
+          // 發布事件
+          this.dialogClosed.emit();
+        }
+      );
   }
 }

@@ -6,7 +6,6 @@ import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialo
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
 import { unitList, unitListResponse } from '../models/unit-manage';
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-unit-manage',
@@ -57,33 +56,38 @@ export class UnitManageComponent implements AfterViewInit {
       exitAnimationDuration,
       width: '500px',
     });
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      console.log('dialogClosed');
+      this.getUnitList();
+    });
   }
-  deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, unit: unitListResponse): void {
     const dialogRef = this.dialog.open(DeleteUnitDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
       width: '500px',
+      data: unit
     });
     // 訂閱 dialogClosed 事件
-    // dialogRef.componentInstance.dialogClosed.subscribe(() => {
-    //   // 事件觸發時重新取得設備列表
-    //   console.log('dialogClosed');
-    //   this.getDevices(this.currentPage, 6);
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      // 事件觸發時重新取得設備列表
+      console.log('dialogClosed');
+      this.getUnitList();
     //   this.getTotalPage();
-    // });
+    });
   }
 }
 
-export interface UnitData {
-  unitName: string;
-  position: number;
-}
+// export interface UnitData {
+//   unitName: string;
+//   position: number;
+// }
 
-const UNIT_DATA: UnitData[] = [
-  { position: 1, unitName: '中科大' },
-  { position: 2, unitName: '中興大' },
-  { position: 3, unitName: '中正大' },
-  { position: 4, unitName: '中山大' },
-  { position: 5, unitName: '台科大' },
-];
+// const UNIT_DATA: UnitData[] = [
+//   { position: 1, unitName: '中科大' },
+//   { position: 2, unitName: '中興大' },
+//   { position: 3, unitName: '中正大' },
+//   { position: 4, unitName: '中山大' },
+//   { position: 5, unitName: '台科大' },
+// ];
 

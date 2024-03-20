@@ -8,17 +8,27 @@ export interface INewUnitResponse<T> {
     message: string;
 }
 
-export interface unitList{
+export interface unitList {
     unitList: unitListResponse[];
 }
 
 export interface unitListResponse {
     Id: number;
     deviceUnitName: string;
-    deviceUnitGuid: number;
+    deviceUnitGuid: string;
 }
 
 export interface IGetUnitResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
+
+export interface IDeleteUnitRequest {
+    deviceUnitGuid: string;
+}
+
+export interface IDeleteUnitResponse<T> {
     data: T;
     isSuccess: boolean;
     message: string;
