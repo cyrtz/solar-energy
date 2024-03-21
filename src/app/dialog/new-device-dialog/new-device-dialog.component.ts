@@ -1,32 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, AsyncValidator } from '@angular/forms';
 import { DeviceManageService } from '../../service/device-manage/device-manage.service';
-import { INewDeviceRequest, IUnitListResponse } from '../../models/device-manage';
+import { IAddDeviceRequest } from '../../models/device-manage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
-import { Observable, catchError, concatMap, delay, exhaustMap, map, of, pipe, switchMap } from 'rxjs';
-
+import { Observable, catchError, concatMap, debounceTime, delay, exhaustMap, first, map, of, pipe, switchMap } from 'rxjs';
+import { UnitManageService } from '../../service/unit-manage/unit-manage.service';
+import { unitListResponse } from 'src/app/models/unit-manage';
 @Component({
   selector: 'app-new-device-dialog',
   templateUrl: './new-device-dialog.component.html',
   styleUrls: ['./new-device-dialog.component.scss']
 })
 
-export class NewDeviceDialogComponent implements AsyncValidator {
+export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
 
   // 定義一個"關閉事件"發布器
   @Output() dialogClosed = new EventEmitter<void>();
 
-  unitsNameList: IUnitListResponse[] = [
-    { value: '中科大', viewValue: '中科大' },
-    { value: '新大', viewValue: '新大' },
-    { value: '舊大', viewValue: '舊大' },
-  ];
-  devicePlaceNameList: IUnitListResponse[] = [
+  ngOnInit(): void {
+    this.getUnitList();
+  }
+
+  unitData: unitListResponse[] = [];
+
+  devicePlaceNameList = [
     { value: '頂樓', viewValue: '頂樓' },
     { value: '操場', viewValue: '操場' },
     { value: '廣場', viewValue: '廣場' },
   ];
+  // 新增設備表單
   newDeviceForm = new FormGroup({
     deviceName: new FormControl('', {
       validators: [
@@ -37,9 +40,8 @@ export class NewDeviceDialogComponent implements AsyncValidator {
         this.validate.bind(this),
         this.cannotEmpty.bind(this),
       ],
-      // updateOn: 'blur'
     }),
-    deviceUnitName: new FormControl('', {
+    deviceUnitGuid: new FormControl('', {
       validators: [
         Validators.required,
       ],
@@ -47,26 +49,28 @@ export class NewDeviceDialogComponent implements AsyncValidator {
     devicePlaceName: new FormControl('', {
       validators: [
         Validators.required,
-        Validators.minLength(2),
       ],
-      asyncValidators: [
-        this.cannotEmpty.bind(this),
-      ]
     }),
   })
 
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
-  get deviceUnitName() { return this.newDeviceForm.get('deviceUnitName'); }
+  get deviceUnitGuid() { return this.newDeviceForm.get('deviceUnitGuid'); }
   get devicePlaceName() { return this.newDeviceForm.get('devicePlaceName'); }
 
   constructor(
     private deviceService: DeviceManageService,
+    private unitService: UnitManageService,
   ) { }
 
+  getUnitList() {
+    this.unitService.getUnits().subscribe(res => {
+      this.unitData = res.data.unitList;
+    });
+  }
   // 新增設備
   add(): void {
     const value = this.newDeviceForm.getRawValue();
-    this.deviceService.addDevice(value as unknown as INewDeviceRequest)
+    this.deviceService.addDevice(value as unknown as IAddDeviceRequest)
       .subscribe(res => {
         // 發布事件
         this.dialogClosed.emit();
@@ -74,24 +78,16 @@ export class NewDeviceDialogComponent implements AsyncValidator {
   }
   // 驗證設備名稱是否重複
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
-    return this.deviceService.isExists(control.value).pipe(
-      switchMap(res => {
-        return of(res.data === false ? { uniqueAlterEgo: true } : null);
-      }),
-      catchError(() => of(null))
+    return of(control.value).pipe(
+      debounceTime(1000),
+      switchMap(value => 
+        this.deviceService.isExists(value).pipe(
+          map(res => res.data === false ? { uniqueAlterEgo: true } : null),
+          catchError(() => of(null))
+        )
+      )
     );
   }
-  // validate(control: AbstractControl): Observable<ValidationErrors | null> {
-  //   return this.deviceService.isExists(control.value).pipe(
-  //     concatMap(res => {
-  //       if (res.data === false) {
-  //         return of({ uniqueAlterEgo: true });
-  //       }
-  //       return of(null);
-  //     }),
-  //     catchError(() => of(null))
-  //   );
-  // }
   // 驗證是否為空
   cannotEmpty(control: AbstractControl): Observable<ValidationErrors | null> {
     if (control.value.trim() === '') {

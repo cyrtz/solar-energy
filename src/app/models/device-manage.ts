@@ -16,12 +16,13 @@ export interface deviceListRes {
     createTime: string;
     updateTime: string;
 }
-export interface INewDeviceRequest {
-    devName: string;
-    address: string;
-    place: string;
+export interface IAddDeviceRequest {
+    deviceName: string;
+    deviceUnitGuid: string;
+    devicePlaceName: string;
+    deviceNumber: string;
 }
-export interface INewDeviceResponse {
+export interface IAddDeviceResponse {
     data: string;
     isSuccess: boolean;
     message: string;
@@ -62,8 +63,4 @@ export interface IIsExistsResponse {
     data: boolean;
     isSuccess: boolean;
     message: string;
-}
-export interface IUnitListResponse {
-    value: string;
-    viewValue: string;
 }

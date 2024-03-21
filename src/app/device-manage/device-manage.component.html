@@ -6,22 +6,25 @@
         </div>
         <div>設備管理</div>
     </div>
-
+    <!-- 搜尋表單 -->
     <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
-        <mat-form-field style="margin-right: 20px;">
-            <mat-label>單位</mat-label>
-            <mat-select formControlName="deviceUnitName">
-                <mat-option *ngFor="let unit of unitsNameList" [value]="unit.value">
-                    {{unit.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- <div fxLayoutAlign="space-between center" fxFlex="80"> -->
-        <mat-form-field style="margin-right: 20px;" appearance="outline">
-            <mat-label>搜尋設備名稱</mat-label>
-            <input matInput #filter [(ngModel)]="searchInput">
-        </mat-form-field>
+        <form [formGroup]="searchDeviceForm">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50">
+                <mat-label>單位</mat-label>
+                <mat-select formControlName="unitNameFilter">
+                    <mat-option [value]="''">
+                        全部
+                    </mat-option>
+                    <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
+                        {{unit.deviceUnitName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="margin-right: 20px;" fxFlex="50">
+                <mat-label>搜尋設備名稱</mat-label>
+                <input matInput formControlName="deviceNameFilter">
+            </mat-form-field>
+        </form>
         <button mat-raised-button color="primary" (click)="newDialog('0ms', '0ms')">新增設備</button>
     </div>
 </div>
@@ -57,7 +60,7 @@
                     <mat-icon style="color: #AE0000;">delete</mat-icon>
                 </button>
                 <!-- 詳細資訊 -->
-                <button [routerLink]="['/app-home/app-device-detail', element.deviceInfoGuid]" mat-icon-button
+                <button [routerLink]="['/app-home/app-device-detail', element.deviceGuid]" mat-icon-button
                     matTooltip="詳細資訊">
                     <mat-icon color="primary">info</mat-icon>
                 </button>

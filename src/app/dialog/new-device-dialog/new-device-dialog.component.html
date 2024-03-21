@@ -15,7 +15,7 @@
                         設備名稱至少要有2個字
                     </span>
                     <span *ngIf="deviceName?.errors?.['cannotEmpty']">
-                        地點不可為空
+                        設備名稱不可為空
                     </span>
                     <span *ngIf="deviceName?.errors?.['uniqueAlterEgo']">
                         設備名稱已存在
@@ -26,13 +26,13 @@
         <div class="formInput">
             <mat-form-field>
                 <mat-label>單位</mat-label>
-                <mat-select formControlName="deviceUnitName">
-                    <mat-option *ngFor="let unit of unitsNameList" [value]="unit.value">
-                        {{unit.viewValue}}
+                <mat-select formControlName="deviceUnitGuid">
+                    <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
+                        {{unit.deviceUnitName}}
                     </mat-option>
                 </mat-select>
                 <mat-error align="end">
-                    <span *ngIf="deviceUnitName?.errors?.['required']">
+                    <span *ngIf="deviceUnitGuid?.errors?.['required']">
                         單位是必要的
                     </span>
                 </mat-error>
@@ -40,17 +40,15 @@
         </div>
         <div class="formInput">
             <mat-form-field>
-                <mat-label for="devicePlaceName"> 地點 </mat-label>
-                <input matInput id="devicePlaceName" formControlName="devicePlaceName" required />
+                <mat-label> 地點 </mat-label>
+                <mat-select formControlName="devicePlaceName">
+                    <mat-option *ngFor="let place of devicePlaceNameList" [value]="place.value">
+                        {{place.viewValue}}
+                    </mat-option>
+                </mat-select>
                 <mat-error align="end">
                     <span *ngIf="devicePlaceName?.errors?.['required']">
-                        請輸入地點
-                    </span>
-                    <span *ngIf="devicePlaceName?.errors?.['minlength']">
-                        地點至少要有2個字
-                    </span>
-                    <span *ngIf="devicePlaceName?.errors?.['cannotEmpty']">
-                        地點不可為空
+                        地點是必要的
                     </span>
                 </mat-error>
             </mat-form-field>
@@ -60,5 +58,7 @@
 <div mat-dialog-actions class="dialog-action">
     <button mat-raised-button mat-dialog-close>取消</button>
     <button mat-raised-button [mat-dialog-close]="true" (click)="add()" color="accent"
-        [disabled]="!newDeviceForm.valid">新增</button>
+        [disabled]="!newDeviceForm.valid">
+        新增
+    </button>
 </div>
