@@ -32,7 +32,7 @@
         <div class="formInput">
             <mat-form-field>
                 <mat-label>單位</mat-label>
-                <mat-select formControlName="deviceUnitName">
+                <mat-select formControlName="deviceUnitGuid">
                     <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
                         {{unit.deviceUnitName}}
                     </mat-option>

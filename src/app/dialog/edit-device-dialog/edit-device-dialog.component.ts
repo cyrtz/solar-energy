@@ -23,7 +23,7 @@ export class EditDeviceDialogComponent implements OnInit {
     this.editDeviceForm.patchValue({
       deviceOldName: this.device.deviceName,
       deviceName: '',
-      deviceUnitName: this.device.deviceUnitName,
+      deviceUnitGuid: this.device.deviceGuid,
       devicePlaceName: this.device.devicePlaceName,
     });
     this.getUnitList();
@@ -49,7 +49,7 @@ export class EditDeviceDialogComponent implements OnInit {
         this.cannotEmpty.bind(this),
       ],
     }),
-    deviceUnitName: new FormControl('', {
+    deviceUnitGuid: new FormControl('', {
       validators: [
         Validators.required,
       ],
@@ -87,6 +87,7 @@ export class EditDeviceDialogComponent implements OnInit {
         // console.log(res.message);
         // 發布事件
         this.dialogClosed.emit();
+        console.log(value);
       });
   }
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
