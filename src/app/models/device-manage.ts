@@ -3,7 +3,6 @@ export interface IDeviceResponse<T> {
     isSuccess: boolean;
     message: string;
 }
-
 export interface deviceList {
     deviceList: deviceListRes[];
 }
@@ -43,14 +42,6 @@ export interface IEditDeviceRequest {
 }
 export interface IEditDeviceResponse {
     data: string;
-    isSuccess: boolean;
-    message: string;
-}
-// export interface ISearchDeviceRequest {
-//     deviceName: string;
-// }
-export interface ITotalPageResponse {
-    data: number;
     isSuccess: boolean;
     message: string;
 }

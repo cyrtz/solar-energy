@@ -1,0 +1,32 @@
+.pageheader {
+    height: 56px;
+    margin-top: 1.3rem
+}
+.pagetitle {
+    background: #4E6E62;
+    height: 56px;
+    font-size: 24px;
+    color: white;
+    margin-left: 1rem;
+    .title-icon {
+        margin-left: 1.3rem;
+    }
+}
+.dashboardMain {
+    margin-top: 1.3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.mainInfo {
+    height: 73vh;
+    width: 100%;
+    box-shadow: 0 0 10px #000000;
+}
+.secondaryInfoRow{
+    height: 73vh;
+    .secondaryInfo {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        box-shadow: 0 0 10px #000000;
+    }
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IAddDeviceRequest, IAddDeviceResponse, IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, IIsExistsResponse, ISearchTotalPageResponse, ITotalPageResponse, deviceList } from '../../models/device-manage';
+import { IAddDeviceRequest, IAddDeviceResponse, IDeleteDeviceRequest, IDeleteDeviceResponse, IDeviceResponse, IEditDeviceRequest, IEditDeviceResponse, IIsExistsResponse, ISearchTotalPageResponse, deviceList } from '../../models/device-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,9 @@ export class DeviceManageService {
     // return of({'isSuccess':true});
   }
   // 取得總頁數
-  getTotalPage(): Observable<ITotalPageResponse> {
+  getTotalPage(): Observable<ISearchTotalPageResponse> {
     const apiUrl = this.baseUrl + '/DeviceManage/DeviceManage/GetTotalPage';
-    return this.http.get<ITotalPageResponse>(apiUrl);
+    return this.http.get<ISearchTotalPageResponse>(apiUrl);
   }
   // 新增設備
   addDevice(params: IAddDeviceRequest): Observable<IAddDeviceResponse> {
