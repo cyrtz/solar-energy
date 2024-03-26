@@ -23,6 +23,10 @@ export class UnitManageService {
     const ApiUrl = this.baseUrl + `/DeviceManage/DeviceData/GetPageDeviceUnitList?page=${page + 1}&pageSize=${pageSize}`;
     return this.http.get<IGetUnitResponse<unitList>>(ApiUrl);
   }
+  getTotalUnits(): Observable<IGetUnitResponse<unitList>>{
+    const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/GetDeviceUnitList';
+    return this.http.get<IGetUnitResponse<unitList>>(ApiUrl);
+  }
 
   deleteUnit(params:IDeleteUnitRequest): Observable<INewUnitResponse<"">>{
     const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/DeleteDeviceUnit';

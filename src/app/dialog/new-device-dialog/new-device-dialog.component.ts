@@ -63,7 +63,7 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
   ) { }
 
   getUnitList() {
-    this.unitService.getUnits().subscribe(res => {
+    this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
     });
   }

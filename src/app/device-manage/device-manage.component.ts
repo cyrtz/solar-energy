@@ -54,7 +54,7 @@ export class DeviceManageComponent implements OnInit {
   }
   // 取得單位列表
   getUnitList() {
-    this.unitService.getUnits().subscribe(res => {
+    this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
     });
   }
