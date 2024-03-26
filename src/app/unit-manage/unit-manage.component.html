@@ -7,8 +7,8 @@
         <div>單位管理</div>
     </div>
     <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
-        <mat-form-field style="margin-right: 20px;" appearance="outline">
-            <mat-label>搜尋單位名稱</mat-label>
+        <mat-form-field style="margin-right: 20px;">
+            <mat-label>搜尋地點名稱</mat-label>
             <input matInput #filter>
         </mat-form-field>
         <button mat-raised-button color="primary" (click)="newDialog('0ms', '0ms')">新增單位</button>
@@ -52,8 +52,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   
-    <mat-paginator [pageSizeOptions]="[5]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
+    <mat-paginator #paginator (page)="onPageChange($event)" [length]="this.unitTotalPage" pageIndex="0" pageSize="6"
+    [pageSizeOptions]="[6]">
     </mat-paginator>
   </div>

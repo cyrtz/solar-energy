@@ -5,18 +5,30 @@
     <form class="newUnitForm" [formGroup]="newUnitForm">
         <div class="formInput">
             <mat-form-field appearance="outline">
-                <mat-label for="unitName"> 單位名稱 </mat-label>
-                <input matInput id="unitName" formControlName="deviceUnitName" required/>
-                <mat-error *ngIf="unitName?.errors?.['required']">
-                    請輸入單位名稱
-                </mat-error>  
-            </mat-form-field>   
+                <mat-label for="deviceUnitName"> 單位名稱 </mat-label>
+                <input matInput id="deviceUnitName" formControlName="deviceUnitName" required />
+                <mat-error align="start">
+                    <span *ngIf="deviceUnitName?.errors?.['required']">
+                        請輸入單位名稱
+                    </span>
+                    <span *ngIf="deviceUnitName?.errors?.['minlength']">
+                        單位名稱至少要有2個字
+                    </span>
+                    <span *ngIf="deviceUnitName?.errors?.['cannotEmpty']">
+                        單位名稱不可為空
+                    </span>
+                    <span *ngIf="deviceUnitName?.errors?.['uniqueAlterEgo']">
+                        單位名稱已存在
+                    </span>
+                </mat-error>
+            </mat-form-field>
         </div>
     </form>
 </div>
 <div mat-dialog-actions class="dialog-action">
     <button mat-raised-button mat-dialog-close>取消</button>
     <!-- <button mat-raised-button [mat-dialog-close]="true" color="accent" (click)="addUnit()">新增</button> -->
-    <button mat-raised-button [mat-dialog-close]="true" [disabled]="!newUnitForm.valid" color="accent" (click)="addUnit()">新增</button>
+    <button mat-raised-button [mat-dialog-close]="true" [disabled]="!newUnitForm.valid" color="accent"
+        (click)="addUnit()">新增</button>
 
 </div>

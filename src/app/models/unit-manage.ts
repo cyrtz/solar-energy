@@ -33,3 +33,15 @@ export interface IDeleteUnitResponse<T> {
     isSuccess: boolean;
     message: string;
 }
+
+export interface IGetTotalUnitPageResponse{
+    data: number;
+    isSuccess: boolean;
+    message: string;
+}
+
+export interface IunitNameisExistsResponse {
+    data: boolean;
+    isSuccess: boolean;
+    message: string;
+}

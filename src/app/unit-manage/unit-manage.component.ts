@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
 import { unitList, unitListResponse } from '../models/unit-manage';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-unit-manage',
@@ -14,8 +15,10 @@ import { unitList, unitListResponse } from '../models/unit-manage';
 })
 export class UnitManageComponent implements AfterViewInit {
   displayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
-  unitData!: unitListResponse[];
+  unitData: unitListResponse[] = [];
   dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+  currentPage: number = 0;
+  unitTotalPage: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -30,24 +33,46 @@ export class UnitManageComponent implements AfterViewInit {
 
 
   ngOnInit(): void {
-    this.getUnitList();
+    this.getUnitList(this.currentPage, 6).subscribe();
+    this.getTotalPage();
   }
 
-  getUnitList() {
-    this.unitService.getUnits().subscribe(res => {
-      // console.log(res.data.unitList);
-      res.data.unitList.forEach((element, index) => {
-        return element.Id = index + 1;
-      });
-      this.unitData = res.data.unitList;
-      // console.log("d",this.unitData);
-      this.dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
-      // this.unitData.forEach(element => {
-      //   console.log(element.Id)
-      // });
-
-    });
+  getUnitList(pageIndex: number, pageSize: number): Observable<any> {
+    return this.unitService.getUnits(pageIndex, pageSize).pipe(
+      tap(res => {
+        this.unitData = res.data.unitList;
+        res.data.unitList.forEach((element, index) => {
+          return element.Id = index + 1;
+        });
+        this.dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+        if (pageIndex === 0) {
+          this.currentPage = 0;
+        } else {
+          this.currentPage = pageIndex;
+        }
+      })
+    );
+    // console.log(res.data.unitList);
+    // res.data.unitList.forEach((element, index) => {
+    //   return element.Id = index + 1;
+    // });
+    // this.unitData = res.data.unitList;
+    // console.log("d",this.unitData);
+    // this.dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+    // this.unitData.forEach(element => {
+    //   console.log(element.Id)
+    // });
     // console.log(this.dataSource);
+  }
+  onPageChange(event: PageEvent): void {
+    this.getUnitList(event.pageIndex, event.pageSize).subscribe();
+    this.getTotalPage();
+  }
+
+  getTotalPage(): void {
+    this.unitService.getTotalUnitPage().subscribe(res => {
+      this.unitTotalPage = res.data;
+    });
   }
 
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -58,7 +83,8 @@ export class UnitManageComponent implements AfterViewInit {
     });
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
-      this.getUnitList();
+      this.getUnitList(this.currentPage, 6).subscribe();
+      this.getTotalPage();
     });
   }
   deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, unit: unitListResponse): void {
@@ -72,8 +98,8 @@ export class UnitManageComponent implements AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
-      this.getUnitList();
-    //   this.getTotalPage();
+      this.getUnitList(this.currentPage, 6).subscribe();
+      this.getTotalPage();
     });
   }
 }
