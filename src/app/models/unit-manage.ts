@@ -16,6 +16,7 @@ export interface unitListResponse {
     Id: number;
     deviceUnitName: string;
     deviceUnitGuid: string;
+    devicePlaceName: string;
 }
 
 export interface IGetUnitResponse<T> {
@@ -42,6 +43,17 @@ export interface IGetTotalUnitPageResponse{
 
 export interface IunitNameisExistsResponse {
     data: boolean;
+    isSuccess: boolean;
+    message: string;
+}
+
+export interface IAddDevicePlaceRequest{
+    devicePlaceName: string | null;
+    deviceUnitGuid: string;
+}
+
+export interface IAddDevicePlaceResponse<T>{
+    data: T;
     isSuccess: boolean;
     message: string;
 }

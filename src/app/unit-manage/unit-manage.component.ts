@@ -7,6 +7,7 @@ import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-u
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
 import { unitList, unitListResponse } from '../models/unit-manage';
 import { Observable, tap } from 'rxjs';
+import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 
 @Component({
   selector: 'app-unit-manage',
@@ -14,7 +15,7 @@ import { Observable, tap } from 'rxjs';
   styleUrls: ['./unit-manage.component.scss']
 })
 export class UnitManageComponent implements AfterViewInit {
-  displayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
+  displayedColumns: string[] = ['Id', 'deviceUnitName', 'devicePlaceName', 'operation'];
   unitData: unitListResponse[] = [];
   dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
   currentPage: number = 0;
@@ -75,8 +76,20 @@ export class UnitManageComponent implements AfterViewInit {
     });
   }
 
-  newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  newUnitDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewUnitDialogComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
+      width: '500px',
+    });
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      console.log('dialogClosed');
+      this.getUnitList(this.currentPage, 6).subscribe();
+      this.getTotalPage();
+    });
+  }
+  newPlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef = this.dialog.open(NewPlaceDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
       width: '500px',

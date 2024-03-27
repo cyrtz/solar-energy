@@ -47,6 +47,7 @@ import { NewUnitDialogComponent } from './dialog/new-unit-dialog/new-unit-dialog
 import { DeleteUnitDialogComponent } from './dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorDetectComponent } from './error-detect/error-detect.component';
+import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ErrorDetectComponent } from './error-detect/error-detect.component';
     NewUnitDialogComponent,
     DeleteUnitDialogComponent,
     DashboardComponent,
-    ErrorDetectComponent
+    ErrorDetectComponent,
+    NewPlaceDialogComponent
   ],
   imports: [
     BrowserModule,

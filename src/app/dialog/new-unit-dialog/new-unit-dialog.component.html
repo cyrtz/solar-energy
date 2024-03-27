@@ -7,7 +7,7 @@
             <mat-form-field appearance="outline">
                 <mat-label for="deviceUnitName"> 單位名稱 </mat-label>
                 <input matInput id="deviceUnitName" formControlName="deviceUnitName" required />
-                <mat-error align="start">
+                <mat-error align="end">
                     <span *ngIf="deviceUnitName?.errors?.['required']">
                         請輸入單位名稱
                     </span>
