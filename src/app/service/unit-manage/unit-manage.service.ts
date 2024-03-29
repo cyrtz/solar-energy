@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAddDevicePlaceRequest, IAddDevicePlaceResponse, IDeleteUnitRequest, IGetTotalUnitPageResponse, IGetUnitResponse, INewUnitRequest, INewUnitResponse, IunitNameisExistsResponse, unitList } from 'src/app/models/unit-manage';
+import { IAddDevicePlaceRequest, IAddDevicePlaceResponse, IDeleteUnitRequest, IGetPlaceResponse, IGetTotalUnitPageResponse, IGetUnitResponse, INewUnitRequest, INewUnitResponse, IunitNameisExistsResponse, placeList, unitList } from 'src/app/models/unit-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +44,9 @@ export class UnitManageService {
   addDevicePlace(params: IAddDevicePlaceRequest): Observable<IAddDevicePlaceResponse<"">> {
     const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/AddDevicePlace';
     return this.http.post<IAddDevicePlaceResponse<"">>(ApiUrl, params);
+  }
+  getPlaces(): Observable<IGetPlaceResponse<placeList>>{
+    const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/GetDevicePlaceList';
+    return this.http.get<IGetPlaceResponse<placeList>>(ApiUrl);
   }
 }

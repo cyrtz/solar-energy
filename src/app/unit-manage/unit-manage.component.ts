@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
-import { unitList, unitListResponse } from '../models/unit-manage';
+import { placeListResponse, unitList, unitListResponse } from '../models/unit-manage';
 import { Observable, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 
@@ -17,14 +17,16 @@ import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-di
 export class UnitManageComponent implements AfterViewInit {
   displayedColumns: string[] = ['Id', 'deviceUnitName', 'devicePlaceName', 'operation'];
   unitData: unitListResponse[] = [];
-  dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+  placeData: placeListResponse[] = [];
+  unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+  placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
   currentPage: number = 0;
   unitTotalPage: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.placeDataSource.paginator = this.paginator;
   }
 
   constructor(
@@ -34,7 +36,8 @@ export class UnitManageComponent implements AfterViewInit {
 
 
   ngOnInit(): void {
-    this.getUnitList(this.currentPage, 6).subscribe();
+    // this.getUnitList(this.currentPage, 6).subscribe();
+    this.getPlaceList().subscribe();
     this.getTotalPage();
   }
 
@@ -45,7 +48,7 @@ export class UnitManageComponent implements AfterViewInit {
         res.data.unitList.forEach((element, index) => {
           return element.Id = index + 1;
         });
-        this.dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+        this.unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
         if (pageIndex === 0) {
           this.currentPage = 0;
         } else {
@@ -53,6 +56,19 @@ export class UnitManageComponent implements AfterViewInit {
         }
       })
     );
+  }
+
+  getPlaceList(): Observable<any> {
+    return this.unitService.getPlaces().pipe(
+      tap(res => {
+        this.placeData = res.data.placeList;
+        res.data.placeList.forEach((element, index) => {
+          return element.Id = index + 1;
+        });
+        this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
+      })
+
+    )
     // console.log(res.data.unitList);
     // res.data.unitList.forEach((element, index) => {
     //   return element.Id = index + 1;
@@ -66,7 +82,8 @@ export class UnitManageComponent implements AfterViewInit {
     // console.log(this.dataSource);
   }
   onPageChange(event: PageEvent): void {
-    this.getUnitList(event.pageIndex, event.pageSize).subscribe();
+    // this.getUnitList(event.pageIndex, event.pageSize).subscribe();
+    this.getPlaceList().subscribe();
     this.getTotalPage();
   }
 
@@ -116,7 +133,6 @@ export class UnitManageComponent implements AfterViewInit {
     });
   }
 }
-
 // export interface UnitData {
 //   unitName: string;
 //   position: number;

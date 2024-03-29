@@ -57,3 +57,20 @@ export interface IAddDevicePlaceResponse<T>{
     isSuccess: boolean;
     message: string;
 }
+
+export interface placeList{
+    placeList: placeListResponse[];
+}
+
+export interface placeListResponse{
+    Id: number;
+    devicePlaceName: string;
+    devicePlaceGuid: string;
+    deviceUnitGuid: string;
+}
+
+export interface IGetPlaceResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
