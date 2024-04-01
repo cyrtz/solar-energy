@@ -11,6 +11,7 @@ import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-dev
 import { FormControl, FormGroup } from '@angular/forms';
 import { unitListResponse } from '../models/unit-manage';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 @Component({
   selector: 'app-device-manage',
   templateUrl: './device-manage.component.html',
@@ -41,6 +42,7 @@ export class DeviceManageComponent implements OnInit {
     private deviceService: DeviceManageService,
     private unitService: UnitManageService,
     public dialog: MatDialog,
+    private matPaginatorIntl: MatPaginatorIntl,
   ) { }
 
   // 取得分頁
@@ -51,9 +53,28 @@ export class DeviceManageComponent implements OnInit {
     this.getTotalPage();
     this.onSearchFormChange();
     this.getUnitList();
+    this.paginatorContent();
+  }
+  // 分頁文字內容
+  paginatorContent(): void{
+    this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number):
+    string => {
+      if (length === 0 || pageSize === 0) {
+        return `第 0 筆、共 ${length} 筆`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+
+      return `第 ${startIndex + 1} ~ ${endIndex} 筆、共 ${length} 筆`;
+    };
+    // 設定其他顯示資訊文字
+    this.matPaginatorIntl.itemsPerPageLabel = '每頁筆數：';
+    this.matPaginatorIntl.nextPageLabel = '下一頁';
+    this.matPaginatorIntl.previousPageLabel = '上一頁';
   }
   // 取得單位列表
-  getUnitList() {
+  getUnitList(): void {
     this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
     });
@@ -91,14 +112,12 @@ export class DeviceManageComponent implements OnInit {
     ).subscribe(result => {
       if (this.isSearch) {
         this.getSearchTotalPage(this.unitNameFilter || '', this.deviceNameFilter || '');
+      }else{
+        this.getTotalPage();
       }
-      // else {
-      // 在這裡處理 getDevices 的結果
-      // this.dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
-      // }
     });
   }
-  // 取得設備列表
+  // 取得設備列表 // 回傳 Observable 之 Interface
   getDevices(page: number, pageSize: number): Observable<any> {
     if (this.isSearch) {
       return this.searchDevice(this.unitNameFilter || '', this.deviceNameFilter || '', page, pageSize)
@@ -132,7 +151,7 @@ export class DeviceManageComponent implements OnInit {
           }
         )
   }
-  // 搜尋設備
+  // 搜尋設備 // 回傳 Observable 之 Interface
   searchDevice(unitNameFilterData: string, deviceNameFilterData: string, page: number, pageSize: number): Observable<any> {
     this.isSearch = true;
     return this.deviceService.searchDevice(unitNameFilterData, deviceNameFilterData, page, pageSize)
