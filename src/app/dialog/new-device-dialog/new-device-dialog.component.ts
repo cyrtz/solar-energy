@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
 import { Observable, catchError, concatMap, debounceTime, delay, exhaustMap, first, map, of, pipe, switchMap } from 'rxjs';
 import { UnitManageService } from '../../service/unit-manage/unit-manage.service';
-import { unitListResponse } from 'src/app/models/unit-manage';
+import { placeListResponse, unitListResponse } from 'src/app/models/unit-manage';
 @Component({
   selector: 'app-new-device-dialog',
   templateUrl: './new-device-dialog.component.html',
@@ -22,13 +22,10 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
     this.getUnitList();
   }
 
+  placeList: string[] = [];
   unitData: unitListResponse[] = [];
+  devicePlaceNameList: placeListResponse[] = [];
 
-  devicePlaceNameList = [
-    { value: '頂樓', viewValue: '頂樓' },
-    { value: '操場', viewValue: '操場' },
-    { value: '廣場', viewValue: '廣場' },
-  ];
   // 新增設備表單
   newDeviceForm = new FormGroup({
     deviceName: new FormControl('', {
@@ -46,7 +43,7 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
         Validators.required,
       ],
     }),
-    devicePlaceName: new FormControl('', {
+    devicePlaceGuid: new FormControl('', {
       validators: [
         Validators.required,
       ],
@@ -55,16 +52,30 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
 
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
   get deviceUnitGuid() { return this.newDeviceForm.get('deviceUnitGuid'); }
-  get devicePlaceName() { return this.newDeviceForm.get('devicePlaceName'); }
+  get devicePlaceGuid() { return this.newDeviceForm.get('devicePlaceGuid'); }
 
   constructor(
     private deviceService: DeviceManageService,
     private unitService: UnitManageService,
   ) { }
-
+  
+  // 取得單位
   getUnitList() {
     this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
+    });
+  }
+  // 單位選擇事件
+  onUnitChange(deviceUnitGuid: string) {
+    this.getPlaceList(deviceUnitGuid);
+  }
+  // 取得與單位相應的地點
+  getPlaceList(deviceUnitGuid: string) {
+    this.unitService.searchDevicePlace(deviceUnitGuid).subscribe(res => {
+      this.devicePlaceNameList = res.data.placeList;
+      if (this.devicePlaceNameList.length == 0) {
+        this.devicePlaceNameList = [{ Id: 0, devicePlaceGuid: '', devicePlaceName: '該單位尚未添加地點', deviceUnitGuid: ''}];
+      }
     });
   }
   // 新增設備
@@ -72,15 +83,21 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
     const value = this.newDeviceForm.getRawValue();
     this.deviceService.addDevice(value as unknown as IAddDeviceRequest)
       .subscribe(res => {
-        // 發布事件
-        this.dialogClosed.emit();
+        if (res.isSuccess == false) {
+          alert(res.message);
+          return;
+        } else {
+          alert('新增成功');
+          // 發布事件
+          this.dialogClosed.emit();
+        }
       });
   }
   // 驗證設備名稱是否重複
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return of(control.value).pipe(
       debounceTime(1000),
-      switchMap(value => 
+      switchMap(value =>
         this.deviceService.isExists(value).pipe(
           map(res => res.data === false ? { uniqueAlterEgo: true } : null),
           catchError(() => of(null))
