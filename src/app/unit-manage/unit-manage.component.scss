@@ -3,12 +3,13 @@
     margin-top: 1.3rem
 }
 .pagetitle {
-    background: #4E6E62;
+    background: #82bbb5;
     height: 56px;
     font-size: 24px;
     color: white;
     // margin-top: 1.3rem;
     margin-left: 1rem;
+    box-shadow: 5px 5px 5px gray;
 
     .title-icon {
         margin-left: 1.3rem;
@@ -32,8 +33,7 @@
 
     table th {
         font-size: 20px;
-        background: #6B916B;
-        color: white;
+        background: #bae8e8;
     }
 
     table td {

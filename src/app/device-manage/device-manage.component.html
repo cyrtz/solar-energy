@@ -9,7 +9,7 @@
     <!-- 搜尋表單 -->
     <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
         <form [formGroup]="searchDeviceForm">
-            <mat-form-field style="margin-right: 20px;" fxFlex="50">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
                 <mat-label>單位</mat-label>
                 <mat-select formControlName="unitNameFilter">
                     <mat-option [value]="''">
@@ -20,12 +20,12 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field style="margin-right: 20px;" fxFlex="50">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
                 <mat-label>搜尋設備名稱</mat-label>
                 <input matInput formControlName="deviceNameFilter">
             </mat-form-field>
         </form>
-        <button mat-raised-button color="primary" (click)="newDialog('0ms', '0ms')">新增設備</button>
+        <button mat-raised-button style="color: white;" color="primary" (click)="newDialog('0ms', '0ms')">新增設備</button>
     </div>
 </div>
 <div class="deviceTable">

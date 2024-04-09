@@ -5,9 +5,10 @@
 }
 
 .toolbar-spacer {
-    background: #CDDAA5;
+    background: #FFFFFE;
     height: 64px;
     font-size: 25px;
+    box-shadow: 0px 1px 5px gray;
 }
 
 .navbar-spacer{
@@ -50,13 +51,16 @@
 .drawer-div {
     position: absolute;
     width: 150px;
-    background: #4E6E62;
+    background: #7CCAAE;
     height: 100vh;
     // z-index: 999;
 }
 
 .sidenav-menu-icon {
     color: white;
+}
+.menu-icon{
+    color: #335780;
 }
 
 .toolbar-content {
@@ -80,5 +84,5 @@
 .tempdiv{
     font-size: 20px;
     margin-right: 10px;
-
+    color: #335780;
 }
