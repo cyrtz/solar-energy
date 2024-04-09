@@ -22,6 +22,7 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
     this.getUnitList();
   }
 
+  isUnitSelected: boolean = false;
   placeList: string[] = [];
   unitData: unitListResponse[] = [];
   devicePlaceNameList: placeListResponse[] = [];
@@ -68,13 +69,15 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
   // 單位選擇事件
   onUnitChange(deviceUnitGuid: string) {
     this.getPlaceList(deviceUnitGuid);
+    this.isUnitSelected = true;
+    this.newDeviceForm.get('devicePlaceGuid')?.reset();
   }
   // 取得與單位相應的地點
   getPlaceList(deviceUnitGuid: string) {
     this.unitService.searchDevicePlace(deviceUnitGuid).subscribe(res => {
       this.devicePlaceNameList = res.data.placeList;
-      if (this.devicePlaceNameList.length == 0) {
-        this.devicePlaceNameList = [{ Id: 0, devicePlaceGuid: '', devicePlaceName: '該單位尚未添加地點', deviceUnitGuid: ''}];
+      if (this.devicePlaceNameList.length === 0) {
+        this.newDeviceForm.get('devicePlaceGuid')?.setErrors({ 'noPlaces': true });
       }
     });
   }
@@ -84,9 +87,11 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
     this.deviceService.addDevice(value as unknown as IAddDeviceRequest)
       .subscribe(res => {
         if (res.isSuccess == false) {
+          // 新增失敗訊息
           alert(res.message);
           return;
         } else {
+          // 新增成功訊息
           alert('新增成功');
           // 發布事件
           this.dialogClosed.emit();

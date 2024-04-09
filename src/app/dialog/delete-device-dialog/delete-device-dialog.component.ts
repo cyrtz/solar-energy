@@ -36,8 +36,8 @@ export class DeleteDeviceDialogComponent {
           // 使用dialog做回應
           console.log(res);
           // dialogClosed 事件觸發時重新取得設備列表
-          // 發布事件
           this.dialogClosed.emit();
+          // 發布 dialogClosed 事件
         }
       );
   }

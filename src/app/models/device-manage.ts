@@ -11,7 +11,7 @@ export interface deviceListRes {
     deviceGuid: string;
     deviceName: string;
     deviceUnitName: string;
-    devicePlaceName: string;
+    devicePlaceGuid: string;
     createTime: string;
     updateTime: string;
 }

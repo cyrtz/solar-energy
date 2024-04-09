@@ -18,7 +18,7 @@
     margin-right: 1rem;
 }
 .mainInfo {
-    height: 73vh;
+    height: 80vh;
     width: 100%;
     box-shadow: 0 0 10px #888;
     .mainTitle{
@@ -30,12 +30,15 @@
     }
 }
 .secondaryInfoRow{
-    height: 73vh;
+    height: 80vh;
     .secondaryInfo {
         width: 100%;
         margin-bottom: 0.5rem;
         box-shadow: 0 0 10px #888;
         .secondaryTitle{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             color: white;
             background-color: #4E6E62;
             padding: 8px;

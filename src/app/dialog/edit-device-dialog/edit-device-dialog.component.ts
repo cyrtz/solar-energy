@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, catchError, map, of } from 'rxjs';
 import { IEditDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
-import { unitListResponse } from 'src/app/models/unit-manage';
+import { placeListResponse, unitListResponse } from 'src/app/models/unit-manage';
 import { DeviceManageService } from 'src/app/service/device-manage/device-manage.service';
 import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.service';
 
@@ -24,18 +24,15 @@ export class EditDeviceDialogComponent implements OnInit {
       deviceOldName: this.device.deviceName,
       deviceName: '',
       deviceUnitGuid: this.device.deviceGuid,
-      devicePlaceName: this.device.devicePlaceName,
+      devicePlaceGuid: this.device.devicePlaceGuid,
     });
     this.getUnitList();
   }
 
+  isUnitSelected: boolean = false;
+  placeList: string[] = [];
   unitData: unitListResponse[] = [];
-
-  devicePlaceNameList = [
-    { value: '頂樓', viewValue: '頂樓' },
-    { value: '操場', viewValue: '操場' },
-    { value: '廣場', viewValue: '廣場' },
-  ];
+  devicePlaceNameList: placeListResponse[] = [];
 
   editDeviceForm = new FormGroup({
     deviceOldName: new FormControl(''),
@@ -54,7 +51,7 @@ export class EditDeviceDialogComponent implements OnInit {
         Validators.required,
       ],
     }),
-    devicePlaceName: new FormControl('', {
+    devicePlaceGuid: new FormControl('', {
       validators: [
         Validators.required,
       ],
@@ -63,7 +60,7 @@ export class EditDeviceDialogComponent implements OnInit {
 
   get deviceName() { return this.editDeviceForm.get('deviceName'); }
   get deviceUnitGuid() { return this.editDeviceForm.get('deviceUnitGuid'); }
-  get devicePlaceName() { return this.editDeviceForm.get('devicePlaceName'); }
+  get devicePlaceGuid() { return this.editDeviceForm.get('devicePlaceGuid'); }
 
   constructor(
     private deviceService: DeviceManageService,
@@ -73,9 +70,25 @@ export class EditDeviceDialogComponent implements OnInit {
     this.device = data;
   }
 
+  // 取得單位
   getUnitList() {
     this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
+    });
+  }
+  // 單位選擇事件
+  onUnitChange(deviceUnitGuid: string) {
+    this.getPlaceList(deviceUnitGuid);
+    this.isUnitSelected = true;
+    this.editDeviceForm.get('devicePlaceGuid')?.reset();
+  }
+  // 取得與單位相應的地點
+  getPlaceList(deviceUnitGuid: string) {
+    this.unitService.searchDevicePlace(deviceUnitGuid).subscribe(res => {
+      this.devicePlaceNameList = res.data.placeList;
+      if (this.devicePlaceNameList.length === 0) {
+        this.editDeviceForm.get('devicePlaceGuid')?.setErrors({ 'noPlaces': true });
+      }
     });
   }
   // 編輯設備
@@ -90,6 +103,7 @@ export class EditDeviceDialogComponent implements OnInit {
         console.log(value);
       });
   }
+  // 驗證設備名稱是否重複
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.deviceService.isExists(control.value).pipe(
       map(res => {
@@ -101,6 +115,7 @@ export class EditDeviceDialogComponent implements OnInit {
       catchError(() => of(null))
     );
   }
+  // 驗證是否為空
   cannotEmpty(control: AbstractControl): Observable<ValidationErrors | null> {
     if (control.value.trim() === '') {
       return of({ 'cannotEmpty': true });

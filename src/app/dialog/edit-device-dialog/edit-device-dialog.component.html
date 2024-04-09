@@ -32,7 +32,7 @@
         <div class="formInput">
             <mat-form-field>
                 <mat-label>單位</mat-label>
-                <mat-select formControlName="deviceUnitGuid">
+                <mat-select formControlName="deviceUnitGuid" (selectionChange)="onUnitChange($event.value)">
                     <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
                         {{unit.deviceUnitName}}
                     </mat-option>
@@ -46,17 +46,29 @@
         </div>
         <div class="formInput">
             <mat-form-field>
-                <mat-label for="devicePlaceName"> 地點 </mat-label>
-                <input matInput id="devicePlaceName" formControlName="devicePlaceName" required />
+                <mat-label> 地點 </mat-label>
+                <mat-select formControlName="devicePlaceGuid" [disabled]="!isUnitSelected">
+                    <mat-option *ngFor="let place of devicePlaceNameList" [value]="place.devicePlaceGuid">
+                        {{place.devicePlaceName}}
+                    </mat-option>
+                    <mat-option *ngIf="devicePlaceGuid?.errors?.['noPlaces']" [disabled]="true">
+                        此單位無地點
+                    </mat-option>
+                </mat-select>
+                <mat-hint align="end" *ngIf="!isUnitSelected">
+                    <span>
+                        請先選擇單位
+                    </span>
+                </mat-hint>
                 <mat-error align="end">
-                    <span *ngIf="devicePlaceName?.errors?.['required']">
-                        請輸入地點
+                    <span *ngIf="!isUnitSelected">
+                        請先選擇單位
                     </span>
-                    <span *ngIf="devicePlaceName?.errors?.['minlength']">
-                        地點至少要有2個字
+                    <span *ngIf="isUnitSelected && devicePlaceGuid?.errors?.['required']">
+                        請選擇地點
                     </span>
-                    <span *ngIf="devicePlaceName?.errors?.['cannotEmpty']">
-                        地點不可為空
+                    <span *ngIf="devicePlaceGuid?.errors?.['noPlaces']">
+                        請先新增地點
                     </span>
                 </mat-error>
             </mat-form-field>

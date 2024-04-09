@@ -26,14 +26,14 @@
         <div class="formInput">
             <mat-form-field>
                 <mat-label>單位</mat-label>
-                <mat-select formControlName="deviceUnitGuid" (valueChange)="onUnitChange($event)">
+                <mat-select formControlName="deviceUnitGuid" (selectionChange)="onUnitChange($event.value)">
                     <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
                         {{unit.deviceUnitName}}
                     </mat-option>
                 </mat-select>
                 <mat-error align="end">
                     <span *ngIf="deviceUnitGuid?.errors?.['required']">
-                        單位是必要的
+                        請選擇單位
                     </span>
                 </mat-error>
             </mat-form-field>
@@ -41,14 +41,28 @@
         <div class="formInput">
             <mat-form-field>
                 <mat-label> 地點 </mat-label>
-                <mat-select formControlName="devicePlaceGuid">
+                <mat-select formControlName="devicePlaceGuid" [disabled]="!isUnitSelected">
                     <mat-option *ngFor="let place of devicePlaceNameList" [value]="place.devicePlaceGuid">
                         {{place.devicePlaceName}}
                     </mat-option>
+                    <mat-option *ngIf="devicePlaceGuid?.errors?.['noPlaces']" [disabled]="true">
+                        此單位無地點
+                    </mat-option>
                 </mat-select>
+                <mat-hint align="end" *ngIf="!isUnitSelected">
+                    <span>
+                        請先選擇單位
+                    </span>
+                </mat-hint>
                 <mat-error align="end">
-                    <span *ngIf="devicePlaceGuid?.errors?.['required']">
-                        地點是必要的
+                    <span *ngIf="!isUnitSelected">
+                        請先選擇單位
+                    </span>
+                    <span *ngIf="isUnitSelected && devicePlaceGuid?.errors?.['required']">
+                        請選擇地點
+                    </span>
+                    <span *ngIf="devicePlaceGuid?.errors?.['noPlaces']">
+                        請先新增地點
                     </span>
                 </mat-error>
             </mat-form-field>

@@ -144,7 +144,7 @@ export class DeviceManageComponent implements OnInit {
     if (this.isSearch) {
       this.getSearchTotalPage(this.unitNameFilter || '', this.deviceNameFilter || '');
     } else
-      this.deviceService.getTotalPage()
+      this.deviceService.getTotalCount()
         .subscribe(
           res => {
             this.totalPage = res.data;

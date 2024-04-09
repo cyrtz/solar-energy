@@ -40,7 +40,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
-import { MatSelect, MatSelectModule, matSelectAnimations } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { InteractiveMapComponent } from './interactive-map/interactive-map.component';
 import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { NewUnitDialogComponent } from './dialog/new-unit-dialog/new-unit-dialog.component';
@@ -48,6 +48,11 @@ import { DeleteUnitDialogComponent } from './dialog/delete-unit-dialog/delete-un
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorDetectComponent } from './error-detect/error-detect.component';
 import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { MonthCEmissionComponent } from './graph/month-line-chart/month-cemission.component';
+import { YearCEmissionComponent } from './graph/year-line-chart/year-cemission.component';
+import { DayLineChartComponent } from './graph/day-line-chart/day-line-chart.component';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +73,10 @@ import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dia
     DeleteUnitDialogComponent,
     DashboardComponent,
     ErrorDetectComponent,
-    NewPlaceDialogComponent
+    NewPlaceDialogComponent,
+    MonthCEmissionComponent,
+    YearCEmissionComponent,
+    DayLineChartComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +86,7 @@ import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dia
     FlexLayoutModule,
     HttpClientModule,
     FormsModule,
+    NgApexchartsModule,
     MatCardModule,
     MatTabsModule,
     MatButtonModule,
@@ -99,7 +108,7 @@ import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dia
     MatCommonModule,
     MatNativeDateModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'zh-TW' }],
   bootstrap: [AppComponent]

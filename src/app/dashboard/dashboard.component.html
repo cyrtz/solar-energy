@@ -13,28 +13,47 @@
             <mat-card-title>節碳總排名</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-
+            <ng-container></ng-container>
         </mat-card-content>
     </mat-card>
     <div fxFlex="1"></div>
     <div class="secondaryInfoRow" fxLayout="column" fxLayoutAlign="start start" fxFlex="44">
-        <mat-card class="secondaryInfo" fxFlex="40">
+        <mat-card class="secondaryInfo" fxFlex="60">
             <mat-card-header class="secondaryTitle">
                 <mat-card-title>總發電量</mat-card-title>
+                <span style="margin-top: 2px;font-size: 16px;">(暫定)時間/度</span>
             </mat-card-header>
             <mat-card-content>
-
+                <!-- 包含非同步載入 Tab Content 的 Tab Group -->
+                <ng-container *ngIf="asyncTabs | async as tabs; else loading">
+                    <mat-tab-group (selectedTabChange)="onTabChange($event)">
+                        <mat-tab *ngFor="let tab of tabs">
+                            <ng-template mat-tab-label>{{tab.label}}</ng-template>
+                            <ng-container *ngIf="activeTab === tab.content">
+                                <ng-container [ngComponentOutlet]="tab.content"></ng-container>
+                            </ng-container>
+                        </mat-tab>
+                    </mat-tab-group>
+                </ng-container>
+                <ng-template #loading>Loading tabs...</ng-template>
             </mat-card-content>
         </mat-card>
-        <mat-card class="secondaryInfo" fxFlex="30">
+        <mat-card class="secondaryInfo" fxFlex="20">
             <mat-card-header class="secondaryTitle">
                 <mat-card-title>異常設備</mat-card-title>
             </mat-card-header>
+            <mat-card-content>
+                <!-- 內容 -->
+            </mat-card-content>
         </mat-card>
-        <mat-card class="secondaryInfo" style="margin-bottom: 0;" fxFlex="30">
+        <mat-card class="secondaryInfo" style="margin-bottom: 0;" fxFlex="20">
             <mat-card-header class="secondaryTitle">
                 <mat-card-title>設備總數</mat-card-title>
             </mat-card-header>
+            <mat-card-content>
+                <!-- 內容 -->
+                {{totalPage}}
+            </mat-card-content>
         </mat-card>
     </div>
 </div>

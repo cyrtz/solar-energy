@@ -26,8 +26,8 @@ export class DeviceManageService {
     // return of({'isSuccess':true});
   }
   // 取得總頁數
-  getTotalPage(): Observable<ISearchTotalPageResponse> {
-    const apiUrl = this.baseUrl + '/DeviceManage/DeviceManage/GetTotalPage';
+  getTotalCount(): Observable<ISearchTotalPageResponse> {
+    const apiUrl = this.baseUrl + '/DeviceManage/DeviceManage/GetTotalCount';
     return this.http.get<ISearchTotalPageResponse>(apiUrl);
   }
   // 新增設備
