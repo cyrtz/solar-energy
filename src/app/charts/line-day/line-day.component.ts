@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 
 import {
   ChartComponent,
@@ -29,11 +29,11 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-month-cemission',
-  templateUrl: './month-cemission.component.html',
-  styleUrls: ['./month-cemission.component.scss']
+  selector: 'app-line-day',
+  templateUrl: './line-day.component.html',
+  styleUrls: ['./line-day.component.scss']
 })
-export class MonthCEmissionComponent implements OnInit{
+export class LineDayComponent{
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -45,7 +45,7 @@ export class MonthCEmissionComponent implements OnInit{
         {
           name: "Series 1",
           // 每天更新一次月總發電量
-          data: [13, 11, 13, 13, 17, 15, 11, 10, 11]
+          data: [1.1, 2.1, 4.3, 5.4, 6.2, 7.3, 8.6, 10.0, 11.0]
         }
       ],
       chart: {
@@ -88,7 +88,7 @@ export class MonthCEmissionComponent implements OnInit{
       xaxis: {
         categories: this.categories,
         title: {
-          text: "date"
+          text: "time"
         }
       },
       yaxis: {
@@ -107,21 +107,4 @@ export class MonthCEmissionComponent implements OnInit{
       }
     };
   }
-
-  ngOnInit(): void {
-    this.generateCategories();
-  }
-  // 生成日期
-  generateCategories() {
-    for (let monthIndex = 0; monthIndex < this.months.length; monthIndex++) {
-      const year = new Date().getFullYear();
-      const month = monthIndex + 1;
-      const daysInMonth = new Date(year, month, 0).getDate();
-      // 根據月份生成日期
-      for (let day = 1; day <= daysInMonth; day++) {
-        this.categories.push(`${this.months[monthIndex]} ${day}`);
-      }
-    }
-  }
 }
-

@@ -10,10 +10,23 @@
 <div class="dashboardMain" fxLayout="row" fxLayoutAlign="center start">
     <mat-card class="mainInfo" fxFlex="55">
         <mat-card-header class="mainTitle">
-            <mat-card-title>節碳總排名</mat-card-title>
+            <mat-card-title>總節碳量</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <ng-container></ng-container>
+            <ng-container>
+                <!-- 包含非同步載入 Tab Content 的 Tab Group -->
+                <ng-container *ngIf="asyncCRTabs | async as tabs; else loading">
+                    <mat-tab-group (selectedTabChange)="onCRTabChange($event)">
+                        <mat-tab *ngFor="let tab of tabs">
+                            <ng-template mat-tab-label>{{tab.label}}</ng-template>
+                            <ng-container *ngIf="activeCRTab === tab.content">
+                                <ng-container [ngComponentOutlet]="tab.content"></ng-container>
+                            </ng-container>
+                        </mat-tab>
+                    </mat-tab-group>
+                </ng-container>
+                <ng-template #loading>Loading tabs...</ng-template>
+            </ng-container>
         </mat-card-content>
     </mat-card>
     <div fxFlex="1"></div>
@@ -21,15 +34,15 @@
         <mat-card class="secondaryInfo" fxFlex="60">
             <mat-card-header class="secondaryTitle">
                 <mat-card-title>總發電量</mat-card-title>
-                <span style="margin-top: 2px;font-size: 16px;">(暫定)時間/度</span>
+                <span style="margin-top: 2px;font-size: 16px;">度(累加)</span>
             </mat-card-header>
             <mat-card-content>
                 <!-- 包含非同步載入 Tab Content 的 Tab Group -->
-                <ng-container *ngIf="asyncTabs | async as tabs; else loading">
-                    <mat-tab-group (selectedTabChange)="onTabChange($event)">
+                <ng-container *ngIf="asyncPGTabs | async as tabs; else loading">
+                    <mat-tab-group (selectedTabChange)="onPGTabChange($event)">
                         <mat-tab *ngFor="let tab of tabs">
                             <ng-template mat-tab-label>{{tab.label}}</ng-template>
-                            <ng-container *ngIf="activeTab === tab.content">
+                            <ng-container *ngIf="activePGTab === tab.content">
                                 <ng-container [ngComponentOutlet]="tab.content"></ng-container>
                             </ng-container>
                         </mat-tab>

@@ -29,11 +29,11 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-year-cemission',
-  templateUrl: './year-cemission.component.html',
-  styleUrls: ['./year-cemission.component.scss']
+  selector: 'app-line-year',
+  templateUrl: './line-year.component.html',
+  styleUrls: ['./line-year.component.scss']
 })
-export class YearCEmissionComponent {
+export class LineYearComponent {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
@@ -43,7 +43,7 @@ export class YearCEmissionComponent {
         {
           name: "Series 1",
           // 每月更新一次年總發電量
-          data: [13, 11, 13, 13, 13, 14, 15, 16, 11, 11, 10, 11]
+          data: [1.1, 9.8, 19.7, 30.0, 41.2, 50.3, 61.4, 73.2, 79.9]
         }
       ],
       chart: {
@@ -106,3 +106,4 @@ export class YearCEmissionComponent {
     };
   }
 }
+

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 import {
   ChartComponent,
@@ -29,21 +29,23 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-day-line-chart',
-  templateUrl: './day-line-chart.component.html',
-  styleUrls: ['./day-line-chart.component.scss']
+  selector: 'app-line-month',
+  templateUrl: './line-month.component.html',
+  styleUrls: ['./line-month.component.scss']
 })
-export class DayLineChartComponent {
+export class LineMonthComponent implements OnInit{
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-
+  months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  categories:string[] = [];
+  
   constructor() {
     this.chartOptions = {
       series: [
         {
-          name: "Low - 2013",
-          // 每小時更新一次日總發電量
-          data: [10, 11, 13, 13, 17, 15, 11, 10]
+          name: "Series 1",
+          // 每天更新一次月總發電量
+          data: [1.1, 2.1, 4.3, 5.4, 6.2, 7.3, 8.6, 10.0, 11.0]
         }
       ],
       chart: {
@@ -70,7 +72,7 @@ export class DayLineChartComponent {
       },
       // 未顯示
       title: {
-        text: "日結算",
+        text: "月結算",
         align: "left"
       },
       grid: {
@@ -84,9 +86,9 @@ export class DayLineChartComponent {
         size: 1
       },
       xaxis: {
-        categories: ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"],
+        categories: this.categories,
         title: {
-          text: "Time"
+          text: "date"
         }
       },
       yaxis: {
@@ -105,4 +107,21 @@ export class DayLineChartComponent {
       }
     };
   }
+
+  ngOnInit(): void {
+    this.generateCategories();
+  }
+  // 生成日期
+  generateCategories() {
+    for (let monthIndex = 0; monthIndex < this.months.length; monthIndex++) {
+      const year = new Date().getFullYear();
+      const month = monthIndex + 1;
+      const daysInMonth = new Date(year, month, 0).getDate();
+      // 根據月份生成日期
+      for (let day = 1; day <= daysInMonth; day++) {
+        this.categories.push(`${this.months[monthIndex]} ${day}`);
+      }
+    }
+  }
 }
+

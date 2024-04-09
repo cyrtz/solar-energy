@@ -49,9 +49,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorDetectComponent } from './error-detect/error-detect.component';
 import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { MonthCEmissionComponent } from './graph/month-line-chart/month-cemission.component';
-import { YearCEmissionComponent } from './graph/year-line-chart/year-cemission.component';
-import { DayLineChartComponent } from './graph/day-line-chart/day-line-chart.component';
+import { StackedColumnsDayComponent } from './charts/stacked-columns-day/stacked-columns-day.component';
+import { StackedColumnsMonthComponent } from './charts/stacked-columns-month/stacked-columns-month.component';
+import { StackedColumnsYearComponent } from './charts/stacked-columns-year/stacked-columns-year.component';
+import { LineDayComponent } from './charts/line-day/line-day.component';
+import { LineMonthComponent } from './charts/line-month/line-month.component';
+import { LineYearComponent } from './charts/line-year/line-year.component';
 
 
 @NgModule({
@@ -74,9 +77,12 @@ import { DayLineChartComponent } from './graph/day-line-chart/day-line-chart.com
     DashboardComponent,
     ErrorDetectComponent,
     NewPlaceDialogComponent,
-    MonthCEmissionComponent,
-    YearCEmissionComponent,
-    DayLineChartComponent
+    StackedColumnsMonthComponent,
+    StackedColumnsYearComponent,
+    StackedColumnsDayComponent,
+    LineDayComponent,
+    LineMonthComponent,
+    LineYearComponent
   ],
   imports: [
     BrowserModule,
