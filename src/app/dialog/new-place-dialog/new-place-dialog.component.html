@@ -7,7 +7,7 @@
             <mat-label>單位</mat-label>
             <mat-select formControlName="deviceUnitGuid">
                 <mat-option [value]="''">
-                    全部
+                    請選擇單位
                 </mat-option>
                 <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
                     {{unit.deviceUnitName}}

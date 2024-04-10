@@ -5,23 +5,37 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
-import { placeListResponse, unitList, unitListResponse } from '../models/unit-manage';
+import { placeList, placeListResponse, unitList, unitListResponse } from '../models/unit-manage';
 import { Observable, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-unit-manage',
   templateUrl: './unit-manage.component.html',
-  styleUrls: ['./unit-manage.component.scss']
+  styleUrls: ['./unit-manage.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0'})),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class UnitManageComponent implements AfterViewInit {
-  displayedColumns: string[] = ['Id', 'deviceUnitName', 'devicePlaceName', 'operation'];
+  unitDisplayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
+  expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
+  expandedElement!: placeListResponse | null;
+  columnsToDisplayWithExpand = [ 'expand',...this.unitDisplayedColumns];
   unitData: unitListResponse[] = [];
   placeData: placeListResponse[] = [];
+  // dataSource = ELEMENT_DATA;
   unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
   placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
   currentPage: number = 0;
   unitTotalPage: number = 0;
+  unitGuid: string = '';
+  unitGuidList: string[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -36,8 +50,8 @@ export class UnitManageComponent implements AfterViewInit {
 
 
   ngOnInit(): void {
-    // this.getUnitList(this.currentPage, 6).subscribe();
-    this.getPlaceList().subscribe();
+    this.getUnitList(this.currentPage, 6).subscribe();
+    this.getPlaceList(this.unitGuid).subscribe();
     this.getTotalPage();
   }
 
@@ -45,9 +59,16 @@ export class UnitManageComponent implements AfterViewInit {
     return this.unitService.getUnits(pageIndex, pageSize).pipe(
       tap(res => {
         this.unitData = res.data.unitList;
-        res.data.unitList.forEach((element, index) => {
-          return element.Id = index + 1;
-        });
+        // this.unitGuid = this.unitData[0].deviceUnitGuid;
+        // console.log(this.unitGuid)
+        // res.data.unitList.forEach((element, index) => {
+        //   return element.Id = index + 1;
+        // });
+        res.data.unitList.forEach(element => {
+          this.unitGuid = element.deviceUnitGuid;
+          console.log(this.unitGuid);
+          // this.unitGuidList = this.unitGuidList.push(element.deviceUnitGuid);
+        })
         this.unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
         if (pageIndex === 0) {
           this.currentPage = 0;
@@ -58,10 +79,14 @@ export class UnitManageComponent implements AfterViewInit {
     );
   }
 
-  getPlaceList(): Observable<any> {
+  getPlaceList(unitGuid: string): Observable<any> {
     return this.unitService.getPlaces().pipe(
       tap(res => {
         this.placeData = res.data.placeList;
+        if (unitGuid === this.unitGuid) {
+          this.placeData = this.placeData.filter(element => element.deviceUnitGuid === unitGuid);
+          console.log(this.placeData);
+        }
         res.data.placeList.forEach((element, index) => {
           return element.Id = index + 1;
         });
@@ -83,7 +108,7 @@ export class UnitManageComponent implements AfterViewInit {
   }
   onPageChange(event: PageEvent): void {
     // this.getUnitList(event.pageIndex, event.pageSize).subscribe();
-    this.getPlaceList().subscribe();
+    this.getPlaceList(this.unitGuid).subscribe();
     this.getTotalPage();
   }
 
@@ -133,16 +158,3 @@ export class UnitManageComponent implements AfterViewInit {
     });
   }
 }
-// export interface UnitData {
-//   unitName: string;
-//   position: number;
-// }
-
-// const UNIT_DATA: UnitData[] = [
-//   { position: 1, unitName: '中科大' },
-//   { position: 2, unitName: '中興大' },
-//   { position: 3, unitName: '中正大' },
-//   { position: 4, unitName: '中山大' },
-//   { position: 5, unitName: '台科大' },
-// ];
-
