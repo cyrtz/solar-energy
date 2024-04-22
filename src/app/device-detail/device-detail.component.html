@@ -16,9 +16,9 @@
             <!-- <mat-card style=" margin: 10px;"> -->
             <div fxLayout="row" class="device-detail" fxLayoutAlign="start end"
                 style=" margin-left: 10px; margin-top: 10px;">
-                <div class="devicename">{{this.deviceDetail.deviceName}}</div>
-                <div style="font-size: 20px; margin-right: 10px;">{{this.deviceDetail.deviceUnitName}}</div>
-                <div style="font-size: 20px; margin-right: 10px;">{{this.deviceDetail.devicePlaceName}}</div>
+                <div class="devicename">{{this.deviceName}}</div>
+                <div style="font-size: 20px; margin-right: 10px;">{{this.deviceUnitName}}</div>
+                <div style="font-size: 20px; margin-right: 10px;">{{this.devicePlaceName}}</div>
             </div>
             <!-- </mat-card> -->
 
@@ -31,13 +31,13 @@
                         <div style="font-size: 20px;">太陽能板數據</div>
                         <mat-list>
                             <mat-list-item>
-                                電池電量：{{this.deviceDetail.batteryPower}}%
+                                電池電量：{{this.battPower}}%
                             </mat-list-item>
                             <mat-list-item>
-                                電壓：{{this.deviceDetail.battVoltage}}V
+                                電壓：{{this.battVoltage}}V
                             </mat-list-item>
                             <mat-list-item>
-                                電流：{{this.deviceDetail.battAmpere}}A
+                                電流：{{this.battAmpere}}A
                             </mat-list-item>
                         </mat-list>
                     </mat-card-content>

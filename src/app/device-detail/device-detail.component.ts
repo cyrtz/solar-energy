@@ -37,23 +37,28 @@ export type ChartOptions = {
 })
 
 export class DeviceDetailComponent implements OnInit {
-
+  // getDeviceGuid: string = '';
   @Input() deviceGuid: string = '';
-  // deviceName: string = '';
-  // batteryPower: number = 0;
-  // battVoltage: number = 0;
-  // battAmpere: number = 0;
-  // loadVoltage: number = 0;
-  // loadAmpere: number = 0;
-  // co2Reduce: string = '';
+  // deviceGuid: string = '';
+  deviceName: string = '';
+  deviceUnitName: string = '';
+  devicePlaceName: string = '';
+  battPower: number = 0;
+  battVoltage: number = 0;
+  battAmpere: number = 0;
+  loadVoltage: number = 0;
+  loadAmpere: number = 0;
+  co2Reduce: string = '';
 
   ngOnInit(): void {
     // this.getDeviceDetail();
     this.route.params.subscribe(params => {
       // 取得路由參數，這裡是取得 guid
-      this.deviceGuid = params['guid'];
-      console.log(params);
+      this.deviceGuid = params['deviceGuid'];
+      console.log(this.deviceGuid);
     });
+    this.getDeviceDetail();
+    this.getDeviceData();
   }
 
   constructor(
@@ -61,6 +66,27 @@ export class DeviceDetailComponent implements OnInit {
     private devicedetailService: DeviceDetailService,
   ) {
 
+  }
+  getDeviceDetail() {
+    this.devicedetailService.getDeviceDetail(this.deviceGuid).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  getDeviceData() {
+    // console.log();
+    this.devicedetailService.getDeviceData(this.deviceGuid).subscribe(res => {
+      console.log(res);
+      this.deviceName = res.data.deviceName;
+      this.deviceUnitName = res.data.deviceUnitName;
+      this.devicePlaceName = res.data.devicePlaceName;
+      this.battPower = res.data.battPower;
+      this.battVoltage = res.data.battVoltage;
+      this.battAmpere = res.data.battAmpere;
+      this.loadVoltage = res.data.loadVoltage;
+      this.loadAmpere = res.data.loadAmpere;
+      this.co2Reduce = res.data.co2Reduce;
+    });
   }
 
   deviceDetail = {

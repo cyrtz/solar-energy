@@ -1,11 +1,13 @@
+export interface IDeviceDetailRequest {
+    deviceGuid: string;
+}
+
 export interface IDeviceDetailResponse<T> {
     data: T;
     isSuccess: boolean;
     message: string;
 }
-export interface IDeviceDetailRequest {
-    deviceGuid: string;
-}
+
 export interface IDeviceDetail {
     deviceGuid: string;
     deviceName: string;
@@ -14,10 +16,20 @@ export interface IDeviceDetail {
     createTime: string;
     updateTime: string;
 }
+
+export interface IDeviceDataResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
+
 export interface IDeviceData {
-    batteryPower: number;
+    deviceName: string;
+    deviceUnitName: string;
+    devicePlaceName: string;
+    battPower: number;
     battVoltage: number;
-    batteryAmpere: number;
+    battAmpere: number;
     loadVoltage: number;
     loadAmpere: number;
     co2Reduce: string; 
