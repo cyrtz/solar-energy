@@ -76,6 +76,7 @@ export class DeviceManageService {
       return this.http.get<ISearchTotalPageResponse>(apiUrl);
     };
   }
+  // 判斷設備名稱是否存在
   isExists(deviceName: string): Observable<IIsExistsResponse> {
     const apiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetNameExists?deviceName=${deviceName}`;
     return this.http.get<IIsExistsResponse>(apiUrl);

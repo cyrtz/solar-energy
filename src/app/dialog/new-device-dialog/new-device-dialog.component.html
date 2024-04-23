@@ -4,9 +4,9 @@
 <div mat-dialog-content class="newDeviceForm">
     <form class="newDeviceForm" [formGroup]="newDeviceForm">
         <div class="formInput">
-            <mat-form-field>
+            <mat-form-field color="accent">
                 <mat-label for="deviceName"> 設備名稱 </mat-label>
-                <input matInput id="deviceName" formControlName="deviceName" required />
+                <input  matInput id="deviceName" formControlName="deviceName" required />
                 <mat-error align="end">
                     <span *ngIf="deviceName?.errors?.['required']">
                         請輸入設備名稱
@@ -24,7 +24,7 @@
             </mat-form-field>
         </div>
         <div class="formInput">
-            <mat-form-field>
+            <mat-form-field color="accent">
                 <mat-label>單位</mat-label>
                 <mat-select formControlName="deviceUnitGuid" (selectionChange)="onUnitChange($event.value)">
                     <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
@@ -39,7 +39,7 @@
             </mat-form-field>
         </div>
         <div class="formInput">
-            <mat-form-field>
+            <mat-form-field color="accent">
                 <mat-label> 地點 </mat-label>
                 <mat-select formControlName="devicePlaceGuid" [disabled]="!isUnitSelected">
                     <mat-option *ngFor="let place of devicePlaceNameList" [value]="place.devicePlaceGuid">

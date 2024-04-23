@@ -68,7 +68,8 @@ export class LineDayComponent{
         enabled: true
       },
       stroke: {
-        curve: "smooth"
+        show: true,
+        curve: "smooth",
       },
       // 未顯示
       title: {

@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private tabPGSubscription: Subscription | null = null;
   private tabCRSubscription: Subscription | null = null;
   totalPage: number = 0;
+  errorDevice: number = 0;
 
   constructor(
     private deviceService: DeviceManageService,

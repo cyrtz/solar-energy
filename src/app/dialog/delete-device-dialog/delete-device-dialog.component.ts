@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IDeleteDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
+import { IDeleteDeviceRequest, IDeletedeviceList } from 'src/app/models/device-manage';
 import { DeviceManageService } from 'src/app/service/device-manage/device-manage.service';
 
 @Component({
@@ -10,16 +10,18 @@ import { DeviceManageService } from 'src/app/service/device-manage/device-manage
 })
 export class DeleteDeviceDialogComponent {
   // 接收從父元件傳遞的設備數據
-  device: deviceListRes;
+  device: IDeletedeviceList;
+  devicePlaceName!: string;
 
   // 定義一個"關閉事件"發射器
   @Output() dialogClosed = new EventEmitter<void>();
 
   constructor(
     private deviceService: DeviceManageService,
-    @Inject(MAT_DIALOG_DATA) public data: deviceListRes
+    @Inject(MAT_DIALOG_DATA) public data: IDeletedeviceList
   ) {
     this.device = data;
+    this.devicePlaceName = data.devicePlaceName;
   }
 
   // 刪除設備

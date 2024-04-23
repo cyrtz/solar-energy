@@ -26,6 +26,15 @@ export interface IAddDeviceResponse {
     isSuccess: boolean;
     message: string;
 }
+export interface IDeletedeviceList {
+    deviceGuid: string;
+    deviceName: string;
+    deviceUnitName: string;
+    devicePlaceGuid: string;
+    devicePlaceName: string;
+    createTime: string;
+    updateTime: string;
+}
 export interface IDeleteDeviceRequest {
     deviceGuid: string;
 }

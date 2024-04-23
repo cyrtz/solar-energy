@@ -1,12 +1,16 @@
-<div class="dialog-title">
-    <h1 mat-dialog-title>刪除設備</h1>
-</div>
-<div class="dialog-body">
-    <p><b>名稱：</b> {{data.deviceName}}</p>
-    <p><b>單位：</b> {{data.deviceUnitName}}</p>
-    <p><b>地點：</b> {{data.devicePlaceGuid}}</p>
-</div>
-<div mat-dialog-actions class="dialog-action">
-    <button mat-raised-button mat-dialog-close>取消</button>
-    <button mat-raised-button [mat-dialog-close]="true" (click)="delete()" style="color: red;">確認刪除</button>
+<div class="dialogOverrall">
+    <div class="dialogTitle">
+        <h1 mat-dialog-title>刪除設備</h1>
+    </div>
+    <div class="dialogBodyOuter">
+        <div class="dialogBody">
+            <p><b>名稱：</b> {{data.deviceName}}</p>
+            <p><b>單位：</b> {{data.deviceUnitName}}</p>
+            <p><b>地點：</b> {{this.devicePlaceName}}</p>
+        </div>
+    </div>
+    <div mat-dialog-actions class="dialogActions">
+        <button mat-raised-button mat-dialog-close>取消</button>
+        <button mat-raised-button [mat-dialog-close]="true" (click)="delete()" style="color: red;">確認刪除</button>
+    </div>
 </div>
