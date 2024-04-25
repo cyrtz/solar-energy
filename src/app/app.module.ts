@@ -55,6 +55,7 @@ import { StackedColumnsYearComponent } from './charts/stacked-columns-year/stack
 import { LineDayComponent } from './charts/line-day/line-day.component';
 import { LineMonthComponent } from './charts/line-month/line-month.component';
 import { LineYearComponent } from './charts/line-year/line-year.component';
+import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { LineYearComponent } from './charts/line-year/line-year.component';
     StackedColumnsDayComponent,
     LineDayComponent,
     LineMonthComponent,
-    LineYearComponent
+    LineYearComponent,
+    DeletePlaceDialogComponent
   ],
   imports: [
     BrowserModule,

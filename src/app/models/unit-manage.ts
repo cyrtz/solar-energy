@@ -67,9 +67,20 @@ export interface placeListResponse{
     devicePlaceName: string;
     devicePlaceGuid: string;
     deviceUnitGuid: string;
+    deviceUnitName: string;
 }
 
 export interface IGetPlaceResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
+
+export interface IDeletePlaceRequest {
+    devicePlaceGuid: string;
+}
+
+export interface IDeletePlaceResponse<T> {
     data: T;
     isSuccess: boolean;
     message: string;

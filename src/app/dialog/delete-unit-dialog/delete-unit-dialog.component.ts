@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDeleteUnitRequest, unitListResponse } from 'src/app/models/unit-manage';
 import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.service';
@@ -8,23 +8,45 @@ import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.servi
   templateUrl: './delete-unit-dialog.component.html',
   styleUrls: ['./delete-unit-dialog.component.scss']
 })
-export class DeleteUnitDialogComponent {
+export class DeleteUnitDialogComponent implements OnInit{
 
-  device: unitListResponse;
+  device: string;
+  deviceUnitName: string = '';
 
   @Output() dialogClosed = new EventEmitter<void>();
 
   constructor(
     private unitService: UnitManageService,
-    @Inject(MAT_DIALOG_DATA) public data: unitListResponse
+    @Inject(MAT_DIALOG_DATA) public data: string
   ) {
     this.device = data;
   };
-
+  ngOnInit(): void {
+    this.unitService.getUnits(0, 6).subscribe(
+      res => {
+        res.data.unitList.forEach(element => {
+          if (element.deviceUnitGuid === this.device) {
+            this.deviceUnitName = element.deviceUnitName;
+          }
+        });
+      }
+    );
+  }
+  // unitService.getUnits(0, 6).subscribe(
+  //   res => {
+  //     res.data.unitList.forEach(element => {
+  //       if (element.deviceUnitGuid === this.device) {
+  //         this.deviceUnitName = element.deviceUnitName;
+  //       }
+  //     });
+  //   }
+  // );
   delete(): void {
+    
     const request: IDeleteUnitRequest = {
-      deviceUnitGuid: this.device.deviceUnitGuid,
+      deviceUnitGuid: this.device,
     };
+    
 
     console.log(request);
 

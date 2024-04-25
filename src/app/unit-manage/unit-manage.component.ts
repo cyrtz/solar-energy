@@ -9,6 +9,7 @@ import { placeList, placeListResponse, unitList, unitListResponse } from '../mod
 import { Observable, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { DeletePlaceDialogComponent } from '../dialog/delete-place-dialog/delete-place-dialog.component';
 
 @Component({
   selector: 'app-unit-manage',
@@ -16,7 +17,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   styleUrls: ['./unit-manage.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
@@ -24,18 +25,20 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class UnitManageComponent implements AfterViewInit {
   unitDisplayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
-  expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
+  placeDisplayedColumns: string[] = ['Id', 'devicePlaceName', 'operation'];
+  // expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
   expandedElement!: placeListResponse | null;
-  columnsToDisplayWithExpand = [ 'expand',...this.unitDisplayedColumns];
+  // columnsToDisplayWithExpand = [ 'expand',...this.unitDisplayedColumns];
   unitData: unitListResponse[] = [];
   placeData: placeListResponse[] = [];
   // dataSource = ELEMENT_DATA;
   unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
   placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
   currentPage: number = 0;
-  unitTotalPage: number = 0;
+  placeTotalPage: number = 0;
   unitGuid: string = '';
-  unitGuidList: string[] = [];
+  unitGuidList: {unitGuid:string, name: string}[] = [];
+  placeList: {name: string, unitGuid: string, data: placeListResponse[]}[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -51,7 +54,7 @@ export class UnitManageComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.getUnitList(this.currentPage, 6).subscribe();
-    this.getPlaceList(this.unitGuid).subscribe();
+    this.getPlaceList().subscribe();
     this.getTotalPage();
   }
 
@@ -59,16 +62,12 @@ export class UnitManageComponent implements AfterViewInit {
     return this.unitService.getUnits(pageIndex, pageSize).pipe(
       tap(res => {
         this.unitData = res.data.unitList;
-        // this.unitGuid = this.unitData[0].deviceUnitGuid;
-        // console.log(this.unitGuid)
-        // res.data.unitList.forEach((element, index) => {
-        //   return element.Id = index + 1;
-        // });
-        res.data.unitList.forEach(element => {
-          this.unitGuid = element.deviceUnitGuid;
-          console.log(this.unitGuid);
-          // this.unitGuidList = this.unitGuidList.push(element.deviceUnitGuid);
+        // console.log(this.unitData);
+        this.unitGuidList = [];
+        this.unitData.forEach(element => {
+          this.unitGuidList.push({unitGuid: element.deviceUnitGuid, name: element.deviceUnitName});
         })
+
         this.unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
         if (pageIndex === 0) {
           this.currentPage = 0;
@@ -78,43 +77,50 @@ export class UnitManageComponent implements AfterViewInit {
       })
     );
   }
+  
+  // getPlace(unitGuid: string): Observable<any> {
+  //   return this.unitService.searchDevicePlace(unitGuid).pipe(
+  //     tap(res => {
+  //       // console.log(res)
+  //       this.placeData = res.data.placeList;
+  //       // console.log(this.placeData);
+  //       res.data.placeList.forEach((element, index) => {
+  //         return element.Id = index + 1;
+  //       });
+  //       // this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
+  //     })
+  //   )
+  // }
 
-  getPlaceList(unitGuid: string): Observable<any> {
+  getPlaceList(): Observable<any> {
     return this.unitService.getPlaces().pipe(
       tap(res => {
         this.placeData = res.data.placeList;
-        if (unitGuid === this.unitGuid) {
-          this.placeData = this.placeData.filter(element => element.deviceUnitGuid === unitGuid);
-          console.log(this.placeData);
-        }
-        res.data.placeList.forEach((element, index) => {
-          return element.Id = index + 1;
+        this.placeList = [];
+        console.log(this.placeList);
+        this.unitGuidList.forEach((guid) => {
+          const places = this.placeData.filter((place) => place.deviceUnitGuid === guid.unitGuid);
+          this.placeList.push({ name: guid.name, unitGuid: guid.unitGuid, data: places });
+          places.forEach((element, index) => {
+            return element.Id = index + 1;
+          });
         });
-        this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
+        console.log(this.unitGuidList);
+        console.log(this.placeList);
+        // this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
       })
 
     )
-    // console.log(res.data.unitList);
-    // res.data.unitList.forEach((element, index) => {
-    //   return element.Id = index + 1;
-    // });
-    // this.unitData = res.data.unitList;
-    // console.log("d",this.unitData);
-    // this.dataSource = new MatTableDataSource<unitListResponse>(this.unitData);
-    // this.unitData.forEach(element => {
-    //   console.log(element.Id)
-    // });
-    // console.log(this.dataSource);
   }
   onPageChange(event: PageEvent): void {
-    // this.getUnitList(event.pageIndex, event.pageSize).subscribe();
-    this.getPlaceList(this.unitGuid).subscribe();
+    this.getUnitList(event.pageIndex, event.pageSize).subscribe();
+    // this.getPlaceList().subscribe();
     this.getTotalPage();
   }
 
   getTotalPage(): void {
     this.unitService.getTotalUnitPage().subscribe(res => {
-      this.unitTotalPage = res.data;
+      this.placeTotalPage = res.data;
     });
   }
 
@@ -127,6 +133,8 @@ export class UnitManageComponent implements AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
       this.getUnitList(this.currentPage, 6).subscribe();
+      this.placeList = [];
+      this.getPlaceList().subscribe();
       this.getTotalPage();
     });
   }
@@ -139,10 +147,12 @@ export class UnitManageComponent implements AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
       this.getUnitList(this.currentPage, 6).subscribe();
+      this.placeList = [];
+      this.getPlaceList().subscribe();
       this.getTotalPage();
     });
   }
-  deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, unit: unitListResponse): void {
+  deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, unit: string): void {
     const dialogRef = this.dialog.open(DeleteUnitDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
@@ -154,6 +164,25 @@ export class UnitManageComponent implements AfterViewInit {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.getUnitList(this.currentPage, 6).subscribe();
+      this.placeList = [];
+      this.getPlaceList().subscribe();
+      this.getTotalPage();
+    });
+  }
+  deletePlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string, place: placeListResponse): void {
+    const dialogRef = this.dialog.open(DeletePlaceDialogComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
+      width: '500px',
+      data: place
+    });
+    // 訂閱 dialogClosed 事件
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      // 事件觸發時重新取得設備列表
+      console.log('dialogClosed');
+      this.getUnitList(this.currentPage, 6).subscribe();
+      this.placeList = [];
+      this.getPlaceList().subscribe();
       this.getTotalPage();
     });
   }
