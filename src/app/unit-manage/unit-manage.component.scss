@@ -44,7 +44,7 @@
 // }
 .card-div {
     // display: grid;
-    // grid-template-rows: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(400px, 400px));
     // column-gap: 14px;
     // row-gap: 14px;
     // height: 100%;
@@ -77,8 +77,17 @@
     }
 }
 
+@media (min-width: 500px) and (max-width: 768px) {
+    .card-div {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
-
+@media (max-width: 499px) {
+    .card-div {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 // tr.example-detail-row {

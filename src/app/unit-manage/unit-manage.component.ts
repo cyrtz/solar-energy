@@ -63,7 +63,7 @@ export class UnitManageComponent implements AfterViewInit {
       tap(res => {
         this.unitData = res.data.unitList;
         // console.log(this.unitData);
-        this.unitGuidList = [];
+        // this.unitGuidList = [];
         this.unitData.forEach(element => {
           this.unitGuidList.push({unitGuid: element.deviceUnitGuid, name: element.deviceUnitName});
         })
@@ -132,6 +132,7 @@ export class UnitManageComponent implements AfterViewInit {
     });
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
+      this.unitGuidList = [];
       this.getUnitList(this.currentPage, 6).subscribe();
       this.placeList = [];
       this.getPlaceList().subscribe();
@@ -146,6 +147,7 @@ export class UnitManageComponent implements AfterViewInit {
     });
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
+      this.unitGuidList = [];
       this.getUnitList(this.currentPage, 6).subscribe();
       this.placeList = [];
       this.getPlaceList().subscribe();
@@ -163,6 +165,7 @@ export class UnitManageComponent implements AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
+      this.unitGuidList = [];
       this.getUnitList(this.currentPage, 6).subscribe();
       this.placeList = [];
       this.getPlaceList().subscribe();
@@ -180,6 +183,7 @@ export class UnitManageComponent implements AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
+      this.unitGuidList = [];
       this.getUnitList(this.currentPage, 6).subscribe();
       this.placeList = [];
       this.getPlaceList().subscribe();
