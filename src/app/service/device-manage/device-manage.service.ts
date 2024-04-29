@@ -64,15 +64,15 @@ export class DeviceManageService {
   getSearchTotalPage(deviceUnitGuid: string,deviceName: string): Observable<ISearchTotalPageResponse> {
     if(deviceUnitGuid != '') {
       if(deviceName != '') {
-        const apiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalPage?deviceUnitGuid=${deviceUnitGuid}&deviceName=${deviceName}`;
+        const apiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalCount?deviceUnitGuid=${deviceUnitGuid}&deviceName=${deviceName}`;
         return this.http.get<ISearchTotalPageResponse>(apiUrl);
 
       }else {
-        const apiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalPage?deviceUnitGuid=${deviceUnitGuid}`;
+        const apiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalCount?deviceUnitGuid=${deviceUnitGuid}`;
         return this.http.get<ISearchTotalPageResponse>(apiUrl);
       }
     }else {
-      const apiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalPage?deviceName=${deviceName}`;
+      const apiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetSearchTotalCount?deviceName=${deviceName}`;
       return this.http.get<ISearchTotalPageResponse>(apiUrl);
     };
   }

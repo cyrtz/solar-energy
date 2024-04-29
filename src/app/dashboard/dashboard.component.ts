@@ -4,14 +4,15 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { DeviceManageService } from '../service/device-manage/device-manage.service';
 import { LineDayComponent } from '../charts/line-day/line-day.component';
 import { LineMonthComponent } from '../charts/line-month/line-month.component';
-import { LineYearComponent } from '../charts/line-year/line-year.component';
+import { LineWeekComponent } from '../charts/line-week/line-week.component';
 import { StackedColumnsDayComponent } from '../charts/stacked-columns-day/stacked-columns-day.component';
 import { StackedColumnsMonthComponent } from '../charts/stacked-columns-month/stacked-columns-month.component';
-import { StackedColumnsYearComponent } from '../charts/stacked-columns-year/stacked-columns-year.component';
+import { StackedColumnsWeekComponent } from '../charts/stacked-columns-week/stacked-columns-week.component';
+import { formatDate } from '@angular/common';
 
 export interface Tab {
   label: string;
-  content: Type<LineDayComponent | LineMonthComponent | LineYearComponent>;
+  content: Type<LineDayComponent | LineMonthComponent | LineWeekComponent>;
 }
 
 @Component({
@@ -22,19 +23,24 @@ export interface Tab {
 export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild(LineDayComponent) lineDayComponent!: LineDayComponent;
   @ViewChild(LineMonthComponent) lineMonthComponent!: LineMonthComponent;
-  @ViewChild(LineYearComponent) lineYearComponent!: LineYearComponent;
+  @ViewChild(LineWeekComponent) lineYearComponent!: LineWeekComponent;
   @ViewChild(StackedColumnsDayComponent) stackedColumnsDayComponent!: StackedColumnsDayComponent;
   @ViewChild(StackedColumnsMonthComponent) stackedColumnsMonthComponent!: StackedColumnsMonthComponent;
-  @ViewChild(StackedColumnsYearComponent) stackedColumnsYearComponent!: StackedColumnsYearComponent;
+  @ViewChild(StackedColumnsWeekComponent) stackedColumnsYearComponent!: StackedColumnsWeekComponent;
 
   asyncPGTabs: Observable<Tab[]>;
   asyncCRTabs: Observable<Tab[]>;
-  activePGTab: Type<LineDayComponent | LineMonthComponent | LineYearComponent> | null = null;
-  activeCRTab: Type<StackedColumnsDayComponent | StackedColumnsMonthComponent | StackedColumnsYearComponent> | null = null;
+  activePGTab: Type<LineDayComponent | LineMonthComponent | LineWeekComponent> | null = null;
+  activeCRTab: Type<StackedColumnsDayComponent | StackedColumnsMonthComponent | StackedColumnsWeekComponent> | null = null;
   private tabPGSubscription: Subscription | null = null;
   private tabCRSubscription: Subscription | null = null;
   totalPage: number = 0;
   errorDevice: number = 0;
+  totalPower: number = 0;
+  totalCarbon: number = 0;
+  date = new Date();
+  toDate = formatDate(this.date, 'yyyy-MM-dd EEEE', 'en-US', '+0800');
+
 
   constructor(
     private deviceService: DeviceManageService,
@@ -43,8 +49,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         observer.next([
           { label: '日結算', content: LineDayComponent },
+          { label: '週結算', content: LineWeekComponent },
           { label: '月結算', content: LineMonthComponent },
-          { label: '年結算', content: LineYearComponent },
         ]);
       }, 500);
     });
@@ -52,8 +58,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         observer.next([
           { label: '日結算', content: StackedColumnsDayComponent},
+          { label: '週結算', content: StackedColumnsWeekComponent },
           { label: '月結算', content: StackedColumnsMonthComponent },
-          { label: '年結算', content: StackedColumnsYearComponent },
         ]);
       }, 500);
     });

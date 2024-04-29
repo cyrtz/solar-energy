@@ -65,11 +65,10 @@
         }
 
         .place-table {
-
+            overflow: auto;
             table th {
                 font-size: 20px;
             }
-
             table td {
                 font-size: 18px;
             }

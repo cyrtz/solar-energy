@@ -68,6 +68,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         padding: 0;
         .deviceTotalQuantity{
@@ -79,6 +80,7 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         padding: 0;
         .deviceErrorQuantity{
@@ -92,19 +94,21 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         padding: 0;
         .runningDeviceQuantity{
             margin: 0;
             font-size: 6ch;
         }
     }
-    .carbonSavings{
+    .savedEBills{
         height: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         padding: 0;
-        .carbonSavingsQuantity{
+        .savedEBillsQuantity{
             margin: 0;
             font-size: 6ch;
         }

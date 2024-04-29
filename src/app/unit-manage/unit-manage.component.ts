@@ -23,7 +23,7 @@ import { DeletePlaceDialogComponent } from '../dialog/delete-place-dialog/delete
     ]),
   ],
 })
-export class UnitManageComponent implements AfterViewInit {
+export class UnitManageComponent {
   unitDisplayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
   placeDisplayedColumns: string[] = ['Id', 'devicePlaceName', 'operation'];
   // expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
@@ -35,16 +35,9 @@ export class UnitManageComponent implements AfterViewInit {
   unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
   placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
   currentPage: number = 0;
-  placeTotalPage: number = 0;
   unitGuid: string = '';
   unitGuidList: { unitGuid: string, name: string }[] = [];
   placeList: { name: string, unitGuid: string, data: placeListResponse[] }[] = [];
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  ngAfterViewInit() {
-    this.placeDataSource.paginator = this.paginator;
-  }
 
   constructor(
     public dialog: MatDialog,
@@ -59,7 +52,6 @@ export class UnitManageComponent implements AfterViewInit {
       })
     ).subscribe();
     // this.getPlaceList().subscribe();
-    this.getTotalPage();
   }
 
   getUnitList(pageIndex: number, pageSize: number): Observable<any> {
@@ -112,19 +104,11 @@ export class UnitManageComponent implements AfterViewInit {
         // console.log(this.placeList);
         // this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
       })
-
     )
   }
   onPageChange(event: PageEvent): void {
     this.getUnitList(event.pageIndex, event.pageSize).subscribe();
     // this.getPlaceList().subscribe();
-    this.getTotalPage();
-  }
-
-  getTotalPage(): void {
-    this.unitService.getTotalUnitPage().subscribe(res => {
-      this.placeTotalPage = res.data;
-    });
   }
 
   newUnitDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -142,8 +126,6 @@ export class UnitManageComponent implements AfterViewInit {
           this.getPlaceList().subscribe();
         })
       ).subscribe();
-
-      this.getTotalPage();
     });
   }
   newPlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -161,7 +143,6 @@ export class UnitManageComponent implements AfterViewInit {
           this.getPlaceList().subscribe();
         })
       ).subscribe();
-      this.getTotalPage();
     });
   }
   deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, unit: string): void {
@@ -182,7 +163,6 @@ export class UnitManageComponent implements AfterViewInit {
           this.getPlaceList().subscribe();
         })
       ).subscribe();
-      this.getTotalPage();
     });
   }
   deletePlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string, place: placeListResponse): void {
@@ -203,7 +183,6 @@ export class UnitManageComponent implements AfterViewInit {
           this.getPlaceList().subscribe();
         })
       ).subscribe();
-      this.getTotalPage();
     });
   }
 }

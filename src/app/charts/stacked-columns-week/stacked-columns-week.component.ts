@@ -21,13 +21,12 @@ export type ChartOptions = {
   legend: ApexLegend;
   fill: ApexFill;
 };
-
 @Component({
-  selector: 'app-stacked-columns-year',
-  templateUrl: './stacked-columns-year.component.html',
-  styleUrls: ['./stacked-columns-year.component.scss']
+  selector: 'app-stacked-columns-week',
+  templateUrl: './stacked-columns-week.component.html',
+  styleUrls: ['./stacked-columns-week.component.scss']
 })
-export class StackedColumnsYearComponent {
+export class StackedColumnsWeekComponent {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 

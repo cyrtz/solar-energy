@@ -51,12 +51,11 @@ import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dia
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { StackedColumnsDayComponent } from './charts/stacked-columns-day/stacked-columns-day.component';
 import { StackedColumnsMonthComponent } from './charts/stacked-columns-month/stacked-columns-month.component';
-import { StackedColumnsYearComponent } from './charts/stacked-columns-year/stacked-columns-year.component';
+import { StackedColumnsWeekComponent } from './charts/stacked-columns-week/stacked-columns-week.component';
 import { LineDayComponent } from './charts/line-day/line-day.component';
 import { LineMonthComponent } from './charts/line-month/line-month.component';
-import { LineYearComponent } from './charts/line-year/line-year.component';
+import { LineWeekComponent } from './charts/line-week/line-week.component';
 import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
-
 
 @NgModule({
   declarations: [
@@ -79,12 +78,12 @@ import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-
     ErrorDetectComponent,
     NewPlaceDialogComponent,
     StackedColumnsMonthComponent,
-    StackedColumnsYearComponent,
     StackedColumnsDayComponent,
     LineDayComponent,
+    LineWeekComponent,
     LineMonthComponent,
-    LineYearComponent,
-    DeletePlaceDialogComponent
+    DeletePlaceDialogComponent,
+    StackedColumnsWeekComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LineYearComponent } from './line-year.component';
+import { LineWeekComponent } from './line-week.component';
 
-describe('LineYearComponent', () => {
-  let component: LineYearComponent;
-  let fixture: ComponentFixture<LineYearComponent>;
+describe('LineWeekComponent', () => {
+  let component: LineWeekComponent;
+  let fixture: ComponentFixture<LineWeekComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LineYearComponent]
+      declarations: [LineWeekComponent]
     });
-    fixture = TestBed.createComponent(LineYearComponent);
+    fixture = TestBed.createComponent(LineWeekComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

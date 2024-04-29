@@ -29,11 +29,11 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-line-year',
-  templateUrl: './line-year.component.html',
-  styleUrls: ['./line-year.component.scss']
+  selector: 'app-line-week',
+  templateUrl: './line-week.component.html',
+  styleUrls: ['./line-week.component.scss']
 })
-export class LineYearComponent {
+export class LineWeekComponent {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 

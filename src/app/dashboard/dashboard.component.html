@@ -26,14 +26,17 @@
             </ng-container>
             <ng-template #loading>Loading tabs...</ng-template>
         </mat-card-content>
-        <!-- <mat-card-actions></mat-card-actions> -->
+        <mat-card-actions>
+            {{this.toDate}}<br>
+            碳排放量：{{this.totalCarbon}} kg
+        </mat-card-actions>
     </mat-card>
     <div fxFlex="1"></div>
     <div class="secondaryInfoCol" fxLayout="column" fxLayoutAlign="start start" fxFlex="44">
         <mat-card class="secondaryInfo">
             <mat-card-header class="secondaryTitle">
                 <mat-card-title>總發電量</mat-card-title>
-                <span style="margin-top: 2px;font-size: 16px;">度(累加)</span>
+                <span style="margin-top: 2px;font-size: 16px;">度(累計)</span>
             </mat-card-header>
             <mat-card-content>
                 <!-- 包含非同步載入 Tab Content 的 Tab Group -->
@@ -49,7 +52,9 @@
                 </ng-container>
                 <ng-template #loading>Loading tabs...</ng-template>
             </mat-card-content>
-            <!-- <mat-card-actions></mat-card-actions> -->
+            <mat-card-actions>
+                發電量：{{this.totalPower}} 度
+            </mat-card-actions>
         </mat-card>
         <div fxFlex="2"></div>
         <div class="thirdInfoRow">
@@ -59,7 +64,7 @@
                 </mat-card-header>
                 <mat-card-content class="deviceTotal">
                     <!-- 內容 -->
-                    <p class="deviceTotalQuantity">{{totalPage}}</p>
+                    <button mat-button class="deviceTotalQuantity" [routerLink]="'../app-device-manage'">{{totalPage}}</button>
                 </mat-card-content>
             </mat-card>
             <div fxFlex="2"></div>
@@ -69,7 +74,7 @@
                 </mat-card-header>
                 <mat-card-content class="deviceError">
                     <!-- 內容 -->
-                    <p class="deviceErrorQuantity">{{this.errorDevice}}</p>
+                    <button mat-button [routerLink]="'../app-error-detect'" class="deviceErrorQuantity">{{this.errorDevice}}</button>
                 </mat-card-content>
             </mat-card>
         </div>
@@ -81,17 +86,17 @@
                 </mat-card-header>
                 <mat-card-content class="runningDevice">
                     <!-- 內容 -->
-                    <p class="runningDeviceQuantity">{{totalPage - this.errorDevice}}</p>
+                    <button mat-button class="deviceTotalQuantity" [routerLink]="'../app-device-manage'" class="runningDeviceQuantity">{{totalPage - this.errorDevice}}</button>
                 </mat-card-content>
             </mat-card>
             <div fxFlex="2"></div>
             <mat-card class="thirdInfo">
                 <mat-card-header class="thirdTitle">
-                    <mat-card-title>未定</mat-card-title>
+                    <mat-card-title>已節省電費（累計）</mat-card-title>
                 </mat-card-header>
-                <mat-card-content class="carbonSavings">
+                <mat-card-content class="savedEBills">
                     <!-- 內容 -->
-                    <p class="carbonSavingsQuantity">0</p>
+                    <p class="savedEBillsQuantity">0</p>
                 </mat-card-content>
             </mat-card>
         </div>
