@@ -37,8 +37,8 @@ export class UnitManageComponent implements AfterViewInit {
   currentPage: number = 0;
   placeTotalPage: number = 0;
   unitGuid: string = '';
-  unitGuidList: {unitGuid:string, name: string}[] = [];
-  placeList: {name: string, unitGuid: string, data: placeListResponse[]}[] = [];
+  unitGuidList: { unitGuid: string, name: string }[] = [];
+  placeList: { name: string, unitGuid: string, data: placeListResponse[] }[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -53,8 +53,12 @@ export class UnitManageComponent implements AfterViewInit {
 
 
   ngOnInit(): void {
-    this.getUnitList(this.currentPage, 6).subscribe();
-    this.getPlaceList().subscribe();
+    this.getUnitList(this.currentPage, 6).pipe(
+      tap(() => {
+        this.getPlaceList().subscribe();
+      })
+    ).subscribe();
+    // this.getPlaceList().subscribe();
     this.getTotalPage();
   }
 
@@ -64,8 +68,9 @@ export class UnitManageComponent implements AfterViewInit {
         this.unitData = res.data.unitList;
         // console.log(this.unitData);
         // this.unitGuidList = [];
+        // console.log(this.unitData)
         this.unitData.forEach(element => {
-          this.unitGuidList.push({unitGuid: element.deviceUnitGuid, name: element.deviceUnitName});
+          this.unitGuidList.push({ unitGuid: element.deviceUnitGuid, name: element.deviceUnitName });
         })
 
         this.unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
@@ -77,7 +82,7 @@ export class UnitManageComponent implements AfterViewInit {
       })
     );
   }
-  
+
   // getPlace(unitGuid: string): Observable<any> {
   //   return this.unitService.searchDevicePlace(unitGuid).pipe(
   //     tap(res => {
@@ -91,13 +96,11 @@ export class UnitManageComponent implements AfterViewInit {
   //     })
   //   )
   // }
-
   getPlaceList(): Observable<any> {
     return this.unitService.getPlaces().pipe(
       tap(res => {
         this.placeData = res.data.placeList;
-        this.placeList = [];
-        console.log(this.placeList);
+        // this.placeList = [];
         this.unitGuidList.forEach((guid) => {
           const places = this.placeData.filter((place) => place.deviceUnitGuid === guid.unitGuid);
           this.placeList.push({ name: guid.name, unitGuid: guid.unitGuid, data: places });
@@ -105,8 +108,8 @@ export class UnitManageComponent implements AfterViewInit {
             return element.Id = index + 1;
           });
         });
-        console.log(this.unitGuidList);
-        console.log(this.placeList);
+        // console.log(this.unitGuidList);
+        // console.log(this.placeList);
         // this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
       })
 
@@ -133,9 +136,13 @@ export class UnitManageComponent implements AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
       this.unitGuidList = [];
-      this.getUnitList(this.currentPage, 6).subscribe();
-      this.placeList = [];
-      this.getPlaceList().subscribe();
+      this.getUnitList(this.currentPage, 6).pipe(
+        tap(() => {
+          this.placeList = [];
+          this.getPlaceList().subscribe();
+        })
+      ).subscribe();
+
       this.getTotalPage();
     });
   }
@@ -148,9 +155,12 @@ export class UnitManageComponent implements AfterViewInit {
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
       this.unitGuidList = [];
-      this.getUnitList(this.currentPage, 6).subscribe();
-      this.placeList = [];
-      this.getPlaceList().subscribe();
+      this.getUnitList(this.currentPage, 6).pipe(
+        tap(() => {
+          this.placeList = [];
+          this.getPlaceList().subscribe();
+        })
+      ).subscribe();
       this.getTotalPage();
     });
   }
@@ -166,9 +176,12 @@ export class UnitManageComponent implements AfterViewInit {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.unitGuidList = [];
-      this.getUnitList(this.currentPage, 6).subscribe();
-      this.placeList = [];
-      this.getPlaceList().subscribe();
+      this.getUnitList(this.currentPage, 6).pipe(
+        tap(() => {
+          this.placeList = [];
+          this.getPlaceList().subscribe();
+        })
+      ).subscribe();
       this.getTotalPage();
     });
   }
@@ -184,9 +197,12 @@ export class UnitManageComponent implements AfterViewInit {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.unitGuidList = [];
-      this.getUnitList(this.currentPage, 6).subscribe();
-      this.placeList = [];
-      this.getPlaceList().subscribe();
+      this.getUnitList(this.currentPage, 6).pipe(
+        tap(() => {
+          this.placeList = [];
+          this.getPlaceList().subscribe();
+        })
+      ).subscribe();
       this.getTotalPage();
     });
   }
