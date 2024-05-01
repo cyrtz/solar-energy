@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
 import { WeatherdataService } from '../service/weather/weatherdata.service';
 import { interval } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,8 @@ import { interval } from 'rxjs';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  date = new Date();
+  toDate = formatDate(this.date, 'yyyy-MM-dd', 'en-US', '+0800');
   temperature = 0;
   weatheroverview = '';
   isShow: boolean = false;

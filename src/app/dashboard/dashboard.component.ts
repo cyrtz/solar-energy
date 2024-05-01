@@ -8,7 +8,7 @@ import { LineWeekComponent } from '../charts/line-week/line-week.component';
 import { StackedColumnsDayComponent } from '../charts/stacked-columns-day/stacked-columns-day.component';
 import { StackedColumnsMonthComponent } from '../charts/stacked-columns-month/stacked-columns-month.component';
 import { StackedColumnsWeekComponent } from '../charts/stacked-columns-week/stacked-columns-week.component';
-import { formatDate } from '@angular/common';
+
 
 export interface Tab {
   label: string;
@@ -38,10 +38,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   errorDevice: number = 0;
   totalPower: number = 0;
   totalCarbon: number = 0;
-  date = new Date();
-  toDate = formatDate(this.date, 'yyyy-MM-dd EEEE', 'en-US', '+0800');
-
-
+  
   constructor(
     private deviceService: DeviceManageService,
   ) {

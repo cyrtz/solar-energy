@@ -66,10 +66,17 @@
 
         .place-table {
             overflow: auto;
-            table th {
+            position: relative;
+            .mat-mdc-header-row{
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                background-color: inherit;
+            }
+            th {
                 font-size: 20px;
             }
-            table td {
+            td {
                 font-size: 18px;
             }
         }

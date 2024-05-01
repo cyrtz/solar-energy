@@ -23,7 +23,7 @@ export class EditDeviceDialogComponent implements OnInit {
     this.editDeviceForm.patchValue({
       deviceOldName: this.device.deviceName,
       deviceName: '',
-      deviceUnitGuid: this.device.deviceGuid,
+      deviceUnitGuid: '',
       devicePlaceGuid: this.device.devicePlaceGuid,
     });
     this.getUnitList();
@@ -74,14 +74,21 @@ export class EditDeviceDialogComponent implements OnInit {
   getUnitList() {
     this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
+      // 預設選擇的單位
+      let unit = this.unitData.find(unit => unit.deviceUnitName === this.device.deviceUnitName);
+      if(unit){
+        this.getPlaceList(unit.deviceUnitGuid);
+        this.isUnitSelected = true;
+        this.editDeviceForm.get('devicePlaceGuid')?.reset();
+      }
     });
   }
   // 單位選擇事件
-  onUnitChange(deviceUnitGuid: string) {
-    this.getPlaceList(deviceUnitGuid);
-    this.isUnitSelected = true;
-    this.editDeviceForm.get('devicePlaceGuid')?.reset();
-  }
+  // onUnitChange(deviceUnitGuid: string) {
+  //   this.getPlaceList(deviceUnitGuid);
+  //   this.isUnitSelected = true;
+  //   this.editDeviceForm.get('devicePlaceGuid')?.reset();
+  // }
   // 取得與單位相應的地點
   getPlaceList(deviceUnitGuid: string) {
     this.unitService.searchDevicePlace(deviceUnitGuid).subscribe(res => {

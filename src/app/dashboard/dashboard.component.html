@@ -27,7 +27,6 @@
             <ng-template #loading>Loading tabs...</ng-template>
         </mat-card-content>
         <mat-card-actions>
-            {{this.toDate}}<br>
             碳排放量：{{this.totalCarbon}} kg
         </mat-card-actions>
     </mat-card>
@@ -53,7 +52,7 @@
                 <ng-template #loading>Loading tabs...</ng-template>
             </mat-card-content>
             <mat-card-actions>
-                發電量：{{this.totalPower}} 度
+                功率：{{this.totalPower}} kW
             </mat-card-actions>
         </mat-card>
         <div fxFlex="2"></div>
