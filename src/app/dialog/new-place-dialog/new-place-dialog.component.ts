@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable, catchError, debounceTime, map, of, switchMap } from 'rxjs';
-import { IAddDevicePlaceRequest, unitListResponse } from 'src/app/models/unit-manage';
+import { IAddDevicePlaceRequest, IUnitListResponse } from 'src/app/models/unit-manage';
 import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class NewPlaceDialogComponent implements OnInit {
   get devicePlaceName() { return this.newPlaceForm.get('devicePlaceName'); }
   get deviceUnitGuid() { return this.newPlaceForm.get('deviceUnitGuid'); }
 
-  unitData: unitListResponse[] = [];
+  unitData: IUnitListResponse[] = [];
 
   @Output() dialogClosed = new EventEmitter<void>();
 

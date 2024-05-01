@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
-import { placeList, placeListResponse, unitList, unitListResponse } from '../models/unit-manage';
+import { IPlaceList, IPlaceListResponse, IUnitList, IUnitListResponse } from '../models/unit-manage';
 import { Observable, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -27,17 +27,17 @@ export class UnitManageComponent {
   unitDisplayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
   placeDisplayedColumns: string[] = ['Id', 'devicePlaceName', 'operation'];
   // expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
-  expandedElement!: placeListResponse | null;
+  expandedElement!: IPlaceListResponse | null;
   // columnsToDisplayWithExpand = [ 'expand',...this.unitDisplayedColumns];
-  unitData: unitListResponse[] = [];
-  placeData: placeListResponse[] = [];
+  unitData: IUnitListResponse[] = [];
+  placeData: IPlaceListResponse[] = [];
   // dataSource = ELEMENT_DATA;
-  unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
-  placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
+  unitDataSource = new MatTableDataSource<IUnitListResponse>(this.unitData);
+  placeDataSource = new MatTableDataSource<IPlaceListResponse>(this.placeData);
   currentPage: number = 0;
   unitGuid: string = '';
   unitGuidList: { unitGuid: string, name: string }[] = [];
-  placeList: { name: string, unitGuid: string, data: placeListResponse[] }[] = [];
+  placeList: { name: string, unitGuid: string, data: IPlaceListResponse[] }[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -65,7 +65,7 @@ export class UnitManageComponent {
           this.unitGuidList.push({ unitGuid: element.deviceUnitGuid, name: element.deviceUnitName });
         })
 
-        this.unitDataSource = new MatTableDataSource<unitListResponse>(this.unitData);
+        this.unitDataSource = new MatTableDataSource<IUnitListResponse>(this.unitData);
         if (pageIndex === 0) {
           this.currentPage = 0;
         } else {
@@ -165,7 +165,7 @@ export class UnitManageComponent {
       ).subscribe();
     });
   }
-  deletePlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string, place: placeListResponse): void {
+  deletePlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string, place: IPlaceListResponse): void {
     const dialogRef = this.dialog.open(DeletePlaceDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,

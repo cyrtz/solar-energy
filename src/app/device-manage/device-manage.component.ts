@@ -9,7 +9,7 @@ import { DeleteDeviceDialogComponent } from '../dialog/delete-device-dialog/dele
 import { Observable, catchError, debounceTime, delay, distinctUntilChanged, fromEvent, map, of, switchMap, tap } from 'rxjs';
 import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-device-dialog.component';
 import { FormControl, FormGroup } from '@angular/forms';
-import { unitListResponse } from '../models/unit-manage';
+import { IUnitListResponse } from '../models/unit-manage';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 @Component({
@@ -19,7 +19,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 })
 export class DeviceManageComponent implements OnInit {
   // 單位列表
-  unitData: unitListResponse[] = [];
+  unitData: IUnitListResponse[] = [];
   // 表格欄位
   displayedColumns: string[] = ['deviceName', 'deviceUnitName', 'devicePlaceName', 'operation'];
   deviceData: deviceListRes[] = [];

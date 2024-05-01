@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
 import { Observable, catchError, concatMap, debounceTime, delay, exhaustMap, first, map, of, pipe, switchMap } from 'rxjs';
 import { UnitManageService } from '../../service/unit-manage/unit-manage.service';
-import { placeListResponse, unitListResponse } from 'src/app/models/unit-manage';
+import { IPlaceListResponse, IUnitListResponse } from 'src/app/models/unit-manage';
 @Component({
   selector: 'app-new-device-dialog',
   templateUrl: './new-device-dialog.component.html',
@@ -24,8 +24,8 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
 
   isUnitSelected: boolean = false;
   placeList: string[] = [];
-  unitData: unitListResponse[] = [];
-  devicePlaceNameList: placeListResponse[] = [];
+  unitData: IUnitListResponse[] = [];
+  devicePlaceNameList: IPlaceListResponse[] = [];
 
   // 新增設備表單
   newDeviceForm = new FormGroup({

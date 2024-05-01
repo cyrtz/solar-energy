@@ -8,11 +8,11 @@ export interface INewUnitResponse<T> {
     message: string;
 }
 
-export interface unitList {
-    unitList: unitListResponse[];
+export interface IUnitList {
+    unitList: IUnitListResponse[];
 }
 
-export interface unitListResponse {
+export interface IUnitListResponse {
     Id: number;
     deviceUnitName: string;
     deviceUnitGuid: string;
@@ -41,7 +41,7 @@ export interface IGetTotalUnitPageResponse{
     message: string;
 }
 
-export interface IunitNameisExistsResponse {
+export interface IUnitNameisExistsResponse {
     data: boolean;
     isSuccess: boolean;
     message: string;
@@ -58,11 +58,11 @@ export interface IAddDevicePlaceResponse<T>{
     message: string;
 }
 
-export interface placeList{
-    placeList: placeListResponse[];
+export interface IPlaceList{
+    placeList: IPlaceListResponse[];
 }
 
-export interface placeListResponse{
+export interface IPlaceListResponse{
     Id: number;
     devicePlaceName: string;
     devicePlaceGuid: string;
@@ -81,6 +81,25 @@ export interface IDeletePlaceRequest {
 }
 
 export interface IDeletePlaceResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
+
+export interface ISearchDeviceByPlaceRequest {
+    devicePlaceGuid: string;
+}
+
+export interface ISearchDeviceByPlaceList {
+    deviceGuid: string;
+    deviceName: string;
+}
+
+export interface ISearchDeviceByPlace {
+    deviceList: ISearchDeviceByPlaceList[];
+}
+
+export interface ISearchDeviceByPlaceResponse<T> {
     data: T;
     isSuccess: boolean;
     message: string;

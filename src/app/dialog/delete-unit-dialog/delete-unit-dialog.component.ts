@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IDeleteUnitRequest, unitListResponse } from 'src/app/models/unit-manage';
+import { IDeleteUnitRequest, IUnitListResponse } from 'src/app/models/unit-manage';
 import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.service';
 
 @Component({
