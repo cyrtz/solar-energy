@@ -117,7 +117,7 @@ export class DeviceManageComponent implements OnInit {
       }
     });
   }
-  // 取得設備列表 // 回傳 Observable 之 Interface
+  // 取得設備列表 // 回傳 Observable 之 Interface，此處似乎有兩種return
   getDevices(page: number, pageSize: number): Observable<any> {
     if (this.isSearch) {
       return this.searchDevice(this.unitNameFilter || '', this.deviceNameFilter || '', page, pageSize)
