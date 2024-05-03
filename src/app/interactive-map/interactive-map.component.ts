@@ -1,5 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
+import { ISearchDeviceByPlace, ISearchDeviceByPlaceList, ISearchDeviceByPlaceRequest } from '../models/unit-manage';
+import { MatTableDataSource } from '@angular/material/table';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-interactive-map',
@@ -8,8 +11,10 @@ import { UnitManageService } from '../service/unit-manage/unit-manage.service';
 })
 export class InteractiveMapComponent {
   show = true;
-  @ViewChild('id')
-  id!: ElementRef;
+  deviceData: ISearchDeviceByPlaceList[] = []
+  deviceDataSource = new MatTableDataSource<ISearchDeviceByPlaceList>(this.deviceData);
+  deviceDiaplayedColumns: string[] = ['Id', 'deviceName', 'operation'];
+  placeName: string = '';
   constructor(
     private unitService: UnitManageService,
   ) { }
@@ -17,11 +22,28 @@ export class InteractiveMapComponent {
   // guid = this.id.nativeElement;
   // guid = document.getElementById('id');
 
-  getDevice(placeGuid: string){
-    this.show = false;
-    console.log(placeGuid);
-    return this.unitService.searchDeviceByPlace(placeGuid).subscribe(res => {
+  getPlaceName(unitGuid: string) {
+    console.log(unitGuid);
+    return this.unitService.searchDevicePlace(unitGuid).subscribe(res => {
       console.log(res);
     });
+
+  }
+
+  getDevice(placeGuid: string) {
+    this.show = false;
+    console.log(placeGuid);
+    return this.unitService.searchDeviceByPlace(placeGuid).pipe(
+      tap(res => {
+        console.log(res);
+        this.deviceData = res.data.searchDeviceByPlaceList;
+        this.deviceData.forEach((element, index) => {
+          return element.Id = index + 1;
+        });
+        this.placeName = res.data.searchDeviceByPlaceList[0].devicePlaceName;
+        console.log(this.deviceData);
+        this.deviceDataSource = new MatTableDataSource<ISearchDeviceByPlaceList>(this.deviceData);
+      })
+    ).subscribe();
   }
 }

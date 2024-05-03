@@ -91,12 +91,14 @@ export interface ISearchDeviceByPlaceRequest {
 }
 
 export interface ISearchDeviceByPlaceList {
+    Id: number;
     deviceGuid: string;
     deviceName: string;
+    devicePlaceName: string;
 }
 
 export interface ISearchDeviceByPlace {
-    deviceList: ISearchDeviceByPlaceList[];
+    searchDeviceByPlaceList: ISearchDeviceByPlaceList[];
 }
 
 export interface ISearchDeviceByPlaceResponse<T> {
