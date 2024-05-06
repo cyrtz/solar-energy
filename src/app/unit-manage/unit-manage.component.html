@@ -16,7 +16,7 @@
     <button mat-raised-button color="primary" style="color: black;" (click)="newPlaceDialog('0ms', '0ms')">新增地點</button>
   </div>
 </div>
-<div fxLayoutAlign="center center" class="card-div">
+<div fxLayoutAlign="center center" class="card-div" fxLayout="row">
   <mat-card *ngFor="let element of placeList" class="unit-card">
     <mat-card-header fxLayoutAlign="center center" class="card-title">
       <div>{{element.name}}</div>

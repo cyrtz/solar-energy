@@ -74,8 +74,8 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
   }
   // 取得與單位相應的地點
   getPlaceList(deviceUnitGuid: string) {
-    this.unitService.searchDevicePlace(deviceUnitGuid).subscribe(res => {
-      this.devicePlaceNameList = res.data.placeList;
+    this.unitService.searchDeviceByUnit(deviceUnitGuid).subscribe(res => {
+      this.devicePlaceNameList = res.data.deviceDataList;
       if (this.devicePlaceNameList.length === 0) {
         this.newDeviceForm.get('devicePlaceGuid')?.setErrors({ 'noPlaces': true });
       }

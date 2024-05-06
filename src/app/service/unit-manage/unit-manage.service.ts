@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAddDevicePlaceRequest, IAddDevicePlaceResponse, IDeletePlaceRequest, IDeleteUnitRequest, IGetPlaceResponse, IGetTotalUnitPageResponse, IGetUnitResponse, INewUnitRequest, INewUnitResponse, IUnitNameisExistsResponse, IPlaceList, IUnitList, ISearchDeviceByPlaceList, ISearchDeviceByPlace, ISearchDeviceByPlaceRequest, ISearchDeviceByPlaceResponse } from 'src/app/models/unit-manage';
+import { IAddDevicePlaceRequest, IAddDevicePlaceResponse, IDeletePlaceRequest, IDeleteUnitRequest, IGetPlaceResponse, IGetTotalUnitPageResponse, IGetUnitResponse, INewUnitRequest, INewUnitResponse, IUnitNameisExistsResponse, IPlaceList, IUnitList, ISearchDeviceByPlaceList, ISearchDeviceByPlace, ISearchDeviceByPlaceRequest, ISearchDeviceByPlaceResponse, ISearchDeviceByUnit, ISearchDeviceByUnitResponse } from 'src/app/models/unit-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -46,9 +46,9 @@ export class UnitManageService {
     const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/Place/GetDevicePlaceList';
     return this.http.get<IGetPlaceResponse<IPlaceList>>(ApiUrl);
   }
-  searchDevicePlace(deviceUnitGuid: string): Observable<IGetPlaceResponse<IPlaceList>>{
-    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceData/Place/SearchDevicePlace?deviceUnitGuid=${deviceUnitGuid}`;
-    return this.http.get<IGetPlaceResponse<IPlaceList>>(ApiUrl);
+  searchDeviceByUnit(deviceUnitGuid: string): Observable<ISearchDeviceByUnitResponse<ISearchDeviceByUnit>>{
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceData/Place/SearchDeviceByUnit?deviceUnitGuid=${deviceUnitGuid}`;
+    return this.http.get<ISearchDeviceByUnitResponse<ISearchDeviceByUnit>>(ApiUrl);
   }
   deletePlace(params:IDeletePlaceRequest): Observable<INewUnitResponse<"">>{
     const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/Place/DeleteDevicePlace';

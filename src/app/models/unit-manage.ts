@@ -106,3 +106,27 @@ export interface ISearchDeviceByPlaceResponse<T> {
     isSuccess: boolean;
     message: string;
 }
+
+export interface ISearchDeviceByUnitRequest {
+    deviceUnitGuid: string;
+}
+
+export interface ISearchDeviceByUnitList {
+    Id: number;
+    deviceGuid: string;
+    deviceName: string;
+    devicePlaceName: string;
+    devicePlaceGuid: string;
+    deviceUnitName: string;
+    deviceUnitGuid: string;
+}
+
+export interface ISearchDeviceByUnit {
+    deviceDataList: ISearchDeviceByUnitList[];
+}
+
+export interface ISearchDeviceByUnitResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
