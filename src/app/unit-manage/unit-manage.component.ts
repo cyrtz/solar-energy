@@ -10,6 +10,7 @@ import { Observable, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DeletePlaceDialogComponent } from '../dialog/delete-place-dialog/delete-place-dialog.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-unit-manage',
@@ -38,6 +39,11 @@ export class UnitManageComponent {
   unitGuid: string = '';
   unitGuidList: { unitGuid: string, name: string }[] = [];
   placeList: { name: string, unitGuid: string, data: IPlaceListResponse[] }[] = [];
+  unitNameFilter?: string | null;
+
+  searchUnitForm = new FormGroup({
+    unitNameFilter: new FormControl(''),
+  });
 
   constructor(
     public dialog: MatDialog,
@@ -75,19 +81,7 @@ export class UnitManageComponent {
     );
   }
 
-  // getPlace(unitGuid: string): Observable<any> {
-  //   return this.unitService.searchDevicePlace(unitGuid).pipe(
-  //     tap(res => {
-  //       // console.log(res)
-  //       this.placeData = res.data.placeList;
-  //       // console.log(this.placeData);
-  //       res.data.placeList.forEach((element, index) => {
-  //         return element.Id = index + 1;
-  //       });
-  //       // this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
-  //     })
-  //   )
-  // }
+
   getPlaceList(): Observable<any> {
     return this.unitService.getPlaces().pipe(
       tap(res => {
