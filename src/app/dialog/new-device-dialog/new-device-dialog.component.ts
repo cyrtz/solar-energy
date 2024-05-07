@@ -39,6 +39,11 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
         this.cannotEmpty.bind(this),
       ],
     }),
+    deviceMacAddress: new FormControl('', {
+      validators: [
+        Validators.required,
+      ],
+    }),
     deviceUnitGuid: new FormControl('', {
       validators: [
         Validators.required,
@@ -52,6 +57,7 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
   })
 
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
+  get deviceMacAddress() { return this.newDeviceForm.get('deviceMacAddress'); }
   get deviceUnitGuid() { return this.newDeviceForm.get('deviceUnitGuid'); }
   get devicePlaceGuid() { return this.newDeviceForm.get('devicePlaceGuid'); }
 

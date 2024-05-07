@@ -19,7 +19,7 @@ export interface IAddDeviceRequest {
     deviceName: string;
     deviceUnitGuid: string;
     devicePlaceName: string;
-    deviceNumber: string;
+    deviceMacAddress: string;
 }
 export interface IAddDeviceResponse {
     data: string;
