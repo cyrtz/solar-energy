@@ -6,7 +6,7 @@ import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialo
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
 import { IPlaceList, IPlaceListResponse, IUnitList, IUnitListResponse } from '../models/unit-manage';
-import { Observable, tap } from 'rxjs';
+import { debounceTime, Observable, of, switchMap, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DeletePlaceDialogComponent } from '../dialog/delete-place-dialog/delete-place-dialog.component';
@@ -30,7 +30,9 @@ export class UnitManageComponent {
   // expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
   expandedElement!: IPlaceListResponse | null;
   // columnsToDisplayWithExpand = [ 'expand',...this.unitDisplayedColumns];
+  // 單位列表
   unitData: IUnitListResponse[] = [];
+  // 地點列表
   placeData: IPlaceListResponse[] = [];
   // dataSource = ELEMENT_DATA;
   unitDataSource = new MatTableDataSource<IUnitListResponse>(this.unitData);
@@ -39,17 +41,19 @@ export class UnitManageComponent {
   unitGuid: string = '';
   unitGuidList: { unitGuid: string, name: string }[] = [];
   placeList: { name: string, unitGuid: string, data: IPlaceListResponse[] }[] = [];
-  unitNameFilter?: string | null;
-
+  // 搜尋單位列表
+  searchUnitData: IUnitListResponse[] = [];
+  // 搜尋表單
   searchUnitForm = new FormGroup({
     unitNameFilter: new FormControl(''),
   });
+  // 搜尋表單資料
+  unitNameFilter?: string | null;
 
   constructor(
     public dialog: MatDialog,
     private unitService: UnitManageService,
   ) { }
-
 
   ngOnInit(): void {
     this.getUnitList().pipe(
@@ -58,8 +62,10 @@ export class UnitManageComponent {
       })
     ).subscribe();
     // this.getPlaceList().subscribe();
+    this.onSearchUnitChange();
   }
-
+  
+  // 取得單位列表
   getUnitList(): Observable<any> {
     return this.unitService.getTotalUnits().pipe(
       tap(res => {
@@ -70,8 +76,6 @@ export class UnitManageComponent {
         this.unitData.forEach(element => {
           this.unitGuidList.push({ unitGuid: element.deviceUnitGuid, name: element.deviceUnitName });
         })
-
-        this.unitDataSource = new MatTableDataSource<IUnitListResponse>(this.unitData);
         //   if (pageIndex === 0) {
         //     this.currentPage = 0;
         //   } else {
@@ -80,36 +84,23 @@ export class UnitManageComponent {
       })
     );
   }
-
-
+  // 取得地點
   getPlaceList(): Observable<any> {
     return this.unitService.getPlaces().pipe(
       tap(res => {
         this.placeData = res.data.placeList;
-        // this.placeList = [];
-        this.unitGuidList.forEach((guid) => {
-          this.placeData.forEach((element) => {
-            const places = this.placeData.filter((place) => place.deviceUnitGuid === guid.unitGuid);
-            this.placeList.push({ name: guid.name, unitGuid: guid.unitGuid, data: places });
-            places.forEach((element, index) => {
-              return element.Id = index + 1;
-            });
-          })
 
-
+        this.placeList = this.unitGuidList.map((guid) => {
+          const places = this.placeData.filter((place) => place.deviceUnitGuid === guid.unitGuid);
+          places.forEach((element, index) => {
+            element.Id = index + 1;
+          });
+          return { name: guid.name, unitGuid: guid.unitGuid, data: places };
         });
-        // console.log(this.unitGuidList);
-        // console.log(this.placeList);
-        // this.placeDataSource = new MatTableDataSource<placeListResponse>(this.placeData);
       })
     )
   }
-  onPageChange(event: PageEvent): void {
-    // this.getUnitList(event.pageIndex, event.pageSize).subscribe();
-    this.getUnitList().subscribe();
-    // this.getPlaceList().subscribe();
-  }
-
+  // 新增單位
   newUnitDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewUnitDialogComponent, {
       enterAnimationDuration,
@@ -133,6 +124,7 @@ export class UnitManageComponent {
       ).subscribe();
     });
   }
+  // 新增地點
   newPlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewPlaceDialogComponent, {
       enterAnimationDuration,
@@ -156,6 +148,7 @@ export class UnitManageComponent {
       ).subscribe();
     });
   }
+  // 刪除單位
   deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, unit: string): void {
     const dialogRef = this.dialog.open(DeleteUnitDialogComponent, {
       enterAnimationDuration,
@@ -182,6 +175,7 @@ export class UnitManageComponent {
       ).subscribe();
     });
   }
+  // 刪除地點
   deletePlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string, place: IPlaceListResponse): void {
     const dialogRef = this.dialog.open(DeletePlaceDialogComponent, {
       enterAnimationDuration,
@@ -208,4 +202,46 @@ export class UnitManageComponent {
       ).subscribe();
     });
   }
+  // 搜尋輸入框資料變更
+  onSearchUnitChange(): void {
+    this.searchUnitForm.valueChanges.pipe(
+      debounceTime(500),
+      switchMap((formValue) => {
+        if (formValue.unitNameFilter?.trim() != '') {
+          // 有搜尋條件時
+          this.unitGuidList = [];
+          this.placeList = [];
+          this.searchUnitData = this.unitData.filter((unit) => {
+            return unit.deviceUnitName.includes(formValue.unitNameFilter?.trim() || '');
+          });
+          this.unitGuidList = this.searchUnitData.map((unit: { deviceUnitGuid: any; deviceUnitName: any; }) => ({ unitGuid: unit.deviceUnitGuid, name: unit.deviceUnitName }));
+          return this.getPlaceList();
+        } else {
+          // 沒有搜尋條件時，顯示全部資料
+          this.unitGuidList = this.unitData.map((unit: { deviceUnitGuid: any; deviceUnitName: any; }) => ({ unitGuid: unit.deviceUnitGuid, name: unit.deviceUnitName }));
+          return this.getPlaceList();
+        }
+      })
+    ).subscribe();  // 確保你有訂閱這個 Observable
+  }
+  
+  // this.searchUnitForm.valueChanges.pipe(
+  //   debounceTime(500),
+  //   switchMap(value => {
+  //     if (value.unitNameFilter?.trim() != '') {
+  //       this.unitNameFilter = value.unitNameFilter;
+  //       return this.searchUnit(this.unitNameFilter || '');
+  //     } else {
+  //       return this.getUnitList();
+  //     }
+  //   })
+  // )
+  // 搜尋單位 
+  // searchUnit(unitNameFilter: string): Observable<any> {
+  //   return this.unitService.searchUnit(unitNameFilter).pipe(
+  //     tap(res =>
+  //       this.unitData = res.data.unitList
+  //     )
+  //   )
+  // }
 }

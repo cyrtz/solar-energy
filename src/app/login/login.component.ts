@@ -79,6 +79,7 @@ export class LoginComponent {
     const value = this.loginForm.getRawValue();
     this.loginService.login(value as unknown as ILoginRequest).subscribe(res => {
       if (res.isSuccess === true) {
+        localStorage.setItem('token', res.data);
         this.router.navigate(['/app-home']);
         // console.log(res);
       } else {
@@ -98,7 +99,7 @@ export class LoginComponent {
       // console.log(res);
       if (res.isSuccess === true) {
         this.openRegisterDialog('0ms', '0ms');
-
+        localStorage.setItem('token', res.data);
       } else {
         this.snackBar.open(res.message, '關閉', {
           duration: 2000,
@@ -121,7 +122,7 @@ export class LoginComponent {
       exitAnimationDuration
     });
   };
-};
+}
 // onSubmit(): void {
 //   console.log(this.signinForm?.value);
 // }

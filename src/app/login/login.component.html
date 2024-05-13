@@ -54,11 +54,10 @@
                                 </div>
                                 <button mat-raised-button class="submit-button" color="accent" (click)="login()"
                                     [disabled]="!loginForm.valid">登入</button>
-
                             </form>
                         </div>
                     </mat-tab>
-                    <mat-tab label="註冊">
+                    <!-- <mat-tab label="註冊"> -->
                         <div class="content-div">
                             <form [formGroup]="registerForm">
                                 <div>
@@ -146,11 +145,11 @@
                                             formControlName="confirmPassword">
                                     </mat-form-field>
                                 </div> -->
-                                <button mat-raised-button color="accent" class="submit-button" (click)="register()"
-                                    [disabled]="!registerForm.valid">註冊</button>
+                                <!-- <button mat-raised-button color="accent" class="submit-button" (click)="register()"
+                                    [disabled]="!registerForm.valid">註冊</button> -->
                             </form>
                         </div>
-                    </mat-tab>
+                    <!-- </mat-tab> -->
                 </mat-tab-group>
             </mat-card-content>
         </mat-card>

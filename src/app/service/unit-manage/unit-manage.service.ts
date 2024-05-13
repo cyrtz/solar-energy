@@ -58,5 +58,9 @@ export class UnitManageService {
     const ApiUrl = this.baseUrl + `/DeviceManage/DeviceData/Place/SearchDeviceByPlace?devicePlaceGuid=${placeGuid}`;
     return this.http.get<ISearchDeviceByPlaceResponse<ISearchDeviceByPlace>>(ApiUrl);
   }
+  searchUnit(unitName: string): Observable<IGetUnitResponse<IUnitList>>{
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceData/Unit/?unitName=${unitName}`;
+    return this.http.get<IGetUnitResponse<IUnitList>>(ApiUrl);
+  }
 
 }
