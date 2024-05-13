@@ -12,9 +12,6 @@
                 <button mat-button [routerLink]="'../app-home/app-user-manage'">會員管理</button>
                 <button mat-button [routerLink]="'../app-home/app-error-detect'">異常檢測</button>
             </div>
-            <div class="navbar-footer" fxFlex="8">
-                <button mat-button [routerLink]="''">登出</button>
-            </div>
         </div>
     </mat-drawer>
     <mat-drawer-content fxLayout="column" style="background-color: #F8F5F2;">
@@ -36,6 +33,7 @@
                     <img [src]="weatheroverview" class="weather-icon">
                 </div>
                 <div class="tempdiv">{{ temperature }}°C</div>
+                <div style="widt:60px;"><button mat-icon-button><mat-icon style=" font-size: 26px;">account_circle</mat-icon></button></div>
             </div>
         </div>
         <div style="z-index: 10000; height: 100%; background-color: #F8F5F2; position: relative;">
