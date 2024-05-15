@@ -23,6 +23,7 @@ export class NewPlaceDialogComponent implements OnInit {
   }
 
   newPlaceForm = new FormGroup({
+    token: new FormControl(localStorage.getItem('token')),
     deviceUnitGuid: new FormControl(''),
     devicePlaceName: new FormControl('', {
       validators: [

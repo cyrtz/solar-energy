@@ -44,6 +44,7 @@ export class DeleteUnitDialogComponent implements OnInit{
   delete(): void {
     
     const request: IDeleteUnitRequest = {
+      token: localStorage.getItem('token') || '',
       deviceUnitGuid: this.device,
     };
     

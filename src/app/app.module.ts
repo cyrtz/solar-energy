@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -56,6 +56,7 @@ import { LineDayComponent } from './charts/line-day/line-day.component';
 import { LineMonthComponent } from './charts/line-month/line-month.component';
 import { LineWeekComponent } from './charts/line-week/line-week.component';
 import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
+import { InterceptorService } from './service/interceptor/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,15 @@ import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-
     MatListModule,
     MatSelectModule,
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'zh-TW' }],
+  providers: [
+    { 
+      provide: MAT_DATE_LOCALE, useValue: 'zh-TW' 
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

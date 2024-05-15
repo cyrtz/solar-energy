@@ -1,3 +1,4 @@
+import { Token } from '@angular/compiler';
 import { Component, EventEmitter, Inject, Output, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -35,6 +36,7 @@ export class EditDeviceDialogComponent implements OnInit {
   devicePlaceNameList: IPlaceListResponse[] = [];
 
   editDeviceForm = new FormGroup({
+    token: new FormControl(localStorage.getItem('token')),
     deviceOldName: new FormControl(''),
     deviceName: new FormControl('', {
       validators: [

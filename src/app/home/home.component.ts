@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     this.getWeatherData();
     this.getWeatherDataInterval();
   }
-
+  // 取得天氣資料
   getWeatherData() {
     this.WeatherdataService.weatherData().subscribe(
       res => {
@@ -56,10 +56,15 @@ export class HomeComponent implements OnInit {
       }
     )
   }
+  // 每半小時更新一次天氣資料
   getWeatherDataInterval() {
     const source = interval(1800000);
     source.subscribe(() => {
       this.getWeatherData();
     });
+  }
+  // 登出
+  logout() {
+    localStorage.removeItem('token');
   }
 }

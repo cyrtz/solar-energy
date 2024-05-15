@@ -12,7 +12,7 @@ export class UnitManageService {
     private http: HttpClient
   ) { }
 
-  baseUrl = 'http://192.168.50.132:5142';
+  baseUrl = 'http://192.168.50.132:5141';
 
   addUnit(params: INewUnitRequest): Observable<INewUnitResponse<"">> {
     const ApiUrl = this.baseUrl + '/DeviceManage/DeviceData/Unit/AddDeviceUnit';

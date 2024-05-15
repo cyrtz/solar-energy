@@ -15,6 +15,7 @@ export class NewUnitDialogComponent implements AsyncValidator {
   @Output() dialogClosed = new EventEmitter<void>();
 
   newUnitForm = new FormGroup({
+    token: new FormControl(localStorage.getItem('token') || ''),
     deviceUnitName: new FormControl('', {
       validators: [
         Validators.required,

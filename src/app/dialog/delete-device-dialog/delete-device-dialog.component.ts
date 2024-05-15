@@ -28,8 +28,8 @@ export class DeleteDeviceDialogComponent {
   delete(): void {
     // 創建物件 request 並設定 deviceGuid
     const request: IDeleteDeviceRequest = {
+      token: localStorage.getItem('token') || '',
       deviceGuid: this.device.deviceGuid,
-      // 其他需要的屬性
     };
 
     this.deviceService.deleteDevice(request)

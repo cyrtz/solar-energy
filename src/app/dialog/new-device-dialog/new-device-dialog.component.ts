@@ -29,6 +29,7 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
 
   // 新增設備表單
   newDeviceForm = new FormGroup({
+    token: new FormControl(localStorage.getItem('token')),
     deviceName: new FormControl('', {
       validators: [
         Validators.required,
@@ -80,6 +81,7 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
   }
   // 取得與單位相應的地點
   getPlaceList(deviceUnitGuid: string) {
+    // getDevicePlaceList
     this.unitService.searchDeviceByUnit(deviceUnitGuid).subscribe(res => {
       this.devicePlaceNameList = res.data.deviceDataList;
       if (this.devicePlaceNameList.length === 0) {
