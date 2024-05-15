@@ -1,4 +1,5 @@
 export interface INewUnitRequest {
+    token: string | null;
     deviceUnitName: string | null;
 }
 
@@ -26,6 +27,7 @@ export interface IGetUnitResponse<T> {
 }
 
 export interface IDeleteUnitRequest {
+    token: string;
     deviceUnitGuid: string;
 }
 
@@ -48,6 +50,7 @@ export interface IUnitNameisExistsResponse {
 }
 
 export interface IAddDevicePlaceRequest{
+    token: string;
     devicePlaceName: string | null;
     deviceUnitGuid: string;
 }
@@ -77,6 +80,7 @@ export interface IGetPlaceResponse<T> {
 }
 
 export interface IDeletePlaceRequest {
+    token: string;
     devicePlaceGuid: string;
 }
 
