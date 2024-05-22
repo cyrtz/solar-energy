@@ -10,7 +10,7 @@ import { InteractiveMapComponent } from './interactive-map/interactive-map.compo
 import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorDetectComponent } from './error-detect/error-detect.component';
-import { authGuard } from './auth/auth.guard';
+// import { authGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -18,7 +18,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {path: '', redirectTo: 'app-dashboard', pathMatch: 'full'},
-      {path: 'app-device-manage', component: DeviceManageComponent,canActivate: [authGuard]},
+      {path: 'app-device-manage', component: DeviceManageComponent},
       {path: 'app-device-detail/:deviceGuid', component: DeviceDetailComponent},
       {path: 'app-user-manage', component: UserManageComponent},
       {path: 'app-unit-manage', component: UnitManageComponent},

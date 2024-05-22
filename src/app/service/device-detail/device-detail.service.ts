@@ -8,7 +8,7 @@ import { IDeviceData, IDeviceDataResponse, IDeviceDetail, IDeviceDetailResponse 
 })
 export class DeviceDetailService {
 
-  private baseUrl = 'http://192.168.50.132:5141' // URL to web api
+  private baseUrl = 'http://192.168.50.132:5142' // URL to web api
 
   constructor(
     private http: HttpClient,

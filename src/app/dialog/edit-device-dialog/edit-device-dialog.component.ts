@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, catchError, map, of } from 'rxjs';
 import { IEditDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
-import { IPlaceListResponse, IUnitListResponse } from 'src/app/models/unit-manage';
+import { IPlaceListItem, IUnitListResponse } from 'src/app/models/unit-manage';
 import { DeviceManageService } from 'src/app/service/device-manage/device-manage.service';
 import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.service';
 
@@ -33,7 +33,8 @@ export class EditDeviceDialogComponent implements OnInit {
   isUnitSelected: boolean = false;
   placeList: string[] = [];
   unitData: IUnitListResponse[] = [];
-  devicePlaceNameList: IPlaceListResponse[] = [];
+  devicePlaceNameList: IPlaceListItem[] = [];
+  unitName: string = '';
 
   editDeviceForm = new FormGroup({
     token: new FormControl(localStorage.getItem('token')),
@@ -76,6 +77,14 @@ export class EditDeviceDialogComponent implements OnInit {
   getUnitList() {
     this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
+      this.unitData.forEach(element => {
+        if (element.deviceUnitGuid === this.data.deviceUnitGuid) {
+          this.unitName = element.deviceUnitName;
+          this.isUnitSelected = true;
+        } else {
+          console.log('error');
+        }
+      });
     });
   }
   // 單位選擇事件
@@ -86,8 +95,8 @@ export class EditDeviceDialogComponent implements OnInit {
   }
   // 取得與單位相應的地點
   getPlaceList(deviceUnitGuid: string) {
-    this.unitService.searchDeviceByUnit(deviceUnitGuid).subscribe(res => {
-      this.devicePlaceNameList = res.data.deviceDataList;
+    this.unitService.searchPlaceByUnit(deviceUnitGuid).subscribe(res => {
+      this.devicePlaceNameList = res.data.placeList;
       if (this.devicePlaceNameList.length === 0) {
         this.editDeviceForm.get('devicePlaceGuid')?.setErrors({ 'noPlaces': true });
       }

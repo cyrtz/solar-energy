@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
-import { IPlaceList, IPlaceListResponse, IUnitList, IUnitListResponse } from '../models/unit-manage';
+import { IPlaceList, IPlaceListItem, IUnitList, IUnitListResponse } from '../models/unit-manage';
 import { debounceTime, Observable, of, switchMap, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -28,19 +28,19 @@ export class UnitManageComponent {
   unitDisplayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
   placeDisplayedColumns: string[] = ['Id', 'devicePlaceName', 'operation'];
   // expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
-  expandedElement!: IPlaceListResponse | null;
+  expandedElement!: IPlaceListItem | null;
   // columnsToDisplayWithExpand = [ 'expand',...this.unitDisplayedColumns];
   // 單位列表
   unitData: IUnitListResponse[] = [];
   // 地點列表
-  placeData: IPlaceListResponse[] = [];
+  placeData: IPlaceListItem[] = [];
   // dataSource = ELEMENT_DATA;
   unitDataSource = new MatTableDataSource<IUnitListResponse>(this.unitData);
-  placeDataSource = new MatTableDataSource<IPlaceListResponse>(this.placeData);
+  placeDataSource = new MatTableDataSource<IPlaceListItem>(this.placeData);
   currentPage: number = 0;
   unitGuid: string = '';
   unitGuidList: { unitGuid: string, name: string }[] = [];
-  placeList: { name: string, unitGuid: string, data: IPlaceListResponse[] }[] = [];
+  placeList: { name: string, unitGuid: string, data: IPlaceListItem[] }[] = [];
   // 搜尋單位列表
   searchUnitData: IUnitListResponse[] = [];
   // 搜尋表單
@@ -176,7 +176,7 @@ export class UnitManageComponent {
     });
   }
   // 刪除地點
-  deletePlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string, place: IPlaceListResponse): void {
+  deletePlaceDialog(enterAnimationDuration: string, exitAnimationDuration: string, place: IPlaceListItem): void {
     const dialogRef = this.dialog.open(DeletePlaceDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IDeletePlaceRequest, IPlaceListResponse } from 'src/app/models/unit-manage';
+import { IDeletePlaceRequest, IPlaceListItem } from 'src/app/models/unit-manage';
 import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.service';
 
 @Component({
@@ -9,13 +9,13 @@ import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.servi
   styleUrls: ['./delete-place-dialog.component.scss']
 })
 export class DeletePlaceDialogComponent {
-  device: IPlaceListResponse;
+  device: IPlaceListItem;
 
   @Output() dialogClosed = new EventEmitter<void>();
 
   constructor(
     private unitService: UnitManageService,
-    @Inject(MAT_DIALOG_DATA) public data: IPlaceListResponse
+    @Inject(MAT_DIALOG_DATA) public data: IPlaceListItem
   ) {
     this.device = data;
   };

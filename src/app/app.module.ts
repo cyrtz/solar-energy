@@ -57,6 +57,7 @@ import { LineMonthComponent } from './charts/line-month/line-month.component';
 import { LineWeekComponent } from './charts/line-week/line-week.component';
 import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
 import { InterceptorService } from './service/interceptor/interceptor.service';
+import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { InterceptorService } from './service/interceptor/interceptor.service';
     LineMonthComponent,
     DeletePlaceDialogComponent,
     StackedColumnsWeekComponent,
+    NewDeviceByUnitDialogComponent,
   ],
   imports: [
     BrowserModule,

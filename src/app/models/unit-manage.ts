@@ -62,10 +62,10 @@ export interface IAddDevicePlaceResponse<T>{
 }
 
 export interface IPlaceList{
-    placeList: IPlaceListResponse[];
+    placeList: IPlaceListItem[];
 }
 
-export interface IPlaceListResponse{
+export interface IPlaceListItem{
     Id: number;
     devicePlaceName: string;
     devicePlaceGuid: string;
@@ -130,6 +130,16 @@ export interface ISearchDeviceByUnit {
 }
 
 export interface ISearchDeviceByUnitResponse<T> {
+    data: T;
+    isSuccess: boolean;
+    message: string;
+}
+
+export interface ISearchPlaceByUnitRequest {
+    deviceUnitGuid: string;
+}
+
+export interface ISearchPlaceByUnitResponse<T> {
     data: T;
     isSuccess: boolean;
     message: string;
