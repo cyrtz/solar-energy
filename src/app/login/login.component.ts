@@ -85,7 +85,6 @@ export class LoginComponent {
       } else {
         this.opneLoginDialog('0ms', '0ms');
       }
-      console.log(res);
     });
     // this.router.navigate(['/app-home'])
 

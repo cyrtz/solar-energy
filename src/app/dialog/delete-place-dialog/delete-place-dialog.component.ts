@@ -22,7 +22,6 @@ export class DeletePlaceDialogComponent {
 
   delete(): void {
     const request: IDeletePlaceRequest = {
-      token: localStorage.getItem('token') || '',
       devicePlaceGuid: this.device.devicePlaceGuid,
     };
 

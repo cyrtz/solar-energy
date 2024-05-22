@@ -58,6 +58,7 @@ import { LineWeekComponent } from './charts/line-week/line-week.component';
 import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
 import { InterceptorService } from './service/interceptor/interceptor.service';
 import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dial
     DeletePlaceDialogComponent,
     StackedColumnsWeekComponent,
     NewDeviceByUnitDialogComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,

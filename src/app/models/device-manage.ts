@@ -18,7 +18,6 @@ export interface deviceListRes {
     updateTime: string;
 }
 export interface IAddDeviceRequest {
-    token: string;
     deviceName: string;
     deviceUnitGuid: string;
     devicePlaceGuid: string;
@@ -39,7 +38,6 @@ export interface IDeletedeviceList {
     updateTime: string;
 }
 export interface IDeleteDeviceRequest {
-    token: string;
     deviceGuid: string;
 }
 export interface IDeleteDeviceResponse {
@@ -48,7 +46,6 @@ export interface IDeleteDeviceResponse {
     message: string;
 }
 export interface IEditDeviceRequest {
-    token: string;
     deviceOldName: string;
     deviceName: string;
     deviceUnitName: string;

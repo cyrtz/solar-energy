@@ -37,7 +37,6 @@ export class EditDeviceDialogComponent implements OnInit {
   unitName: string = '';
 
   editDeviceForm = new FormGroup({
-    token: new FormControl(localStorage.getItem('token')),
     deviceOldName: new FormControl(''),
     deviceName: new FormControl('', {
       validators: [

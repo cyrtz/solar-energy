@@ -22,4 +22,10 @@ export class LoginService {
     const ApiUrl = this.baseUrl + '/Account/AccountInfo/Register';
     return this.http.post<IApiResponse<"">>(ApiUrl, params);
   }
+
+  // 取得使用者資訊 interface待修正
+  getAccountInfo(): Observable<any>{
+    const ApiUrl = this.baseUrl + '/Account/AccountInfo/GetAccountInfo';
+    return this.http.get<any>(ApiUrl)
+  }
 }

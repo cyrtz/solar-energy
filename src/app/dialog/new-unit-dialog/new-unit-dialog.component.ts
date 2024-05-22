@@ -15,7 +15,6 @@ export class NewUnitDialogComponent implements AsyncValidator {
   @Output() dialogClosed = new EventEmitter<void>();
 
   newUnitForm = new FormGroup({
-    token: new FormControl(localStorage.getItem('token') || ''),
     deviceUnitName: new FormControl('', {
       validators: [
         Validators.required,
@@ -50,7 +49,6 @@ export class NewUnitDialogComponent implements AsyncValidator {
   }
   addUnit(): void {
     const params = this.newUnitForm.getRawValue();
-
     console.log(params);
     this.unitService.addUnit(params).subscribe(res => {
       // console.log(res);

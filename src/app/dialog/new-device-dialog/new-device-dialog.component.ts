@@ -29,7 +29,6 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
 
   // 新增設備表單
   newDeviceForm = new FormGroup({
-    token: new FormControl(localStorage.getItem('token')),
     deviceName: new FormControl('', {
       validators: [
         Validators.required,

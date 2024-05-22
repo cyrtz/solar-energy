@@ -10,7 +10,8 @@ import { InteractiveMapComponent } from './interactive-map/interactive-map.compo
 import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorDetectComponent } from './error-detect/error-detect.component';
-// import { authGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
       {path: 'app-interactive-map', component: InteractiveMapComponent},
       {path: 'app-dashboard', component: DashboardComponent},
       {path: 'app-error-detect', component: ErrorDetectComponent},
-    ]
+      {path: 'app-user-info', component: UserInfoComponent},
+    ], canActivateChild: [AuthGuard],
   },
 ];
 

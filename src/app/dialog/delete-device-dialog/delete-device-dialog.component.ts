@@ -28,19 +28,22 @@ export class DeleteDeviceDialogComponent {
   delete(): void {
     // 創建物件 request 並設定 deviceGuid
     const request: IDeleteDeviceRequest = {
-      token: localStorage.getItem('token') || '',
       deviceGuid: this.device.deviceGuid,
     };
 
     this.deviceService.deleteDevice(request)
       .subscribe(
         res => {
-          // 使用dialog做回應
-          console.log(res);
-          // dialogClosed 事件觸發時重新取得設備列表
-          this.dialogClosed.emit();
-          // 發布 dialogClosed 事件
-        }
-      );
+          if (res.isSuccess == false) {
+            // 新增失敗訊息
+            alert(res.message);
+            return;
+          } else {
+            // 新增刪除成功訊息
+            alert('刪除成功');
+            // 發布事件
+            this.dialogClosed.emit();
+          }
+        });
   }
 }

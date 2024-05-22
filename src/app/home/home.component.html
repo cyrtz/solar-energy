@@ -33,9 +33,21 @@
                     <img [src]="weatheroverview" class="weather-icon">
                 </div>
                 <div class="tempdiv">{{ temperature }}°C</div>
-                <button mat-icon-button style="color: #335780;">
-                    <mat-icon>person</mat-icon>
-                </button>
+                <div style="width:60px;">
+                    <button mat-icon-button [matMenuTriggerFor]="user">
+                        <mat-icon style=" font-size: 26px;">account_circle</mat-icon>
+                    </button>
+                    <mat-menu #user="matMenu">
+                        <button mat-menu-item [routerLink]="'../app-home/app-user-info'">
+                            <mat-icon>account_box</mat-icon>
+                            <span>個人基本資料</span>
+                        </button>
+                        <button mat-menu-item (click)="logout()">
+                            <mat-icon>logout</mat-icon>
+                            <span>登出</span>
+                        </button>
+                    </mat-menu>
+                </div>
             </div>
         </div>
         <div style="z-index: 10000; height: 100%; background-color: #F8F5F2; position: relative;">
