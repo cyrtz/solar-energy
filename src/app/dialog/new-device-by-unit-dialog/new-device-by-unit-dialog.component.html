@@ -26,12 +26,11 @@
         <div class="formInput">
             <mat-form-field color="accent">
                 <mat-label>單位</mat-label>
-                <input matInput class="cantChange" formControlName="deviceUnitGuid" [(ngModel)]="this.unitName" readonly/>
-                <mat-error align="end">
-                    <span *ngIf="deviceUnitGuid?.errors?.['required']">
-                        請選擇單位
-                    </span>
-                </mat-error>
+                <mat-select class="cantChange" formControlName="deviceUnitGuid" [disabled]="!isUnitSelected">
+                    <mat-option [value]="this.unitGuid">
+                        {{this.unitName}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
         <div class="formInput">

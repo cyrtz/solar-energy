@@ -22,13 +22,13 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
   }
 
   unitName: string = '';
+  unitGuid: string ='';
   isUnitSelected: boolean = false;
   placeList: string[] = [];
   unitData: IUnitListResponse[] = [];
   devicePlaceNameList: IPlaceListItem[] = [];
 
   newDeviceForm = new FormGroup({
-    token: new FormControl(localStorage.getItem('token')),
     deviceName: new FormControl('', {
       validators: [
         Validators.required,
@@ -39,17 +39,17 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
         this.cannotEmpty.bind(this),
       ],
     }),
-    deviceMacAddress: new FormControl('', {
-      validators: [
-        Validators.required,
-      ],
-    }),
     deviceUnitGuid: new FormControl('', {
-      validators: [
-        Validators.required,
-      ],
+      // validators: [
+      //   Validators.required,
+      // ],
     }),
     devicePlaceGuid: new FormControl('', {
+      validators: [
+        Validators.required,
+      ],
+    }),
+    deviceMacAddress: new FormControl('', {
       validators: [
         Validators.required,
       ],
@@ -57,9 +57,9 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
   });
 
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
-  get deviceMacAddress() { return this.newDeviceForm.get('deviceMacAddress'); }
   get deviceUnitGuid() { return this.newDeviceForm.get('deviceUnitGuid'); }
   get devicePlaceGuid() { return this.newDeviceForm.get('devicePlaceGuid'); }
+  get deviceMacAddress() { return this.newDeviceForm.get('deviceMacAddress'); }
 
   constructor(
     private deviceService: DeviceManageService,
@@ -73,6 +73,7 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
       this.unitData.forEach(element => {
         if (element.deviceUnitGuid === this.data.unitGuid) {
           this.unitName = element.deviceUnitName;
+          this.unitGuid = element.deviceUnitGuid
           this.isUnitSelected = true;
         }
       });
@@ -84,12 +85,15 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
       this.unitService.searchPlaceByUnit(deviceUnitGuid).subscribe(res => {
         this.devicePlaceNameList = res.data.placeList;
         // console.log(this.devicePlaceNameList);
+        if (this.devicePlaceNameList.length === 0) {
+          this.newDeviceForm.get('devicePlaceGuid')?.setErrors({ 'noPlaces': true });
+        }
       });
     }
   }
-  
   add(): void {
     const value = this.newDeviceForm.getRawValue();
+    value.deviceUnitGuid = this.unitGuid
     this.deviceService.addDevice(value as unknown as IAddDeviceRequest)
       .subscribe(res => {
         if (res.isSuccess == false) {
