@@ -6,22 +6,17 @@
         <div class="formInput">
             <mat-form-field color="accent">
                 <mat-label> 設備名稱 </mat-label>
-                <input class="cantChange" matInput formControlName="deviceOldName" [(ngModel)]="this.device.deviceName" readonly/>
+                <input class="cantChange" matInput formControlName="deviceOldName" [(ngModel)]="this.device.deviceName"
+                    readonly />
             </mat-form-field>
         </div>
         <div class="formInput">
             <mat-form-field color="accent">
                 <mat-label> 新設備名稱 </mat-label>
-                <input matInput formControlName="deviceName" placeholder="勿取重複名稱"/>
+                <input matInput formControlName="deviceName" placeholder="勿取重複名稱" />
                 <mat-error align="end">
-                    <span *ngIf="deviceName?.errors?.['required']">
-                        設備名稱是必要的
-                    </span>
                     <span *ngIf="deviceName?.errors?.['minlength']">
                         設備名稱至少要有2個字
-                    </span>
-                    <span *ngIf="deviceName?.errors?.['cannotEmpty']">
-                        設備名稱不可為空
                     </span>
                     <span *ngIf="deviceName?.errors?.['uniqueAlterEgo']">
                         設備名稱已存在
@@ -30,20 +25,16 @@
             </mat-form-field>
         </div>
         <div class="formInput">
+            <!-- <input matInput class="cantChange" formControlName="deviceUnitGuid" [(ngModel)]="this.device.deviceUnitName" readonly/> -->
             <mat-form-field color="accent">
                 <mat-label>單位</mat-label>
-                <!-- <input matInput class="cantChange" formControlName="deviceUnitGuid" [(ngModel)]="this.device.deviceUnitName" readonly/> -->
                 <mat-select formControlName="deviceUnitGuid" (selectionChange)="onUnitChange($event.value)">
                     <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
-                        {{unit.deviceUnitName}}
+                        {{ unit.deviceUnitName }}
                     </mat-option>
                 </mat-select>
-                <mat-error align="end">
-                    <span *ngIf="deviceUnitGuid?.errors?.['required']">
-                        單位是必要的
-                    </span>
-                </mat-error>
             </mat-form-field>
+
         </div>
         <div class="formInput">
             <mat-form-field color="accent">
@@ -56,17 +47,9 @@
                         此單位無地點
                     </mat-option>
                 </mat-select>
-                <mat-hint align="end" *ngIf="!isUnitSelected">
-                    <span>
-                        請先選擇單位
-                    </span>
-                </mat-hint>
                 <mat-error align="end">
                     <span *ngIf="!isUnitSelected">
                         請先選擇單位
-                    </span>
-                    <span *ngIf="isUnitSelected && devicePlaceGuid?.errors?.['required']">
-                        請選擇地點
                     </span>
                     <span *ngIf="devicePlaceGuid?.errors?.['noPlaces']">
                         請先新增地點
@@ -78,5 +61,6 @@
 </div>
 <div mat-dialog-actions class="dialog-action">
     <button mat-raised-button mat-dialog-close>取消</button>
-    <button mat-raised-button [mat-dialog-close]="true" (click)="edit()" color="accent" [disabled]="!editDeviceForm.valid">修改</button>
+    <button mat-raised-button [mat-dialog-close]="true" (click)="edit()" color="accent"
+        [disabled]="!editDeviceForm.valid">修改</button>
 </div>

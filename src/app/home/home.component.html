@@ -35,15 +35,12 @@
                 <div class="tempdiv">{{ temperature }}°C</div>
                 <div style="width:60px;">
                     <button mat-icon-button [matMenuTriggerFor]="user">
-                        <mat-icon style=" font-size: 26px;">account_circle</mat-icon>
+                        <mat-icon style="color: #335780; font-size: 26px;">account_circle</mat-icon>
                     </button>
                     <mat-menu #user="matMenu">
-                        <button mat-menu-item [routerLink]="'../app-home/app-user-info'">
-                            <mat-icon>account_box</mat-icon>
-                            <span>個人基本資料</span>
-                        </button>
+                        <app-user-info></app-user-info>
                         <button mat-menu-item (click)="logout()">
-                            <mat-icon>logout</mat-icon>
+                            <mat-icon style="color: #335780; font-size: 22px;">logout</mat-icon>
                             <span>登出</span>
                         </button>
                     </mat-menu>

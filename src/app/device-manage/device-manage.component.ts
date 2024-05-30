@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { deviceListRes } from '../models/device-manage';
 import { DeviceManageService } from '../service/device-manage/device-manage.service';
 import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { DeleteDeviceDialogComponent } from '../dialog/delete-device-dialog/delete-device-dialog.component';
-import { Observable, catchError, debounceTime, delay, distinctUntilChanged, fromEvent, map, of, switchMap, tap } from 'rxjs';
+import { Observable, debounceTime, switchMap, tap } from 'rxjs';
 import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-device-dialog.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IUnitListResponse } from '../models/unit-manage';

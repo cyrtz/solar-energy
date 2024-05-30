@@ -1,10 +1,54 @@
-<div fxLayout="row" class="pagetitle" fxLayoutAlign="start center" fxFlex="100">
-    <div fxLayoutAlign="start center" class="title-icon">
-        <mat-icon>account_box</mat-icon>
-        <mat-icon>remove</mat-icon>
+<!-- <div fxLayout="row" fxLayoutAlign="start center" class="pageheader">
+    <div fxLayout="row" class="pagetitle" fxLayoutAlign="start center" fxFlex="100">
+        <div fxLayoutAlign="start center" class="title-icon">
+            <mat-icon>account_box</mat-icon>
+            <mat-icon>remove</mat-icon>
+        </div>
+        <div>個人基本資料</div>
     </div>
-    <div>個人基本資料</div>
-</div>
-<div>
-    <p>{{accountInfo | json}}</p>
-</div>
+</div> -->
+
+<mat-card class="accountCard" fxLayout="column">
+    <mat-card-header class="mainTitle">
+        <mat-card-title>
+            <div fxLayoutAlign="start center" class="title-icon">
+                <mat-icon>account_box</mat-icon>
+                <mat-icon>remove</mat-icon>
+                <div>個人基本資料</div>
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="accountInfo">
+        <mat-list>
+            <mat-list-item>
+                <span class="info-title">帳號：</span>
+                <span>{{accountInfo.userAccount ? (accountInfo.userAccount) : ('無')}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span class="info-title">姓名：</span>
+                <span>{{accountInfo.userName ? (accountInfo.userName) : ('無')}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span class="info-title">信箱：</span>
+                <span>{{accountInfo.userEmail ? (accountInfo.userEmail) : ('無')}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span class="info-title">電話：</span>
+                <span>{{accountInfo.userPhone ? (accountInfo.userPhone) : ('無')}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span class="info-title">部門：</span>
+                <span>{{accountInfo.userDepartment ? (accountInfo.userDepartment) : ('無')}}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span class="info-title">職位：</span>
+                <span>{{accountInfo.userPosition ? (accountInfo.userPosition) : ('無')}}</span>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+        <!-- <button mat-icon-button matTooltip="編輯" (click)="editAccountDialog('0ms', '0ms', accountInfo)">
+                <mat-icon style="color: #0000ff;">edit</mat-icon>
+            </button> -->
+    </mat-card-actions>
+</mat-card>

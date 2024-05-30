@@ -74,9 +74,8 @@ export class DeviceDetailComponent implements OnInit {
   }
 
   getDeviceData() {
-    // console.log();
     this.devicedetailService.getDeviceData(this.deviceGuid).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.deviceName = res.data.deviceName;
       this.deviceUnitName = res.data.deviceUnitName;
       this.devicePlaceName = res.data.devicePlaceName;

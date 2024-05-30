@@ -1,12 +1,23 @@
-.pagetitle {
-    background: #82bbb5;
-    box-shadow: 5px 5px 5px gray;
+.pageheader {
     height: 56px;
-    font-size: 1.5rem;
-    color: white;
-    margin: 1.3rem 1rem 0 1rem;
+    margin-top: 1.3rem
+}
 
-    .title-icon {
-        margin-left: 1.3rem;
-    }
+.title-icon {
+    font-size: 1.5rem;
+    margin-left: 1.3rem;
+}
+
+.mainTitle {
+    color: white;
+    background-color: #82bbb5;
+    padding: 12px;
+    border-radius: 5px 5px 0 0;
+    font-size: 3ch;
+}
+
+.accountCard {
+    // width: 100%;
+    margin: 1rem;
+    box-shadow: 5px 5px 5px 5px gray;
 }

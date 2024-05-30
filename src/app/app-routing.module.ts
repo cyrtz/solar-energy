@@ -26,7 +26,6 @@ const routes: Routes = [
       {path: 'app-interactive-map', component: InteractiveMapComponent},
       {path: 'app-dashboard', component: DashboardComponent},
       {path: 'app-error-detect', component: ErrorDetectComponent},
-      {path: 'app-user-info', component: UserInfoComponent},
     ], canActivateChild: [AuthGuard],
   },
 ];

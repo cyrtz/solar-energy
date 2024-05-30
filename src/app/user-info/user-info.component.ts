@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login/login.service';
+import { IAccountInfo } from '../models/account';
+import { AccountService } from '../service/account/account.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-info',
@@ -8,18 +11,35 @@ import { LoginService } from '../service/login/login.service';
 })
 export class UserInfoComponent implements OnInit{
   token = localStorage.getItem('token');
-  accountInfo: any;
+  accountInfo?: IAccountInfo;
   
   constructor(
-    private loginService: LoginService,
+    private accountService: AccountService,
+    public dialog: MatDialog,
   ){}
   
   ngOnInit(): void {
     this.getAccountInfo();
   }
+  // 取得帳號資訊
   getAccountInfo(){
-    this.loginService.getAccountInfo().subscribe(res => {
-      this.accountInfo = res
+    this.accountService.getAccountInfo().subscribe(res => {
+      this.accountInfo = res.data;
     })
   }
+  // // 開啟編輯帳號對話框
+  // editAccountDialog(enterAnimationDuration: string, exitAnimationDuration: string, device: deviceListRes): void {
+  //   const dialogRef = this.dialog.open(EditDeviceDialogComponent, {
+  //     enterAnimationDuration,
+  //     exitAnimationDuration,
+  //     width: '500px',
+  //     data: device,
+  //   });
+  //   // 訂閱 dialogClosed 事件
+  //   dialogRef.componentInstance.dialogClosed.subscribe(() => {
+  //   // 事件觸發時重新取得設備列表
+  //     console.log('dialogClosed');
+  //     this.getAccountInfo();
+  //   });
+  // }
 }
