@@ -1,12 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
-import { IPlaceListItem, ISearchDeviceByPlace, ISearchDeviceByPlaceList, ISearchDeviceByPlaceRequest, IUnitListResponse } from '../models/unit-manage';
+import { ISearchDeviceByPlaceList, IUnitListResponse } from '../models/unit-manage';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, tap } from 'rxjs';
-import { NewDeviceDialogComponent } from '../dialog/new-device-dialog/new-device-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceManageService } from '../service/device-manage/device-manage.service';
 import { NewDeviceByUnitDialogComponent } from '../dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
+import { DeleteDeviceDialogComponent } from '../dialog/delete-device-dialog/delete-device-dialog.component';
+import { deviceListRes } from '../models/device-manage';
+import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-device-dialog.component';
 
 export interface DialogData {
   unitGuid: string;
@@ -21,7 +23,7 @@ export class InteractiveMapComponent implements OnInit {
   show = true;
   deviceData: ISearchDeviceByPlaceList[] = []
   deviceDataSource = new MatTableDataSource<ISearchDeviceByPlaceList>(this.deviceData);
-  deviceDiaplayedColumns: string[] = ['Id', 'deviceName', 'operation'];
+  deviceDiaplayedColumns: string[] = ['Id', 'deviceName', 'devicePlace', 'operation'];
   unitName: string = '';
   getUnitGuid: string = '';
   unitList: IUnitListResponse[] = [];
@@ -96,7 +98,6 @@ export class InteractiveMapComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUnitList().subscribe();
-    this.showIcon();
   }
 
   getUnitList(): Observable<any> {
@@ -110,20 +111,6 @@ export class InteractiveMapComponent implements OnInit {
     )
   }
 
-  showIcon(): void {
-    this.deviceService.getDevices(0, 6).subscribe(res => {
-      console.log(res);
-      res.data.deviceList.map(element => {
-        // if (element.deviceUnitName) {
-        //   this.test.push({ guid: element.deviceUnitName, show: true });
-        // } else {
-        //   this.test.push({ guid: element.deviceUnitName, show: false });
-        // }
-        // this.test.push({ guid: element.deviceUnitName, show: true });
-      });
-      console.log(this.test);
-    });
-  }
 
   getDevice(unitGuid: string) {
     this.show = false;
@@ -149,20 +136,7 @@ export class InteractiveMapComponent implements OnInit {
       })
     ).subscribe();
   }
-  //新增設備
-  newDeviceDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    const dialogRef = this.dialog.open(NewDeviceDialogComponent, {
-      enterAnimationDuration,
-      exitAnimationDuration,
-      width: '500px',
-    });
-    // 訂閱 dialogClosed 事件
-    dialogRef.componentInstance.dialogClosed.subscribe(() => {
-      // 事件觸發時重新取得設備列表
-      console.log('dialogClosed');
-      this.getDevice(this.getUnitGuid);
-    });
-  }
+  //新增設備Dialog
   newDeviceByUnitDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewDeviceByUnitDialogComponent, {
       enterAnimationDuration,
@@ -171,10 +145,37 @@ export class InteractiveMapComponent implements OnInit {
       data: { unitGuid: this.getUnitGuid }
     });
     // 訂閱 dialogClosed 事件
-    // dialogRef.componentInstance.dialogClosed.subscribe(() => {
-    //   // 事件觸發時重新取得設備列表
-    //   console.log('dialogClosed');
-    //   this.getDevice(this.getUnitGuid);
-    // });
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      // 事件觸發時重新取得設備列表
+      this.getDevice(this.getUnitGuid);
+    });
+  }
+  // 刪除設備Dialog
+  deleteDeviceDialog(enterAnimationDuration: string, exitAnimationDuration: string, device: deviceListRes): void {
+    const dialogRef = this.dialog.open(DeleteDeviceDialogComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
+      width: '500px',
+      data: device
+    });
+    // 訂閱 dialogClosed 事件
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      // 事件觸發時重新取得設備列表
+      this.getDevice(this.getUnitGuid);
+    });
+  }
+  // 編輯設備Dialog
+  editDeviceDialog(enterAnimationDuration: string, exitAnimationDuration: string, device: deviceListRes): void {
+    const dialogRef = this.dialog.open(EditDeviceDialogComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
+      width: '500px',
+      data: device
+    });
+    // 訂閱 dialogClosed 事件
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      // 事件觸發時重新取得設備列表
+      this.getDevice(this.getUnitGuid);
+    });
   }
 }
