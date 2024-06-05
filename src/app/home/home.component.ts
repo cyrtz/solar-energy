@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
 import { WeatherdataService } from '../service/weather/weatherdata.service';
 import { interval } from 'rxjs';
 import { formatDate } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +17,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private WeatherdataService: WeatherdataService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -64,12 +61,5 @@ export class HomeComponent implements OnInit {
     source.subscribe(() => {
       this.getWeatherData();
     });
-  }
-  // 登出
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.clear();
-    // 路由到登入頁面
-    this.router.navigate(['']);
   }
 }

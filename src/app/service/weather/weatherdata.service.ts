@@ -15,7 +15,7 @@ export class WeatherdataService {
   ) { }
   
   weatherData(): Observable<IWeatherApiResponse<IWeatherData>> {
-    const url = this.baseUrl + '/weather/Weather/GetShowWeatherData';
-    return this.http.get<IWeatherApiResponse<IWeatherData>>(url);
+    const ApiUrl = this.baseUrl + '/weather/Weather/GetShowWeatherData';
+    return this.http.get<IWeatherApiResponse<IWeatherData>>(ApiUrl);
   }
 }

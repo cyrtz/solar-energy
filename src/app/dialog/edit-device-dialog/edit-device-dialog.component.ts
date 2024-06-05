@@ -114,9 +114,9 @@ export class EditDeviceDialogComponent implements OnInit {
   edit(): void {
     // 獲取表單數據
     const value = this.editDeviceForm.getRawValue();
-    // if (value.deviceName === '') {
-    //   value.deviceName = value.deviceOldName;
-    // }
+    if (value.deviceName === '') {
+      value.deviceName = value.deviceOldName;
+    }
     this.deviceService.editDevice(value as unknown as IEditDeviceRequest)
       .subscribe(res => {
         alert(res.message);

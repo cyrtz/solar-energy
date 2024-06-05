@@ -59,6 +59,7 @@ import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-
 import { InterceptorService } from './service/interceptor/interceptor.service';
 import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-account-dialog.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
     StackedColumnsWeekComponent,
     NewDeviceByUnitDialogComponent,
     UserInfoComponent,
+    EditAccountDialogComponent,
   ],
   imports: [
     BrowserModule,

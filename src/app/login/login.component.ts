@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { LoginService } from '../service/login/login.service';
 import { ILoginRequest, IRegisterRequest } from '../models/login-form';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ import { RegisterDialogComponent } from '../dialog/register-dialog/register-dial
 //   }
 // }
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   hide = true;
   loginForm = new FormGroup({
     userAccount: new FormControl('', [
@@ -66,7 +66,9 @@ export class LoginComponent {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) { }
-
+  ngOnInit(): void {
+    localStorage.removeItem('token');
+  }
   get userAccountLogin() { return this.loginForm.get('userAccount'); }
   get userPasswordLogin() { return this.loginForm.get('userPassword'); }
   get userEmail() { return this.registerForm.get('userEmail'); }

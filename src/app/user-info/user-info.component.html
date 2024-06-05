@@ -7,7 +7,6 @@
         <div>個人基本資料</div>
     </div>
 </div> -->
-
 <mat-card class="accountCard" fxLayout="column">
     <mat-card-header class="mainTitle">
         <mat-card-title>
@@ -46,9 +45,15 @@
             </mat-list-item>
         </mat-list>
     </mat-card-content>
+    <mat-divider></mat-divider>
     <mat-card-actions>
-        <!-- <button mat-icon-button matTooltip="編輯" (click)="editAccountDialog('0ms', '0ms', accountInfo)">
-                <mat-icon style="color: #0000ff;">edit</mat-icon>
-            </button> -->
+        <button mat-menu-item matTooltip="編輯" (click)="editAccountDialog(accountInfo!)">
+            <mat-icon style="color: #0000ff;">edit</mat-icon>
+            <span>編輯</span>
+        </button>
+        <button mat-menu-item matTooltip="登出" (click)="logout()">
+            <mat-icon style="color: #ff0000;">logout</mat-icon>
+            <span>登出</span>
+        </button>
     </mat-card-actions>
 </mat-card>

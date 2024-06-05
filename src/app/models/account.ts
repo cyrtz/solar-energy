@@ -17,3 +17,16 @@ export interface IAccountInfo {
     updateTime: string
     infoUpdateTime: string
 }
+export interface  IAccountUpdateRequest{
+    sysGuid: string
+    userName: string
+    userEmail: string
+    userPhone: string
+    userDepartment: string
+    userPosition: string
+}
+export interface IAccountUpdateResponse {
+    data: string;
+    isSuccess: boolean;
+    message: string;
+}

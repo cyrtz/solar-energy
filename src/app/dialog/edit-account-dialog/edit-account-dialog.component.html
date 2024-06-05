@@ -1,0 +1,59 @@
+<div class="dialog-title">
+    <h1 mat-dialog-title>編輯個人基本資料</h1>
+</div>
+<div mat-dialog-content>
+    <form class="editForm" [formGroup]="editAccountForm">
+        <div class="formInput">
+            <mat-form-field color="accent">
+                <mat-label> 名稱 </mat-label>
+                <input matInput formControlName="userName" />
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field color="accent">
+                <mat-label> 信箱 </mat-label>
+                <input matInput formControlName="userEmail" />
+                <mat-error align="end">
+                    <span *ngIf="userEmail?.hasError('email')">
+                        請輸入正確的信箱格式
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field color="accent">
+                <mat-label> 電話號碼 </mat-label>
+                <input matInput formControlName="userPhone" />
+                <mat-error align="end">
+                    <span *ngIf="userPhone?.hasError('pattern')">
+                        請輸入正確的電話號碼格式
+                    </span>
+                    <span *ngIf="userPhone?.hasError('minlength')">
+                        電話號碼要填寫10個數字
+                    </span>
+                    <span *ngIf="userPhone?.hasError('maxlength')">
+                        電話號碼要填寫10個數字
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field color="accent">
+                <mat-label> 部門 </mat-label>
+                <input matInput formControlName="userDepartment" />
+            </mat-form-field>
+        </div>
+        <div class="formInput">
+            <mat-form-field color="accent">
+                <mat-label> 職位 </mat-label>
+                <input matInput formControlName="userPosition" />
+            </mat-form-field>
+        </div>
+        {{accountInfo | json}}
+    </form>
+</div>
+<div mat-dialog-actions class="dialog-action">
+    <button mat-raised-button mat-dialog-close>取消</button>
+    <button mat-raised-button [mat-dialog-close]="true" (click)="edit()" color="accent"
+        [disabled]="!editAccountForm.valid">修改</button>
+</div>

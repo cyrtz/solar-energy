@@ -15,13 +15,13 @@ export class DeviceDetailService {
   ) { }
 
   getDeviceDetail(deviceGuid: string) {
-    const url = this.baseUrl + `/DeviceManage/DeviceManage/GetDeviceData?deviceGuid=${deviceGuid}`;
-    return this.http.get<IDeviceDetailResponse<IDeviceDetail>>(url);
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetDeviceData?deviceGuid=${deviceGuid}`;
+    return this.http.get<IDeviceDetailResponse<IDeviceDetail>>(ApiUrl);
   }
 
   getDeviceData(deviceGuid: string) {
-    const url = this.baseUrl + `/DeviceManage/DeviceDetail/GetDeviceDetail?deviceGuid=${deviceGuid}`;
-    return this.http.get<IDeviceDataResponse<IDeviceData>>(url);
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceDetail/GetDeviceDetail?deviceGuid=${deviceGuid}`;
+    return this.http.get<IDeviceDataResponse<IDeviceData>>(ApiUrl);
   }
   
 }
