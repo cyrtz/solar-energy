@@ -23,38 +23,21 @@
 .map-card {
     width: 100%;
 
-    .block {
-        width: 60%;
-        height: 74vh;
-
+    svg{
         g {
             fill: transparent;
             transition: 0.6s;
             cursor: pointer;
-
-            path {
-                fill: black;
-            }
-
-            rect,
-            polygon {
-                fill: #B97F5A;
-            }
         }
-
+    
         g:hover {
             transform: translate(-5px, -5px);
-
-            path {
-                fill: white !important;
-            }
-
-            rect,
-            polygon {
-                fill: #6B916B;
-            }
+    
         }
     }
+
+
+    
 }
 
 // .vertical-divider{
