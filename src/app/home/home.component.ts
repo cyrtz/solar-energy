@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   temperature = 0;
   weatheroverview = '';
   isShow: boolean = false;
+  userRole: string = '';
 
   constructor(
     private WeatherdataService: WeatherdataService,
@@ -22,6 +23,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getWeatherData();
     this.getWeatherDataInterval();
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(window.atob(token.split('.')[1]));
+      this.userRole = payload.customRole;
+    }
   }
   // 取得天氣資料
   getWeatherData() {

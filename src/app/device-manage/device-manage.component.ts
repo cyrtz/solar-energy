@@ -18,11 +18,13 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
   styleUrls: ['./device-manage.component.scss'],
 })
 export class DeviceManageComponent implements OnInit {
-  // 單位列表
-  unitData: IUnitListResponse[] = [];
   // 表格欄位
   displayedColumns: string[] = ['deviceName', 'deviceUnitName', 'devicePlaceName', 'operation'];
+  // 單位列表
+  unitData: IUnitListResponse[] = [];
+  // 設備列表
   deviceData: deviceListRes[] = [];
+  // 表單來源
   dataSource = new MatTableDataSource<deviceListRes>(this.deviceData);
   // 搜尋狀態 
   isSearch: boolean = false;
@@ -55,24 +57,6 @@ export class DeviceManageComponent implements OnInit {
     this.getUnitList();
     this.paginatorContent();
   }
-  // 分頁文字內容
-  paginatorContent(): void{
-    this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number):
-    string => {
-      if (length === 0 || pageSize === 0) {
-        return `第 0 筆、共 ${length} 筆`;
-      }
-      length = Math.max(length, 0);
-      const startIndex = page * pageSize;
-      const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-
-      return `第 ${startIndex + 1} ~ ${endIndex} 筆、共 ${length} 筆`;
-    };
-    // 設定其他顯示資訊文字
-    this.matPaginatorIntl.itemsPerPageLabel = '每頁筆數：';
-    this.matPaginatorIntl.nextPageLabel = '下一頁';
-    this.matPaginatorIntl.previousPageLabel = '上一頁';
-  }
   // 取得單位列表
   getUnitList(): void {
     this.unitService.getTotalUnits().subscribe(res => {
@@ -97,7 +81,7 @@ export class DeviceManageComponent implements OnInit {
             return this.searchDevice(this.unitNameFilter || '', this.deviceNameFilter || '', 0, 6);
             // return this.searchDevice(this.unitNameFilter || '','', 0, 6);
           }
-        } else if (value.unitNameFilter?.trim() == '' && value.deviceNameFilter?.trim() != '') {
+        } else if (value.unitNameFilter?.trim() == '' && value.deviceNameFilter?.trim() != ''){
           this.isSearch = true;
           this.unitNameFilter = '';
           this.deviceNameFilter = value.deviceNameFilter;
@@ -178,7 +162,25 @@ export class DeviceManageComponent implements OnInit {
     this.getDevices(event.pageIndex, event.pageSize).subscribe();
     this.getTotalPage();
   }
-  // 開啟新增設備對話框
+  // 分頁文字內容
+  paginatorContent(): void{
+    this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number):
+    string => {
+      if (length === 0 || pageSize === 0) {
+        return `第 0 筆、共 ${length} 筆`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+
+      return `第 ${startIndex + 1} ~ ${endIndex} 筆、共 ${length} 筆`;
+    };
+    // 設定其他顯示資訊文字
+    this.matPaginatorIntl.itemsPerPageLabel = '每頁筆數：';
+    this.matPaginatorIntl.nextPageLabel = '下一頁';
+    this.matPaginatorIntl.previousPageLabel = '上一頁';
+  }
+  // 新增設備
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewDeviceDialogComponent, {
       enterAnimationDuration,
@@ -188,12 +190,11 @@ export class DeviceManageComponent implements OnInit {
     // 訂閱 dialogClosed 事件
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
-      console.log('dialogClosed');
       this.getDevices(this.currentPage, 6).subscribe();
       this.getTotalPage();
     });
   }
-  // 開啟刪除設備對話框
+  // 刪除設備
   deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, device: deviceListRes): void {
     const dialogRef = this.dialog.open(DeleteDeviceDialogComponent, {
       enterAnimationDuration,
@@ -209,7 +210,7 @@ export class DeviceManageComponent implements OnInit {
       this.getTotalPage();
     });
   }
-  // 開啟編輯設備對話框
+  // 修改設備
   editDialog(enterAnimationDuration: string, exitAnimationDuration: string, device: deviceListRes): void {
     const dialogRef = this.dialog.open(EditDeviceDialogComponent, {
       enterAnimationDuration,

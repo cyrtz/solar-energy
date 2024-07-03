@@ -11,9 +11,13 @@ import { EditAccountDialogComponent } from '../dialog/edit-account-dialog/edit-a
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent implements OnInit{
-  token = localStorage.getItem('token');
   accountInfo?: IAccountInfo;
-  
+  // 取得 token
+  token = localStorage.getItem('token');
+  payload = JSON.parse(window.atob(this.token!.split('.')[1]));
+  // 取得會員權限
+  userRole = this.payload.customRole;
+
   constructor(
     private accountService: AccountService,
     public dialog: MatDialog,

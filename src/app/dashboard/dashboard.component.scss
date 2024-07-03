@@ -73,7 +73,16 @@
         padding: 0;
         .deviceTotalQuantity{
             margin: 0;
-            font-size: 6ch;
+            font-size: 5ch;
+            @media (min-width: 1200px) {
+                font-size: 7ch;
+            }
+            @media (min-width: 1600px) {
+                font-size: 9ch;
+            }
+            @media (min-width: 2000px) {
+                font-size: 11ch;
+            }
         }
     }
     .deviceError{
@@ -85,7 +94,16 @@
         padding: 0;
         .deviceErrorQuantity{
             margin: 0;
-            font-size: 6ch;
+            font-size: 5ch;
+            @media (min-width: 1200px) {
+                font-size: 7ch;
+            }
+            @media (min-width: 1600px) {
+                font-size: 9ch;
+            }
+            @media (min-width: 2000px) {
+                font-size: 11ch;
+            }
             color: red;
         }
     }
@@ -98,7 +116,16 @@
         padding: 0;
         .runningDeviceQuantity{
             margin: 0;
-            font-size: 6ch;
+            font-size: 5ch;
+            @media (min-width: 1200px) {
+                font-size: 7ch;
+            }
+            @media (min-width: 1600px) {
+                font-size: 9ch;
+            }
+            @media (min-width: 2000px) {
+                font-size: 11ch;
+            }
         }
     }
     .savedEBills{
@@ -110,7 +137,16 @@
         padding: 0;
         .savedEBillsQuantity{
             margin: 0;
-            font-size: 6ch;
+            font-size: 5ch;
+            @media (min-width: 1200px) {
+                font-size: 7ch;
+            }
+            @media (min-width: 1600px) {
+                font-size: 9ch;
+            }
+            @media (min-width: 2000px) {
+                font-size: 11ch;
+            }
         }
     }
 }

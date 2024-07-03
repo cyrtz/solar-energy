@@ -14,6 +14,7 @@ import {
 import { dataSeries } from '../models/data-series';
 import { deviceListRes } from '../models/device-manage';
 import { DeviceDetailService } from '../service/device-detail/device-detail.service';
+import { Location } from '@angular/common';
 
 
 // import { IDataRecord } from './data-series';
@@ -64,6 +65,7 @@ export class DeviceDetailComponent implements OnInit {
   constructor(
     public route: ActivatedRoute,
     private devicedetailService: DeviceDetailService,
+    private location: Location
   ) {
 
   }
@@ -86,6 +88,9 @@ export class DeviceDetailComponent implements OnInit {
       this.loadAmpere = res.data.loadAmpere;
       this.co2Reduce = res.data.co2Reduce;
     });
+  }
+  goBack() {
+    this.location.back();
   }
 
   deviceDetail = {

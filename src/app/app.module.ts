@@ -60,6 +60,7 @@ import { InterceptorService } from './service/interceptor/interceptor.service';
 import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-account-dialog.component';
+import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-ac
     NewDeviceByUnitDialogComponent,
     UserInfoComponent,
     EditAccountDialogComponent,
+    NewUserDialogComponent,
   ],
   imports: [
     BrowserModule,

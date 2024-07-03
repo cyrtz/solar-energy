@@ -20,6 +20,10 @@
     <mat-card-content *ngIf="accountInfo">
         <mat-list>
             <mat-list-item>
+                <span class="info-title">權限：</span>
+                <span>{{this.userRole ? (this.userRole) : ('無')}}</span>
+            </mat-list-item>
+            <mat-list-item>
                 <span class="info-title">帳號：</span>
                 <span>{{accountInfo.userAccount ? (accountInfo.userAccount) : ('無')}}</span>
             </mat-list-item>
@@ -47,10 +51,12 @@
     </mat-card-content>
     <mat-divider></mat-divider>
     <mat-card-actions>
-        <button mat-menu-item matTooltip="編輯" (click)="editAccountDialog(accountInfo!)">
-            <mat-icon style="color: #0000ff;">edit</mat-icon>
-            <span>編輯</span>
-        </button>
+        <ng-container *ngIf="userRole === 'Editor' || userRole === 'Viewer'">
+            <button mat-menu-item matTooltip="編輯" (click)="editAccountDialog(accountInfo!)">
+                <mat-icon style="color: #0000ff;">edit</mat-icon>
+                <span>編輯</span>
+            </button>
+        </ng-container>
         <button mat-menu-item matTooltip="登出" (click)="logout()">
             <mat-icon style="color: #ff0000;">logout</mat-icon>
             <span>登出</span>

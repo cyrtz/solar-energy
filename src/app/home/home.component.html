@@ -7,10 +7,18 @@
             <div class="navbar-content" fxFlex="72">
                 <button mat-button [routerLink]="'../app-home/'">戰情室</button>
                 <button mat-button [routerLink]="'../app-home/app-interactive-map'">設備地圖</button>
-                <button mat-button [routerLink]="'../app-home/app-device-manage'">設備管理</button>
-                <button mat-button [routerLink]="'../app-home/app-unit-manage'">單位管理</button>
-                <button mat-button [routerLink]="'../app-home/app-user-manage'">會員管理</button>
-                <button mat-button [routerLink]="'../app-home/app-error-detect'">異常檢測</button>
+                <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
+                    <button mat-button [routerLink]="'../app-home/app-device-manage'">設備管理</button>
+                </ng-container>
+                <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
+                    <button mat-button [routerLink]="'../app-home/app-unit-manage'">單位管理</button>
+                </ng-container>
+                <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
+                    <button mat-button [routerLink]="'../app-home/app-user-manage'">會員管理</button>
+                </ng-container>
+                <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
+                    <button mat-button [routerLink]="'../app-home/app-error-detect'">異常檢測</button>
+                </ng-container>
             </div>
         </div>
     </mat-drawer>
@@ -44,9 +52,6 @@
             </div>
         </div>
         <div style="z-index: 10000; height: 100%; background-color: #F8F5F2; position: relative;">
-            <!-- <div *ngIf="!isShow">
-                <app-dashboard></app-dashboard>
-            </div> -->
             <router-outlet></router-outlet>
         </div>
     </mat-drawer-content>
