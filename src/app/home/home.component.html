@@ -14,7 +14,7 @@
                     <button mat-button [routerLink]="'../app-home/app-unit-manage'">單位管理</button>
                 </ng-container>
                 <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
-                    <button mat-button [routerLink]="'../app-home/app-user-manage'">會員管理</button>
+                    <button mat-button [routerLink]="'../app-home/app-user-manage'">使用者管理</button>
                 </ng-container>
                 <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
                     <button mat-button [routerLink]="'../app-home/app-error-detect'">異常檢測</button>

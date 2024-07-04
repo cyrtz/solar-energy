@@ -1,12 +1,13 @@
-<div class="dialogOverrall">
+<div class="dialogOverRall">
     <div class="dialogTitle">
-        <h1 mat-dialog-title>刪除設備</h1>
+        <h1 mat-dialog-title>刪除使用者</h1>
     </div>
     <div class="dialogBodyOuter">
         <div class="dialogBody">
-            <p><b>名稱：</b> {{this.device.deviceName}}</p>
-            <p><b>單位：</b> {{this.device.deviceUnitName}}</p>
-            <p><b>地點：</b> {{this.device.devicePlaceName}}</p>
+            <p><b>帳號：</b> {{userInfo.userAccount}}</p>
+            <p><b>名稱：</b> {{userInfo.userName}}</p>
+            <p><b>權限：</b> {{userInfo.userIdentity}}</p>
+            <p><b>行政/教學單位：</b> {{userInfo.userDepartment}}</p>
         </div>
     </div>
     <div mat-dialog-actions class="dialogActions">

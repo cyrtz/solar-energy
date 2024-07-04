@@ -11,7 +11,7 @@ import { DeviceManageService } from 'src/app/service/device-manage/device-manage
 export class DeleteDeviceDialogComponent {
   // 接收從父元件傳遞的設備數據
   device: IDeletedeviceList;
-  devicePlaceName!: string;
+  // devicePlaceName!: string;
 
   // 定義一個"關閉事件"發射器
   @Output() dialogClosed = new EventEmitter<void>();
@@ -21,7 +21,7 @@ export class DeleteDeviceDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: IDeletedeviceList
   ) {
     this.device = data;
-    this.devicePlaceName = data.devicePlaceName;
+    // this.devicePlaceName = data.devicePlaceName;
   }
 
   // 刪除設備

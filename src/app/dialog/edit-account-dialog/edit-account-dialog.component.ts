@@ -14,7 +14,6 @@ export class EditAccountDialogComponent implements OnInit {
   @Output() dialogClosed = new EventEmitter<void>();
   editAccountForm = new FormGroup({
     sysGuid: new FormControl(''),
-    userName: new FormControl(''),
     userEmail: new FormControl('', {
       validators: [
         Validators.email
@@ -27,8 +26,6 @@ export class EditAccountDialogComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]
     }),
-    userDepartment: new FormControl(''),
-    userPosition: new FormControl(''),
   });
   get userEmail() { return this.editAccountForm.get('userEmail'); }
   get userPhone() { return this.editAccountForm.get('userPhone'); }
@@ -43,11 +40,8 @@ export class EditAccountDialogComponent implements OnInit {
   ngOnInit(): void {
     this.editAccountForm.patchValue({
       sysGuid: this.accountInfo?.sysGuid,
-      userName: this.accountInfo?.userName,
       userEmail: this.accountInfo?.userEmail,
       userPhone: this.accountInfo?.userPhone,
-      userDepartment: this.accountInfo?.userDepartment,
-      userPosition: this.accountInfo?.userPosition,
     });
   }
 
@@ -55,7 +49,6 @@ export class EditAccountDialogComponent implements OnInit {
     const value = this.editAccountForm.getRawValue();
     this.accountService.editAccountInfo(value as unknown as IAccountUpdateRequest)
       .subscribe(res => {
-        // alert(res.message);
         alert('編輯成功');
         // 發布事件
         this.dialogClosed.emit();

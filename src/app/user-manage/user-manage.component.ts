@@ -7,6 +7,7 @@ import { debounceTime, Observable, switchMap, tap } from 'rxjs';
 import { AccountService } from '../service/account/account.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewUserDialogComponent } from '../dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
+import { DeleteUserDialogComponent } from '../dialog/delete-user-dialog/delete-user-dialog/delete-user-dialog.component';
 
 @Component({
   selector: 'app-user-manage',
@@ -16,9 +17,9 @@ import { NewUserDialogComponent } from '../dialog/new-user-dialog/new-user-dialo
 export class UserManageComponent  implements OnInit{
   // 表格欄位
   displayedColumns: string[] = ['userAccount', 'userName', 'userIdentity', 'userDepartment', 'userEmail', 'userPhone', 'operation'];
-  // 部門列表
+  // 行政/教學列表
   userDepartment: IDepartmentListResponse[] = [];
-  // 會員列表
+  // 使用者列表
   userData: IUserListRes[] = [];
   // 表單來源
   dataSource = new MatTableDataSource<IUserListRes>(this.userData);
@@ -58,7 +59,7 @@ export class UserManageComponent  implements OnInit{
     // this.getDepartmentList();
     this.paginatorContent();
   }
-  // 取得部門列表
+  // 取得行政/教學列表
   getDepartmentList(): void {
     this.accountService.getDepartmentList()
       .subscribe(res => {
@@ -102,7 +103,7 @@ export class UserManageComponent  implements OnInit{
       }
     });
   }
-  // 取得會員列表 // 回傳 Observable 之 Interface，此處似乎有兩種return
+  // 取得使用者列表 // 回傳 Observable 之 Interface，此處似乎有兩種return
   getUsers(userAccount:string, userIdentity: string, page: number, pageSize: number): Observable<any> {
     if (this.isSearch) {
       return this.searchUser(this.userDepartmentFilter || '', this.userNameFilter || '', page, pageSize)
@@ -136,7 +137,7 @@ export class UserManageComponent  implements OnInit{
           }
         )
   }
-  // 搜尋會員 // 回傳 Observable 之 Interface
+  // 搜尋使用者 // 回傳 Observable 之 Interface
   searchUser(userDepartmentFilter: string, userNameFilter: string, page: number, pageSize: number): Observable<any> {
     this.isSearch = true;
     return this.accountService.searchUser(userDepartmentFilter, userNameFilter, page, pageSize)
@@ -180,7 +181,7 @@ export class UserManageComponent  implements OnInit{
     this.matPaginatorIntl.nextPageLabel = '下一頁';
     this.matPaginatorIntl.previousPageLabel = '上一頁';
   }
-  // 新增會員
+  // 新增使用者
   newDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(NewUserDialogComponent, {
       enterAnimationDuration,
@@ -193,6 +194,20 @@ export class UserManageComponent  implements OnInit{
       this.getTotalPage();
     });
   }
-  // 刪除會員
-  // 修改會員
+  // 刪除使用者
+  deleteDialog(enterAnimationDuration: string, exitAnimationDuration: string, userData: IUserListRes,): void {
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
+      width: '500px',
+      data: userData,
+    });
+    // 訂閱 dialogClosed 事件
+    dialogRef.componentInstance.dialogClosed.subscribe(() => {
+      // 事件觸發時重新取得設備列表
+      this.getUsers(this.userAccount, this.userRole,this.currentPage, 6).subscribe();
+      this.getTotalPage();
+    });
+  }
+  // 修改使用者
 }

@@ -1,12 +1,3 @@
-<!-- <div fxLayout="row" fxLayoutAlign="start center" class="pageheader">
-    <div fxLayout="row" class="pagetitle" fxLayoutAlign="start center" fxFlex="100">
-        <div fxLayoutAlign="start center" class="title-icon">
-            <mat-icon>account_box</mat-icon>
-            <mat-icon>remove</mat-icon>
-        </div>
-        <div>個人基本資料</div>
-    </div>
-</div> -->
 <mat-card class="accountCard" fxLayout="column">
     <mat-card-header class="mainTitle">
         <mat-card-title>
@@ -40,7 +31,7 @@
                 <span>{{accountInfo.userPhone ? (accountInfo.userPhone) : ('無')}}</span>
             </mat-list-item>
             <mat-list-item>
-                <span class="info-title">部門：</span>
+                <span class="info-title">行政/教學單位：</span>
                 <span>{{accountInfo.userDepartment ? (accountInfo.userDepartment) : ('無')}}</span>
             </mat-list-item>
             <mat-list-item>

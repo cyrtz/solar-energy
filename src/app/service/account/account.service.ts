@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAccountInfo, IAccountResponse, IAccountUpdateRequest, IAccountUpdateResponse, INewUserRequest, IUserList, IUserResponse } from 'src/app/models/account';
+import { IAccountInfo, IAccountResponse, IAccountUpdateRequest, IAccountUpdateResponse, IDeleteUserRequest, INewUserRequest, IUserList, IUserResponse } from 'src/app/models/account';
 import { ISearchTotalPageResponse } from 'src/app/models/device-manage';
 
 @Injectable({
@@ -71,7 +71,12 @@ export class AccountService {
   }
   // 新增會員
   addUser(params: INewUserRequest): Observable<IUserResponse<string>> {
-    const ApiUrl = this.baseUrl + '/Account/AccountInfo/AddViewer';
+    const ApiUrl = this.baseUrl + '/Account/AccountInfo/AddAccount';
     return this.http.post<IUserResponse<string>>(ApiUrl, params);
+  }
+  // 刪除會員
+  deleteUser(userGuid: IDeleteUserRequest): Observable<IUserResponse<string>> {
+    const ApiUrl = this.baseUrl + '/Account/AccountInfo/Delete';
+    return this.http.post<IUserResponse<string>>(ApiUrl, userGuid);
   }
 }

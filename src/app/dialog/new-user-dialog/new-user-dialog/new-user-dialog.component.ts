@@ -9,13 +9,18 @@ import { AccountService } from 'src/app/service/account/account.service';
   styleUrls: ['./new-user-dialog.component.scss']
 })
 export class NewUserDialogComponent implements OnInit{
-  // 會員權限選項
-  userRoleList = ['Editor', 'Viewer'];
-  // 會員部門選項
-  userDepartmentList = ['人事部', '會計部', '行政部', '研發部', '業務部', '行銷部'];
+  // 使用者權限選項
+  userRoleListForAdmin = ['Editor', 'Viewer'];
+  userRoleListForEditor = ['Viewer'];
+  // 目前使用者的權限
+  token = localStorage.getItem('token');
+  tokenPayload = this.token ? JSON.parse(window.atob(this.token.split('.')[1])) : null;
+  currentUserRole = this.tokenPayload.customRole;
+  // 使用者行政/教學單位選項
+  userDepartmentList = ['教務處', '學生事務處', '總務處'];
   // 定義一個"關閉事件"發布器
   @Output() dialogClosed = new EventEmitter<void>();
-  // 新增會員表單
+  // 新增使用者表單
   newUserForm = new FormGroup({
     userAccount: new FormControl('', {
       validators: [
@@ -65,7 +70,7 @@ export class NewUserDialogComponent implements OnInit{
   ) { }
   ngOnInit(): void {
   }
-  // 新增會員
+  // 新增使用者
   addUser(): void {
     const value = this.newUserForm.getRawValue();
     this.accountService.addUser(value as unknown as INewUserRequest)
@@ -78,6 +83,15 @@ export class NewUserDialogComponent implements OnInit{
           this.dialogClosed.emit();
         }
       });
+  }
+  // 根據當前用戶的角色返回相應的角色列表
+  get userRoleList() {
+    if (this.currentUserRole === 'Admin') {
+      return this.userRoleListForAdmin;
+    } else if (this.currentUserRole === 'Editor') {
+      return this.userRoleListForEditor;
+    }
+    return []; // 如果沒有匹配的角色，返回空陣列
   }
 
 }

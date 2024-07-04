@@ -28,12 +28,14 @@
 .dialog-action{
     display: flex;
     justify-content: center;
-    padding-bottom: 2rem;
+    padding-bottom: 1.5rem;
     width: 100%;
+    button {
+        margin: 0 0.6rem;
+    }
 }
 .rowData{
     display: flex;
     justify-content: center;
     width: 100%;
-    // padding-top: 1rem;
 }

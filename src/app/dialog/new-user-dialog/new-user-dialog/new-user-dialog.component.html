@@ -1,5 +1,5 @@
 <div class="dialog-title">
-    <h1 mat-dialog-title>新增會員</h1>
+    <h1 mat-dialog-title>新增使用者</h1>
 </div>
 <div mat-dialog-content class="newUserForm">
     <form class="newUserForm" [formGroup]="newUserForm">
@@ -10,7 +10,7 @@
                     <input matInput id="userAccount" formControlName="userAccount" />
                     <mat-error align="end">
                         <span *ngIf="userAccount?.errors?.['required']">
-                            請輸入會員帳號
+                            請輸入使用者帳號
                         </span>
                     </mat-error>
                 </mat-form-field>
@@ -21,7 +21,7 @@
                     <input matInput id="userPassword" formControlName="userPassword" placeholder="abc123" />
                     <mat-error align="end">
                         <span *ngIf="userPassword?.errors?.['required']">
-                            請輸入會員密碼
+                            請輸入使用者密碼
                         </span>
                     </mat-error>
                 </mat-form-field>
@@ -34,7 +34,7 @@
                     <input matInput id="userName" formControlName="userName" />
                     <mat-error align="end">
                         <span *ngIf="userName?.errors?.['required']">
-                            請輸入會員姓名
+                            請輸入使用者姓名
                         </span>
                     </mat-error>
                 </mat-form-field>
@@ -49,7 +49,7 @@
                     </mat-select>
                     <mat-error align="end">
                         <span *ngIf="userIdentity?.errors?.['required']">
-                            請輸入會員權限
+                            請輸入使用者權限
                         </span>
                     </mat-error>
                 </mat-form-field>
@@ -58,7 +58,7 @@
         <div class="rowData">
             <div class="formInput">
                 <mat-form-field color="accent">
-                    <mat-label>部門</mat-label>
+                    <mat-label>行政/教學單位</mat-label>
                     <mat-select formControlName="userDepartment">
                         <mat-option *ngFor="let department of userDepartmentList" [value]="department">
                             {{ department }}
@@ -66,7 +66,7 @@
                     </mat-select>
                     <mat-error align="end">
                         <span *ngIf="userDepartment?.errors?.['required']">
-                            請輸入會員部門
+                            請輸入使用者行政/教學單位
                         </span>
                     </mat-error>
                 </mat-form-field>
@@ -77,7 +77,7 @@
                     <input matInput id="userPosition" formControlName="userPosition" />
                     <mat-error align="end">
                         <span *ngIf="userPosition?.errors?.['required']">
-                            請輸入會員職位
+                            請輸入使用者職位
                         </span>
                     </mat-error>
                 </mat-form-field>

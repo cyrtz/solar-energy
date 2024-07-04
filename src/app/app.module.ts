@@ -61,6 +61,7 @@ import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dial
 import { UserInfoComponent } from './user-info/user-info.component';
 import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-account-dialog.component';
 import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
+import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog/delete-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog
     UserInfoComponent,
     EditAccountDialogComponent,
     NewUserDialogComponent,
+    DeleteUserDialogComponent,
   ],
   imports: [
     BrowserModule,

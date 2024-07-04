@@ -19,11 +19,8 @@ export interface IAccountInfo {
 }
 export interface IAccountUpdateRequest {
     sysGuid: string
-    userName: string
     userEmail: string
     userPhone: string
-    userDepartment: string
-    userPosition: string
 }
 export interface IAccountUpdateResponse {
     data: string;
@@ -64,4 +61,7 @@ export interface INewUserRequest {
     userDepartment: string
     userPosition: string
     userIdentity: string
+}
+export interface IDeleteUserRequest {
+    sysGuid: string;
 }

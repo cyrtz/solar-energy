@@ -5,8 +5,7 @@
     <form class="editForm" [formGroup]="editAccountForm">
         <div class="formInput">
             <mat-form-field color="accent">
-                <mat-label> 名稱 </mat-label>
-                <input matInput formControlName="userName" />
+                <input matInput placeholder="{{this.accountInfo?.userName}}" disabled=""/>
             </mat-form-field>
         </div>
         <div class="formInput">
@@ -35,18 +34,6 @@
                         電話號碼要填寫10個數字
                     </span>
                 </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="formInput">
-            <mat-form-field color="accent">
-                <mat-label> 部門 </mat-label>
-                <input matInput formControlName="userDepartment" />
-            </mat-form-field>
-        </div>
-        <div class="formInput">
-            <mat-form-field color="accent">
-                <mat-label> 職位 </mat-label>
-                <input matInput formControlName="userPosition" />
             </mat-form-field>
         </div>
     </form>

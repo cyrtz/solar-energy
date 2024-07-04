@@ -15,7 +15,7 @@ export class UserInfoComponent implements OnInit{
   // 取得 token
   token = localStorage.getItem('token');
   payload = JSON.parse(window.atob(this.token!.split('.')[1]));
-  // 取得會員權限
+  // 取得使用者權限
   userRole = this.payload.customRole;
 
   constructor(

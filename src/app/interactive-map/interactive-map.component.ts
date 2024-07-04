@@ -4,16 +4,15 @@ import { ISearchDeviceByPlaceList, IUnitListResponse } from '../models/unit-mana
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DeviceManageService } from '../service/device-manage/device-manage.service';
 import { NewDeviceByUnitDialogComponent } from '../dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
 import { DeleteDeviceDialogComponent } from '../dialog/delete-device-dialog/delete-device-dialog.component';
 import { deviceListRes } from '../models/device-manage';
 import { EditDeviceDialogComponent } from '../dialog/edit-device-dialog/edit-device-dialog.component';
+import { Token } from '@angular/compiler';
 
 export interface DialogData {
   unitGuid: string;
 }
-
 @Component({
   selector: 'app-interactive-map',
   templateUrl: './interactive-map.component.html',
@@ -26,6 +25,9 @@ export class InteractiveMapComponent implements OnInit {
   deviceDiaplayedColumns: string[] = ['Id', 'deviceName', 'devicePlace', 'operation'];
   unitName: string = '';
   getUnitGuid: string = '';
+  token = localStorage.getItem('token') as string;
+  tokenPayload = JSON.parse(window.atob(this.token.split('.')[1]));
+  userRole = this.tokenPayload.customRole;
   unitList: IUnitListResponse[] = [];
   test: {[key: string]: boolean} = {
     'd9d91185-2853-4a90-98e3-db6ca860cab3': true,
@@ -92,14 +94,12 @@ export class InteractiveMapComponent implements OnInit {
   
   constructor(
     private unitService: UnitManageService,
-    private deviceService: DeviceManageService,
     public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
-    this.getUnitList().subscribe();
+    this.getUnitList().subscribe();    
   }
-
   getUnitList(): Observable<any> {
     return this.unitService.getTotalUnits().pipe(
       tap(res => {
@@ -110,8 +110,6 @@ export class InteractiveMapComponent implements OnInit {
       })
     )
   }
-
-
   getDevice(unitGuid: string) {
     this.show = false;
     console.log(unitGuid);
