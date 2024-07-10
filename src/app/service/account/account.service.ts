@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAccountInfo, IAccountResponse, IAccountUpdateRequest, IAccountUpdateResponse, IDeleteUserRequest, INewUserRequest, IUserList, IUserResponse } from 'src/app/models/account';
-import { ISearchTotalPageResponse } from 'src/app/models/device-manage';
+import { IAccountInfo, IAccountResponse, IAccountUpdateRequest, IAccountUpdateResponse, IDeleteUserRequest, IGetDepartmentListRes, INewUserRequest, IUserList, IUserResponse } from 'src/app/models/account';
+import { IIsExistsResponse, ISearchTotalPageResponse } from 'src/app/models/device-manage';
 
 @Injectable({
   providedIn: 'root'
@@ -24,48 +24,48 @@ export class AccountService {
     const ApiUrl = this.baseUrl + '/Account/AccountInfo/UpdateInfo';
     return this.http.post<IAccountUpdateResponse>(ApiUrl, params)
   }
-  // 取得部門列表(無功能)
-  getDepartmentList(): Observable<any> {
+  // 取得行政/教學單位列表
+  getDepartmentList(): Observable<IUserResponse<IGetDepartmentListRes>> {
     const ApiUrl = this.baseUrl + '/Account/AccountInfo/GetDepartmentList';
-    return this.http.get(ApiUrl);
+    return this.http.get<IUserResponse<IGetDepartmentListRes>>(ApiUrl);
   }
-  // 取得會員列表 尚未修改成後端分頁（pageIndex與pageSize）
-  getUserList(userAccount: string,userIdentity: string,pageIndex: number, pageSize: number): Observable<IUserResponse<IUserList>> {
-    const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetAccountInfoList?userAccount=${userAccount}&userIdentity=${userIdentity}`;
+
+  getUserList(pageIndex: number, pageSize: number): Observable<IUserResponse<IUserList>> {
+    const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetAccountInfoList?pageindex=${pageIndex}&pagesize=${pageSize}`;
     return this.http.get<IUserResponse<IUserList>>(ApiUrl);
   }
-  // 搜尋會員(無功能)
+  // 搜尋會員
   searchUser(userDepartment: string, userName: string, pageIndex: number, pageSize: number): Observable<IUserResponse<IUserList>> {
     if(userDepartment != '') {
       if(userName != '') {
-        const ApiUrl = this.baseUrl + `/Account/AccountInfo/SearchUserList?userDepartment=${userDepartment}&userName=${userName}&page=${pageIndex + 1}&pageSize=${pageSize}`;
+        const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchAccInfoList?userDepartment=${userDepartment}&userName=${userName}&page=${pageIndex}&pagesize=${pageSize}`;
         return this.http.get<IUserResponse<IUserList>>(ApiUrl);
       }else {
-        const ApiUrl = this.baseUrl + `/Account/AccountInfo/SearchUserList?userDepartment=${userDepartment}&page=${pageIndex + 1}&pageSize=${pageSize}`;
+        const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchAccInfoList?userDepartment=${userDepartment}&pageindex=${pageIndex}&pagesize=${pageSize}`;
         return this.http.get<IUserResponse<IUserList>>(ApiUrl);
       }
     }else {
-      const ApiUrl = this.baseUrl + `/Account/AccountInfo/SearchUserList?userName=${userName}&page=${pageIndex + 1}&pageSize=${pageSize}`;
+      const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchAccInfoList?userName=${userName}&pageindex=${pageIndex}&pagesize=${pageSize}`;
       return this.http.get<IUserResponse<IUserList>>(ApiUrl);
     }
   }
   // 取得總頁數(無功能)
   getTotalCount(): Observable<ISearchTotalPageResponse> {
-    const ApiUrl = this.baseUrl + '';
+    const ApiUrl = this.baseUrl + '/Account/AccountInfo/GetAccountInfoTotalPage';
     return this.http.get<ISearchTotalPageResponse>(ApiUrl);
   }
-  // 取得搜尋總頁數(無功能)
+  // 取得搜尋結果的總頁數
   getSearchTotalPage(userDepartment: string, userName: string): Observable<ISearchTotalPageResponse> {
     if(userDepartment != '') {
       if(userName != '') {
-        const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchTotalPage?userDepartment=${userDepartment}&userName=${userName}`;
+        const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchAccInfoTotalPage?userDepartment=${userDepartment}&userName=${userName}`;
         return this.http.get<ISearchTotalPageResponse>(ApiUrl);
       }else {
-        const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchTotalPage?userDepartment=${userDepartment}`;
+        const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchAccInfoTotalPage?userDepartment=${userDepartment}`;
         return this.http.get<ISearchTotalPageResponse>(ApiUrl);
       }
     }else {
-      const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchTotalPage?userName=${userName}`;
+      const ApiUrl = this.baseUrl + `/Account/AccountInfo/GetSearchAccInfoTotalPage?userName=${userName}`;
       return this.http.get<ISearchTotalPageResponse>(ApiUrl);
     }
   }

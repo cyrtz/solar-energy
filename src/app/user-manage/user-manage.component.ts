@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IDepartmentListResponse, IUserListRes } from '../models/account';
+import { DepartmentList, IUserListRes } from '../models/account';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { debounceTime, Observable, switchMap, tap } from 'rxjs';
@@ -18,7 +18,7 @@ export class UserManageComponent  implements OnInit{
   // 表格欄位
   displayedColumns: string[] = ['userAccount', 'userName', 'userIdentity', 'userDepartment', 'userEmail', 'userPhone', 'operation'];
   // 行政/教學列表
-  userDepartment: IDepartmentListResponse[] = [];
+  userDepartment: DepartmentList[] = [];
   // 使用者列表
   userData: IUserListRes[] = [];
   // 表單來源
@@ -53,10 +53,10 @@ export class UserManageComponent  implements OnInit{
       this.userAccount = payload.userAccount;
       this.userRole = payload.customRole;
     }
-    this.getUsers(this.userAccount, this.userRole ,this.currentPage, 6).subscribe();
+    this.getUsers(this.currentPage, 6).subscribe();
     this.getTotalPage();
     this.onSearchFormChange();
-    // this.getDepartmentList();
+    this.getDepartmentList();
     this.paginatorContent();
   }
   // 取得行政/教學列表
@@ -66,7 +66,7 @@ export class UserManageComponent  implements OnInit{
         this.userDepartment = res.data.departmentList;
       });
   }
-  // 搜尋表單資料變更
+  // 搜尋表單資料變更(無功能)
   onSearchFormChange(): void {
     this.searchUserForm.valueChanges.pipe(
       debounceTime(500),
@@ -92,7 +92,7 @@ export class UserManageComponent  implements OnInit{
           this.isSearch = false;
           this.userDepartmentFilter = '';
           this.userNameFilter = '';
-          return this.getUsers( this.userAccount, this.userRole,0, 6);
+          return this.getUsers(0, 6);
         }
       })
     ).subscribe(result => {
@@ -103,15 +103,15 @@ export class UserManageComponent  implements OnInit{
       }
     });
   }
-  // 取得使用者列表 // 回傳 Observable 之 Interface，此處似乎有兩種return
-  getUsers(userAccount:string, userIdentity: string, page: number, pageSize: number): Observable<any> {
+  // 取得使用者列表 // 回傳 Observable 之 Interface，此處似乎有兩種return 尚未修改成後端分頁（pageIndex與pageSize）
+  getUsers(page: number, pageSize: number): Observable<any> {
     if (this.isSearch) {
       return this.searchUser(this.userDepartmentFilter || '', this.userNameFilter || '', page, pageSize)
         .pipe(
           tap(() => this.getSearchTotalPage(this.userDepartmentFilter || '', this.userNameFilter || ''))
         );
     } else {
-      return this.accountService.getUserList(userAccount, userIdentity, page, pageSize)
+      return this.accountService.getUserList(page, pageSize)
         .pipe(
           tap(res => {
             this.userData = res.data.userList;
@@ -125,7 +125,7 @@ export class UserManageComponent  implements OnInit{
         );
     }
   }
-  // 取得總頁數
+  // 取得總頁數(無功能)
   getTotalPage(): void {
     if (this.isSearch) {
       this.getSearchTotalPage(this.userDepartmentFilter || '', this.userNameFilter || '');
@@ -149,7 +149,7 @@ export class UserManageComponent  implements OnInit{
         })
       );
   }
-  // 取得搜尋總頁數
+  // 取得搜尋總數
   getSearchTotalPage(userDepartmentFilter: string, userNameFilter: string): void {
     this.accountService.getSearchTotalPage(userDepartmentFilter, userNameFilter)
       .subscribe(
@@ -161,7 +161,7 @@ export class UserManageComponent  implements OnInit{
   }
    // 分頁事件
   onPageChange(event: PageEvent): void {
-    this.getUsers(this.userAccount,this.userRole,event.pageIndex, event.pageSize).subscribe();
+    this.getUsers(event.pageIndex, event.pageSize).subscribe();
     this.getTotalPage();
   }
   // 分頁文字內容
@@ -190,7 +190,7 @@ export class UserManageComponent  implements OnInit{
     // 訂閱 dialogClosed 事件
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
-      this.getUsers(this.userAccount, this.userRole,this.currentPage, 6).subscribe();
+      this.getUsers(this.currentPage, 6).subscribe();
       this.getTotalPage();
     });
   }
@@ -205,9 +205,8 @@ export class UserManageComponent  implements OnInit{
     // 訂閱 dialogClosed 事件
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
-      this.getUsers(this.userAccount, this.userRole,this.currentPage, 6).subscribe();
+      this.getUsers(this.currentPage, 6).subscribe();
       this.getTotalPage();
     });
   }
-  // 修改使用者
 }

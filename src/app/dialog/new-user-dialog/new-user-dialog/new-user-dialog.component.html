@@ -60,8 +60,8 @@
                 <mat-form-field color="accent">
                     <mat-label>行政/教學單位</mat-label>
                     <mat-select formControlName="userDepartment">
-                        <mat-option *ngFor="let department of userDepartmentList" [value]="department">
-                            {{ department }}
+                        <mat-option *ngFor="let department of userDepartmentList" [value]="department.departmentName">
+                            {{ department.departmentName }}
                         </mat-option>
                     </mat-select>
                     <mat-error align="end">

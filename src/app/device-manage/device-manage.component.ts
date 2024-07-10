@@ -147,7 +147,7 @@ export class DeviceManageComponent implements OnInit {
         })
       );
   }
-  // 取得搜尋總頁數
+  // 取得搜尋結果的總頁數
   getSearchTotalPage(unitNameFilterData: string, deviceNameFilterData: string): void {
     this.deviceService.getSearchTotalPage(unitNameFilterData, deviceNameFilterData)
       .subscribe(

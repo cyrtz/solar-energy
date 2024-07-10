@@ -50,10 +50,6 @@ export interface IUserListRes {
     updateTime: any
     infoUpdateTime: string
 }
-export interface IDepartmentListResponse {
-    departmentGuid: string
-    departmentName: string
-}
 export interface INewUserRequest {
     userAccount: string
     userPassword: string
@@ -64,4 +60,10 @@ export interface INewUserRequest {
 }
 export interface IDeleteUserRequest {
     sysGuid: string;
+}
+export interface IGetDepartmentListRes {
+    departmentList: DepartmentList[]
+}
+export interface DepartmentList {
+    departmentName: string
 }

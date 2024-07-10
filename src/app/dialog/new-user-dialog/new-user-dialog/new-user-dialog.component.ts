@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { INewUserRequest } from 'src/app/models/account';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { catchError, debounceTime, map, Observable, of, switchMap } from 'rxjs';
+import { DepartmentList, INewUserRequest } from 'src/app/models/account';
 import { AccountService } from 'src/app/service/account/account.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class NewUserDialogComponent implements OnInit{
   tokenPayload = this.token ? JSON.parse(window.atob(this.token.split('.')[1])) : null;
   currentUserRole = this.tokenPayload.customRole;
   // 使用者行政/教學單位選項
-  userDepartmentList = ['教務處', '學生事務處', '總務處'];
+  userDepartmentList : DepartmentList[] = [];
   // 定義一個"關閉事件"發布器
   @Output() dialogClosed = new EventEmitter<void>();
   // 新增使用者表單
@@ -26,10 +27,6 @@ export class NewUserDialogComponent implements OnInit{
       validators: [
         Validators.required,
       ],
-      // asyncValidators: [
-      //   this.validate.bind(this),
-      //   this.cannotEmpty.bind(this),
-      // ],
     }),
     userPassword: new FormControl('', {
       validators: [
@@ -69,19 +66,27 @@ export class NewUserDialogComponent implements OnInit{
     private accountService: AccountService,
   ) { }
   ngOnInit(): void {
+    this.getDepartmentList();
   }
   // 新增使用者
   addUser(): void {
     const value = this.newUserForm.getRawValue();
     this.accountService.addUser(value as unknown as INewUserRequest)
       .subscribe(res => {
-        if (res.isSuccess == false) {
-          alert(res.message);
-          return;
-        } else {
+        if (res.isSuccess == true) {
           alert('新增成功');
           this.dialogClosed.emit();
+        } else {
+          alert(res.message);
+          return;
         }
+      });
+  }
+  // 取得行政/教學列表
+  getDepartmentList(): void {
+    this.accountService.getDepartmentList()
+      .subscribe(res => {
+        this.userDepartmentList = res.data.departmentList;
       });
   }
   // 根據當前用戶的角色返回相應的角色列表
@@ -91,7 +96,6 @@ export class NewUserDialogComponent implements OnInit{
     } else if (this.currentUserRole === 'Editor') {
       return this.userRoleListForEditor;
     }
-    return []; // 如果沒有匹配的角色，返回空陣列
+    return []; 
   }
-
 }

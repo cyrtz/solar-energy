@@ -15,7 +15,7 @@
                     <mat-option [value]="''">
                         全部
                     </mat-option>
-                    <mat-option *ngFor="let user of userDepartment" [value]="user.departmentGuid">
+                    <mat-option *ngFor="let user of userDepartment" [value]="user.departmentName">
                         {{user.departmentName}}
                     </mat-option>
                 </mat-select>
