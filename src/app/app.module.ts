@@ -19,6 +19,25 @@ import { DeleteDeviceDialogComponent } from './dialog/delete-device-dialog/delet
 import { EditDeviceDialogComponent } from './dialog/edit-device-dialog/edit-device-dialog.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { RegisterDialogComponent } from './dialog/register-dialog/register-dialog/register-dialog.component';
+import { InteractiveMapComponent } from './interactive-map/interactive-map.component';
+import { UnitManageComponent } from './unit-manage/unit-manage.component';
+import { NewUnitDialogComponent } from './dialog/new-unit-dialog/new-unit-dialog.component';
+import { DeleteUnitDialogComponent } from './dialog/delete-unit-dialog/delete-unit-dialog.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ErrorDetectComponent } from './error-detect/error-detect.component';
+import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog.component';
+import { StackedColumnsDayComponent } from './charts/stacked-columns-day/stacked-columns-day.component';
+import { StackedColumnsMonthComponent } from './charts/stacked-columns-month/stacked-columns-month.component';
+import { StackedColumnsWeekComponent } from './charts/stacked-columns-week/stacked-columns-week.component';
+import { LineDayComponent } from './charts/line-day/line-day.component';
+import { LineMonthComponent } from './charts/line-month/line-month.component';
+import { LineWeekComponent } from './charts/line-week/line-week.component';
+import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
+import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
+import { UserInfoComponent } from './user-info/user-info.component';
+import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-account-dialog.component';
+import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
+import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog/delete-user-dialog.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -41,27 +60,10 @@ import { MAT_DATE_LOCALE, MatCommonModule } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
-import { InteractiveMapComponent } from './interactive-map/interactive-map.component';
-import { UnitManageComponent } from './unit-manage/unit-manage.component';
-import { NewUnitDialogComponent } from './dialog/new-unit-dialog/new-unit-dialog.component';
-import { DeleteUnitDialogComponent } from './dialog/delete-unit-dialog/delete-unit-dialog.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ErrorDetectComponent } from './error-detect/error-detect.component';
-import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { StackedColumnsDayComponent } from './charts/stacked-columns-day/stacked-columns-day.component';
-import { StackedColumnsMonthComponent } from './charts/stacked-columns-month/stacked-columns-month.component';
-import { StackedColumnsWeekComponent } from './charts/stacked-columns-week/stacked-columns-week.component';
-import { LineDayComponent } from './charts/line-day/line-day.component';
-import { LineMonthComponent } from './charts/line-month/line-month.component';
-import { LineWeekComponent } from './charts/line-week/line-week.component';
-import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-place-dialog.component';
 import { InterceptorService } from './service/interceptor/interceptor.service';
-import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
-import { UserInfoComponent } from './user-info/user-info.component';
-import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-account-dialog.component';
-import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
-import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog/delete-user-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -127,10 +129,11 @@ import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-us
     MatNativeDateModule,
     MatListModule,
     MatSelectModule,
+    MatSlideToggleModule
   ],
   providers: [
-    { 
-      provide: MAT_DATE_LOCALE, useValue: 'zh-TW' 
+    {
+      provide: MAT_DATE_LOCALE, useValue: 'zh-TW'
     },
     {
       provide: HTTP_INTERCEPTORS,

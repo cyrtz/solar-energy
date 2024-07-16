@@ -49,7 +49,9 @@ export class DeviceDetailComponent implements OnInit {
   battAmpere: number = 0;
   loadVoltage: number = 0;
   loadAmpere: number = 0;
-  co2Reduce: string = '';
+  co2Reduce: number = 0;
+  battWatt: number = 0;
+  battStatus: number = 0;
 
   ngOnInit(): void {
     // this.getDeviceDetail();
@@ -88,6 +90,8 @@ export class DeviceDetailComponent implements OnInit {
       this.loadVoltage = res.data.loadVoltage;
       this.loadAmpere = res.data.loadAmpere;
       this.co2Reduce = res.data.co2Reduce;
+      this.battWatt = res.data.battWatt;
+      this.battStatus = res.data.battState;
     });
   }
 

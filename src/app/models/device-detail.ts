@@ -24,19 +24,22 @@ export interface IDeviceDataResponse<T> {
 }
 
 export interface IDeviceData {
-    deviceName: string;
-    deviceUnitName: string;
-    devicePlaceName: string;
-    battPower: number;
-    battVoltage: number;
-    battAmpere: number;
-    loadVoltage: number;
-    loadAmpere: number;
-    co2Reduce: string;
+    deviceName: string
+    deviceUnitName: string
+    devicePlaceName: string
+    deviceMacAddress: string
+    battPower: number
+    battVoltage: number
+    battAmpere: number
+    battWatt: number
+    battState: number
+    loadVoltage: number
+    loadAmpere: number
+    co2Reduce: number
 }
 export interface IControlBattReq {
     macAddress: string
-    battState: string
+    battState: number
     mqttIp: string
     mqttPort: number
     mqttTopic: string

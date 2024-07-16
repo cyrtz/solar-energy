@@ -50,6 +50,8 @@ export class HomeComponent implements OnInit {
             this.weatheroverview = 'assets/img/weather/11.svg';
           } else if (this.weatheroverview === '陰有雨') {
             this.weatheroverview = 'assets/img/weather/14.svg';
+          } else if (this.weatheroverview === '陰有雷') {
+            this.weatheroverview = 'assets/img/weather/18.svg';
           }
           else {
             this.weatheroverview = this.weatheroverview;

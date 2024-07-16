@@ -1,54 +1,118 @@
-<div fxFill>
-    <div fxLayout="column">
-        <div fxLayout="row" fxLayoutAlign="start center">
-            <div>
-                <button mat-icon-button (click)="goBack()">
-                    <mat-icon>arrow_back</mat-icon>
-                </button>
-            </div>
-            <!-- <div fxLayoutAlign="start">
-                <div>裝置名稱{{deviceName}}</div>
-                <div>單位名稱</div>
-                <div>地點名稱</div>
-            </div> -->
+<div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <div>
+            <button mat-icon-button (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
         </div>
-        <div class="header">
-            <!-- <mat-card style=" margin: 10px;"> -->
-            <div fxLayout="row" class="device-detail" fxLayoutAlign="start end"
-                style=" margin-left: 10px; margin-top: 10px;">
-                <div class="devicename">{{this.deviceName}}</div>
-                <div style="font-size: 20px; margin-right: 10px;">{{this.deviceUnitName}}</div>
-                <div style="font-size: 20px; margin-right: 10px;">{{this.devicePlaceName}}</div>
-            </div>
-            <!-- </mat-card> -->
+    </div>
+    <div class="header">
+        <div fxLayout="row" class="device-detail" fxLayoutAlign="start end" style="margin: 10px 20px 0 20px;">
+            <div class="devicename">{{this.deviceName}}</div>
+            <div style="font-size: 20px; margin-right: 10px;">{{this.deviceUnitName}}</div>
+            <div style="font-size: 20px; margin-right: 10px;">{{this.devicePlaceName}}</div>
+        </div>
 
-        </div>
-        <!-- <mat-divider></mat-divider> -->
-        <div fxLayout="row" fxLayoutAlign="space-evenly start">
-            <div fxFlex="40" fxLayoutAlign="center">
-                <mat-card class="example-card">
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-evenly start" style="margin: 0 20px 0 20px; height: 76vh;">
+        <mat-card class="electricity-generated-card" fxLayout="column" fxLayoutAlign="space-evenly start" fxFlex="20">
+            <mat-card-header fxLayout="row" fxLayoutAlign="space-evenly center">
+                <mat-card-title>發電數據</mat-card-title>
+            </mat-card-header>
+            <mat-card-content fxLayoutAlign="space-evenly center" style="width: 100%; margin-top: 8px;">
+                <div fxLayout="row" fxFill>
+                    <div fxLayout="column" fxLayoutAlign="start start" fxFlex="20">
+                        <mat-card-subtitle>今日發電量</mat-card-subtitle>
+                        <div class="data-div">{{this.battPower}}</div>
+                    </div>
+                    <mat-divider vertical="true" style="height: 8vh; margin: 0 4px 4px 0;"></mat-divider>
+                    <div fxLayout="column" fxLayoutAlign="start start" fxFlex="20">
+                        <mat-card-subtitle>昨日發電量</mat-card-subtitle>
+                        <div class="data-div">{{this.battPower}}</div>
+                    </div>
+                    <mat-divider vertical="true" style="height: 8vh; margin: 0 4px 4px 0;"></mat-divider>
+                    <div fxLayout="column" fxLayoutAlign="start start" fxFlex="20">
+                        <mat-card-subtitle>明日發電量(預估)</mat-card-subtitle>
+                        <div class="data-div">{{this.battPower}}</div>
+                    </div>
+                    <mat-divider vertical="true" style="height: 8vh; margin: 0 4px 4px 0;"></mat-divider>
+                    <div fxLayout="column" fxLayoutAlign="start start" fxFlex="20">
+                        <mat-card-subtitle>本週發電量</mat-card-subtitle>
+                        <div class="data-div">{{this.battPower}}</div>
+                    </div>
+                    <mat-divider vertical="true" style="height: 8vh; margin: 0 4px 4px 0;"></mat-divider>
+                    <div fxLayout="column" fxLayoutAlign="start start" fxFlex="20">
+                        <mat-card-subtitle>本月發電量</mat-card-subtitle>
+                        <div class="data-div">{{this.battPower}}</div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div fxLayout="row" fxFlex="70" fxFill>
+            <div fxFlex="40" fxLayoutAlign="space-evenly center" fxLayout="column">
+                <mat-card class="batt-data-card" fxFlex="70">
+                    <mat-card-header>
+                        <mat-card-title>電池資訊</mat-card-title>
+                    </mat-card-header>
                     <mat-card-content>
-                        <div style="font-size: 20px;">太陽能板數據</div>
-                        <mat-list>
-                            <mat-list-item>
-                                電池電量：{{this.battPower}}%
+                        <mat-list role="list">
+                            <mat-list-item role="listitem">
+                                <div>
+                                    <div>電壓</div>
+                                    <div>{{this.battVoltage}}</div>
+                                </div>
                             </mat-list-item>
-                            <mat-list-item>
-                                電壓：{{this.battVoltage}}V
+                            <mat-list-item role="listitem">
+                                <div>電流</div>
+                                <div>{{this.battAmpere}}</div>
                             </mat-list-item>
-                            <mat-list-item>
-                                電流：{{this.battAmpere}}A
+                            <mat-list-item role="listitem">
+                                <div>
+                                    <div>功率</div>
+                                    <div>{{this.battWatt}}</div>
+                                </div>
+                            </mat-list-item>
+                            <mat-list-item role="listitem">
+                                <div>
+                                    <div>充放電狀態</div>
+                                    <div>{{this.battStatus}}</div>
+                                </div>
                             </mat-list-item>
                         </mat-list>
                     </mat-card-content>
-                    <mat-card-footer>
-                        <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
-                    </mat-card-footer>
                 </mat-card>
+                <mat-card class="control-card" fxFlex="30">
+                    <mat-card-header>
+                        <mat-card-title>控制項目</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content fxLayout="row" fxLayoutAlign="center start" style="margin-top: 8px;">
+                        <div fxLayout="column" fxLayoutAlign="space-evenly start" fxFlex="50">
+                            <mat-card-subtitle>電池充放電</mat-card-subtitle>
+                            <div fxLayoutAlign="center center" fxLayout="row">
+                                <mat-icon style="margin-right: 2px;">battery_charging_full</mat-icon>
+                                <mat-slide-toggle>
+                                    <mat-icon>power</mat-icon>
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                        <mat-divider vertical="true" style="height: 8vh; margin: 0 4px 4px 0;"></mat-divider>
+                        <div fxLayout="column" fxLayoutAlign="space-evenly start" fxFlex="50">
+                            <mat-card-subtitle>供電來源</mat-card-subtitle>
+                            <div fxLayoutAlign="center center" fxLayout="row">
+                                <mat-icon style="margin-right: 2px;">home</mat-icon>
+                                <mat-slide-toggle>
+                                    <mat-icon>solar_power</mat-icon>
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+
+                    </mat-card-content>
+                </mat-card>
+
             </div>
             <div fxFlex="60" fxLayoutAlign="center">
-                <mat-card class="example-card">
-                    <mat-card-content>
+                <mat-card class="chart-card">
+                    <!-- <mat-card-content>
                         <div style="font-size: 20px;">碳排試算</div>
                         <mat-list>
                             <mat-list-item style="height: 100%;">
@@ -60,11 +124,11 @@
                                 </mat-form-field>
                             </mat-list-item>
                         </mat-list>
-                        
+
                     </mat-card-content>
                     <mat-card-footer>
-                        <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
-                    </mat-card-footer>
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </mat-card-footer> -->
                 </mat-card>
             </div>
         </div>
