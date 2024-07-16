@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'app-dashboard', component: DashboardComponent },
       { path: 'app-interactive-map', component: InteractiveMapComponent },
       { path: 'app-device-manage', component: DeviceManageComponent },
-      { path: 'app-device-detail/:deviceGuid', component: DeviceDetailComponent },
+      { path: 'app-device-detail/:deviceMacAddress', component: DeviceDetailComponent },
       { path: 'app-unit-manage', component: UnitManageComponent },
       { path: 'app-user-manage', component: UserManageComponent },
       { path: 'app-error-detect', component: ErrorDetectComponent },

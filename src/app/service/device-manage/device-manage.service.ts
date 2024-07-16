@@ -18,12 +18,9 @@ export class DeviceManageService {
 
   // 取得設備列表
   getDevices(pageIndex: number, pageSize: number): Observable<IDeviceResponse<deviceList>> {
-    // 使用字符串插值：可以正常執行
-    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetPageDeviceList?page=${pageIndex + 1}&pageSize=${pageSize}`;
-    // 使用字符串拼接：不能正常執行
-    // const apiUrl = this.baseUrl + '/DeviceManage/DeviceManage/GetPageDeviceList?page='+ pageIndex+1 +'&pageSize='+ pageSize;
+    // 使用字符串插值：可以正常執行，使用字符串拼接：不能正常執行
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetPageDeviceList?page=${pageIndex}&pageSize=${pageSize}`;
     return this.http.get<IDeviceResponse<deviceList>>(ApiUrl);
-    // return of({'isSuccess':true});
   }
   // 取得總頁數
   getTotalCount(): Observable<ISearchTotalPageResponse> {

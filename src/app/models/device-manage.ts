@@ -14,6 +14,7 @@ export interface deviceListRes {
     devicePlaceName: string;
     deviceUnitGuid: string;
     devicePlaceGuid: string;
+    diviceMacAddress: string;
     createTime: string;
     updateTime: string;
 }

@@ -39,8 +39,8 @@ export type ChartOptions = {
 
 export class DeviceDetailComponent implements OnInit {
   // getDeviceGuid: string = '';
-  @Input() deviceGuid: string = '';
-  // deviceGuid: string = '';
+  @Input() deviceMacAddress: string = '';
+  deviceGuid: string = '';
   deviceName: string = '';
   deviceUnitName: string = '';
   devicePlaceName: string = '';
@@ -53,12 +53,12 @@ export class DeviceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getDeviceDetail();
+    // 取得路由參數，這裡是取得 guid
     this.route.params.subscribe(params => {
-      // 取得路由參數，這裡是取得 guid
-      this.deviceGuid = params['deviceGuid'];
-      console.log(this.deviceGuid);
+      this.deviceMacAddress = params['deviceMacAddress'];
+      console.log(this.deviceMacAddress);
     });
-    this.getDeviceDetail();
+    // this.getDeviceDetail();
     this.getDeviceData();
   }
 
@@ -69,14 +69,15 @@ export class DeviceDetailComponent implements OnInit {
   ) {
 
   }
-  getDeviceDetail() {
-    this.devicedetailService.getDeviceDetail(this.deviceGuid).subscribe(res => {
-      console.log(res);
-    });
-  }
+  // 沒有該API
+  // getDeviceDetail() {
+  //   this.devicedetailService.getDeviceDetail(this.deviceGuid).subscribe(res => {
+  //     console.log(res);
+  //   });
+  // }
 
   getDeviceData() {
-    this.devicedetailService.getDeviceData(this.deviceGuid).subscribe(res => {
+    this.devicedetailService.getDeviceData(this.deviceMacAddress).subscribe(res => {
       // console.log(res);
       this.deviceName = res.data.deviceName;
       this.deviceUnitName = res.data.deviceUnitName;
@@ -89,6 +90,9 @@ export class DeviceDetailComponent implements OnInit {
       this.co2Reduce = res.data.co2Reduce;
     });
   }
+
+  
+
   goBack() {
     this.location.back();
   }

@@ -1,25 +1,18 @@
+.mainTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 8px;
+    border-radius: 5px 5px 0 0;
+    font-size: 3ch;
+}
 .pageheader {
     height: 56px;
     margin-top: 1.3rem
 }
-
-.title-icon {
-    font-size: 1.5rem;
-    margin-left: 1.3rem;
-}
-
-.mainTitle {
-    color: white;
-    background-color: #82bbb5;
-    padding: 12px;
-    border-radius: 5px 5px 0 0;
-    font-size: 3ch;
-}
 .info-title {
     font-weight: bold;
 }
-.accountCard {
-    // width: 100%;
-    margin: 1rem;
-    box-shadow: 5px 5px 5px 5px gray;
+.operationCol {
+    display: flex;
 }

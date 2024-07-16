@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { catchError, debounceTime, map, Observable, of, switchMap } from 'rxjs';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepartmentList, INewUserRequest } from 'src/app/models/account';
 import { AccountService } from 'src/app/service/account/account.service';
 
@@ -56,7 +55,7 @@ export class NewUserDialogComponent implements OnInit{
   })
   // 取得表單的值
   get userAccount() { return this.newUserForm.get('userAccount'); }
-  get userPassword() { return this.newUserForm.get('userAccount'); }
+  get userPassword() { return this.newUserForm.get('userPassword'); }
   get userName() { return this.newUserForm.get('userName'); }
   get userDepartment() { return this.newUserForm.get('userDepartment'); }
   get userPosition() { return this.newUserForm.get('userPosition'); }

@@ -32,5 +32,25 @@ export interface IDeviceData {
     battAmpere: number;
     loadVoltage: number;
     loadAmpere: number;
-    co2Reduce: string; 
+    co2Reduce: string;
+}
+export interface IControlBattReq {
+    macAddress: string
+    battState: string
+    mqttIp: string
+    mqttPort: number
+    mqttTopic: string
+}
+export interface IControlBattRes {
+    data: string
+    isSuccess: boolean
+    message: string
+}
+export interface IControlLoadReq {
+    macAddress: string
+    loadState1: string
+    loadState2: string
+    mqttIp: string
+    mqttPort: number
+    mqttTopic: string
 }

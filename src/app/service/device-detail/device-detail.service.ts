@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { IDeviceData, IDeviceDataResponse, IDeviceDetail, IDeviceDetailResponse } from 'src/app/models/device-detail';
+import { Observable, of } from 'rxjs';
+import { IControlBattReq, IControlBattRes, IControlLoadReq, IDeviceData, IDeviceDataResponse, IDeviceDetail, IDeviceDetailResponse } from 'src/app/models/device-detail';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,25 @@ export class DeviceDetailService {
     private http: HttpClient,
   ) { }
 
-  getDeviceDetail(deviceGuid: string) {
-    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetDeviceData?deviceGuid=${deviceGuid}`;
-    return this.http.get<IDeviceDetailResponse<IDeviceDetail>>(ApiUrl);
-  }
+  // 沒有該API
+  // getDeviceDetail(deviceGuid: string) {
+  //   const ApiUrl = this.baseUrl + `/DeviceManage/DeviceManage/GetDeviceData?deviceGuid=${deviceGuid}`;
+  //   return this.http.get<IDeviceDetailResponse<IDeviceDetail>>(ApiUrl);
+  // }
 
-  getDeviceData(deviceGuid: string) {
-    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceDetail/GetDeviceDetail?deviceGuid=${deviceGuid}`;
+  getDeviceData(macAddress: string) {
+    macAddress = macAddress.replace(/:/g, '%3A');
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceDetail/GetDeviceDetail?macAddress=${macAddress}`;
     return this.http.get<IDeviceDataResponse<IDeviceData>>(ApiUrl);
   }
   
+  controlBatt(params: IControlBattReq): Observable<IControlBattRes> {
+    const ApiUrl = this.baseUrl + `/MQTT/MQTTSetting/ControlBatt`;
+    return this.http.post<IControlBattRes>(ApiUrl, params);
+  }
+
+  controlLoad(params: IControlLoadReq): Observable<IControlBattRes> {
+    const ApiUrl = this.baseUrl + `/MQTT/MQTTSetting/ControlLoad`;
+    return this.http.post<IControlBattRes>(ApiUrl, params);
+  }
 }
