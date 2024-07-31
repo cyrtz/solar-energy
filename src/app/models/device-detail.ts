@@ -39,7 +39,7 @@ export interface IDeviceData {
 }
 export interface IControlBattReq {
     macAddress: string
-    battState: number
+    battState: string
     mqttIp: string
     mqttPort: number
     mqttTopic: string

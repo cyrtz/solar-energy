@@ -75,7 +75,7 @@
                             <mat-list-item role="listitem">
                                 <div>
                                     <div>充放電狀態</div>
-                                    <div>{{this.battStatus}}</div>
+                                    <div>{{this.battState}}</div>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -90,17 +90,17 @@
                             <mat-card-subtitle>電池充放電</mat-card-subtitle>
                             <div fxLayoutAlign="center center" fxLayout="row">
                                 <mat-icon style="margin-right: 2px;">battery_charging_full</mat-icon>
-                                <mat-slide-toggle>
+                                <mat-slide-toggle style="color: green;" (change)="battChange($event.checked)">
                                     <mat-icon>power</mat-icon>
                                 </mat-slide-toggle>
                             </div>
                         </div>
                         <mat-divider vertical="true" style="height: 8vh; margin: 0 4px 4px 0;"></mat-divider>
                         <div fxLayout="column" fxLayoutAlign="space-evenly start" fxFlex="50">
-                            <mat-card-subtitle>供電來源</mat-card-subtitle>
+                            <mat-card-subtitle >供電來源</mat-card-subtitle>
                             <div fxLayoutAlign="center center" fxLayout="row">
                                 <mat-icon style="margin-right: 2px;">home</mat-icon>
-                                <mat-slide-toggle>
+                                <mat-slide-toggle (change)="loadChange($event.checked)">
                                     <mat-icon>solar_power</mat-icon>
                                 </mat-slide-toggle>
                             </div>

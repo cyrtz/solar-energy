@@ -63,6 +63,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { InterceptorService } from './service/interceptor/interceptor.service';
+import { OperationRecordComponent } from './operation-record/operation-record.component';
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import { InterceptorService } from './service/interceptor/interceptor.service';
     EditAccountDialogComponent,
     NewUserDialogComponent,
     DeleteUserDialogComponent,
+    OperationRecordComponent,
   ],
   imports: [
     BrowserModule,

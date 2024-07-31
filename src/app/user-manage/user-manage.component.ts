@@ -66,7 +66,7 @@ export class UserManageComponent  implements OnInit{
         this.userDepartment = res.data.departmentList;
       });
   }
-  // 搜尋表單資料變更(無功能)
+  // 搜尋表單資料變更
   onSearchFormChange(): void {
     this.searchUserForm.valueChanges.pipe(
       debounceTime(500),
@@ -125,17 +125,18 @@ export class UserManageComponent  implements OnInit{
         );
     }
   }
-  // 取得總頁數(無功能)
+  // 取得總頁數
   getTotalPage(): void {
     if (this.isSearch) {
       this.getSearchTotalPage(this.userDepartmentFilter || '', this.userNameFilter || '');
-    } else
+    } else{
       this.accountService.getTotalCount()
         .subscribe(
           res => {
             this.totalPage = res.data;
           }
         )
+    }
   }
   // 搜尋使用者 // 回傳 Observable 之 Interface
   searchUser(userDepartmentFilter: string, userNameFilter: string, page: number, pageSize: number): Observable<any> {
@@ -159,7 +160,7 @@ export class UserManageComponent  implements OnInit{
         }
       )
   }
-   // 分頁事件
+  // 分頁事件
   onPageChange(event: PageEvent): void {
     this.getUsers(event.pageIndex, event.pageSize).subscribe();
     this.getTotalPage();

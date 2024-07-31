@@ -49,7 +49,7 @@ export class AccountService {
       return this.http.get<IUserResponse<IUserList>>(ApiUrl);
     }
   }
-  // 取得總頁數(無功能)
+  // 取得總頁數
   getTotalCount(): Observable<ISearchTotalPageResponse> {
     const ApiUrl = this.baseUrl + '/Account/AccountInfo/GetAccountInfoTotalPage';
     return this.http.get<ISearchTotalPageResponse>(ApiUrl);

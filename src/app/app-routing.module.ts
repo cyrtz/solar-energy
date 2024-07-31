@@ -10,6 +10,7 @@ import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorDetectComponent } from './error-detect/error-detect.component';
 import { AuthGuard } from './auth/auth.guard';
+import { OperationRecordComponent } from './operation-record/operation-record.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'app-login', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'app-unit-manage', component: UnitManageComponent },
       { path: 'app-user-manage', component: UserManageComponent },
       { path: 'app-error-detect', component: ErrorDetectComponent },
+      { path: 'app-operation-record', component: OperationRecordComponent },
     ], canActivateChild: [AuthGuard],
   },
 ];

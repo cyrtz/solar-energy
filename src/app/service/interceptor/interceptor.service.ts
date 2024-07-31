@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -55,10 +55,13 @@ export class InterceptorService implements HttpInterceptor {
         headers: req.headers.set("authorizationToken", "Bearer " + token)
       });
     }
+    const started = Date.now();
     return next.handle(req)
     .pipe(
-      map(event => {
+      tap(event => {
         if (event instanceof HttpResponse) {
+          const total_time = Date.now() - started;
+          console.log(req.urlWithParams + ' 共花費 ' + total_time + 'ms');
           switch (event.body.Status) {
             case 1: {
               event = this.success(event);

@@ -15,6 +15,7 @@ import { dataSeries } from '../models/data-series';
 import { deviceListRes } from '../models/device-manage';
 import { DeviceDetailService } from '../service/device-detail/device-detail.service';
 import { Location } from '@angular/common';
+import { IControlBattReq, IControlLoadReq } from '../models/device-detail';
 
 
 // import { IDataRecord } from './data-series';
@@ -38,27 +39,27 @@ export type ChartOptions = {
 })
 
 export class DeviceDetailComponent implements OnInit {
-  // getDeviceGuid: string = '';
-  @Input() deviceMacAddress: string = '';
-  deviceGuid: string = '';
+
   deviceName: string = '';
   deviceUnitName: string = '';
   devicePlaceName: string = '';
+  @Input() deviceMacAddress: string = '';
   battPower: number = 0;
   battVoltage: number = 0;
   battAmpere: number = 0;
+  battWatt: number = 0;
+  battState: number = 0;
   loadVoltage: number = 0;
   loadAmpere: number = 0;
   co2Reduce: number = 0;
-  battWatt: number = 0;
-  battStatus: number = 0;
+  loadBatt: number = 0;
+  loadMain: number = 0;
 
   ngOnInit(): void {
     // this.getDeviceDetail();
-    // 取得路由參數，這裡是取得 guid
+    // 取得路由參數，這裡是取得 MacAddress
     this.route.params.subscribe(params => {
       this.deviceMacAddress = params['deviceMacAddress'];
-      console.log(this.deviceMacAddress);
     });
     // this.getDeviceDetail();
     this.getDeviceData();
@@ -68,9 +69,7 @@ export class DeviceDetailComponent implements OnInit {
     public route: ActivatedRoute,
     private devicedetailService: DeviceDetailService,
     private location: Location
-  ) {
-
-  }
+  ) { }
   // 沒有該API
   // getDeviceDetail() {
   //   this.devicedetailService.getDeviceDetail(this.deviceGuid).subscribe(res => {
@@ -87,31 +86,66 @@ export class DeviceDetailComponent implements OnInit {
       this.battPower = res.data.battPower;
       this.battVoltage = res.data.battVoltage;
       this.battAmpere = res.data.battAmpere;
+      this.battWatt = res.data.battWatt;
+      this.battState = res.data.battState;
       this.loadVoltage = res.data.loadVoltage;
       this.loadAmpere = res.data.loadAmpere;
       this.co2Reduce = res.data.co2Reduce;
-      this.battWatt = res.data.battWatt;
-      this.battStatus = res.data.battState;
     });
   }
 
-  
+  battChange(checked: boolean) {
+    if (checked === true) {
+      this.battState = 1;
+    } else {
+      this.battState = 0;
+    }
+    const params: IControlBattReq  = {
+      macAddress: this.deviceMacAddress,
+      battState: this.battState.toString(),
+      mqttIp: '',
+      mqttPort: 0,
+      mqttTopic: ''
+    }
+    this.devicedetailService.controlBatt(params).subscribe(res => {
+      alert(res.message);
+    });
+  }
+  loadChange(checked: boolean) {
+    if (checked === true) {
+      this.loadBatt = 1;
+      this.loadMain = 0;
+    } else {
+      this.loadBatt = 0;
+      this.loadMain = 1;
+    }
+    const params:IControlLoadReq = {
+      macAddress: this.deviceMacAddress,
+      loadState1: this.loadBatt.toString(),
+      loadState2: this.loadMain.toString(),
+      mqttIp: '',
+      mqttPort: 0,
+      mqttTopic: ''
+    }
+    this.devicedetailService.controlLoad(params).subscribe(res => {
+      alert(res.message);
+    });
+  }
 
   goBack() {
     this.location.back();
   }
 
   deviceDetail = {
-    deviceGuid: this.deviceGuid,
     deviceName: '阿爾卑斯山一號',
+    deviceUnitName: '中科大',
+    devicePlaceName: '頂樓',
     batteryPower: 30,
     battVoltage: 10,
     battAmpere: 20,
+    battWatt: 0,
     loadVoltage: 0,
     loadAmpere: 0,
-    deviceUnitName: '中科大',
-    devicePlaceName: '頂樓',
-    createTime: '2021-08-01',
-    updateTime: '2021-08-01',
+    co2Reduce: 0
   };
 }

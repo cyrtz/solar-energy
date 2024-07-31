@@ -19,6 +19,9 @@
                 <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
                     <button mat-button [routerLink]="'../app-home/app-error-detect'">異常檢測</button>
                 </ng-container>
+                <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
+                    <button mat-button [routerLink]="'../app-home/app-operation-record'">操作紀錄</button>
+                </ng-container>
             </div>
         </div>
     </mat-drawer>
