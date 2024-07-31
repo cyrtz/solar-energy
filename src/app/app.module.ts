@@ -64,6 +64,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { InterceptorService } from './service/interceptor/interceptor.service';
 import { OperationRecordComponent } from './operation-record/operation-record.component';
+import { DeviceHistoryDialogComponent } from './dialog/device-history-dialog/device-history-dialog.component';
+import { BatteryDataComponent } from './charts/battery-data/battery-data.component';
 
 
 @NgModule({
@@ -99,6 +101,8 @@ import { OperationRecordComponent } from './operation-record/operation-record.co
     NewUserDialogComponent,
     DeleteUserDialogComponent,
     OperationRecordComponent,
+    DeviceHistoryDialogComponent,
+    BatteryDataComponent,
   ],
   imports: [
     BrowserModule,

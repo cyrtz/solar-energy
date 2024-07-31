@@ -81,7 +81,7 @@ export class DeviceManageComponent implements OnInit {
             return this.searchDevice(this.unitNameFilter || '', this.deviceNameFilter || '', 0, 6);
             // return this.searchDevice(this.unitNameFilter || '','', 0, 6);
           }
-        } else if (value.unitNameFilter?.trim() == '' && value.deviceNameFilter?.trim() != ''){
+        } else if (value.unitNameFilter?.trim() == '' && value.deviceNameFilter?.trim() != '') {
           this.isSearch = true;
           this.unitNameFilter = '';
           this.deviceNameFilter = value.deviceNameFilter;
@@ -96,7 +96,7 @@ export class DeviceManageComponent implements OnInit {
     ).subscribe(result => {
       if (this.isSearch) {
         this.getSearchTotalPage(this.unitNameFilter || '', this.deviceNameFilter || '');
-      }else{
+      } else {
         this.getTotalPage();
       }
     });
@@ -104,11 +104,13 @@ export class DeviceManageComponent implements OnInit {
   // 取得設備列表 // 回傳 Observable 之 Interface，此處似乎有兩種return
   getDevices(page: number, pageSize: number): Observable<any> {
     if (this.isSearch) {
+      console.log('search');
       return this.searchDevice(this.unitNameFilter || '', this.deviceNameFilter || '', page, pageSize)
         .pipe(
           tap(() => this.getSearchTotalPage(this.unitNameFilter || '', this.deviceNameFilter || ''))
         );
     } else {
+      console.log('not search');
       return this.deviceService.getDevices(page, pageSize)
         .pipe(
           tap(res => {
@@ -163,9 +165,9 @@ export class DeviceManageComponent implements OnInit {
     this.getTotalPage();
   }
   // 分頁文字內容
-  paginatorContent(): void{
+  paginatorContent(): void {
     this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number):
-    string => {
+      string => {
       if (length === 0 || pageSize === 0) {
         return `第 0 筆、共 ${length} 筆`;
       }

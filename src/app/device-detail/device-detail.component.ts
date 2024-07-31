@@ -1,36 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexTitleSubtitle,
-  ApexDataLabels,
-  ApexFill,
-  ApexMarkers,
-  ApexYAxis,
-  ApexXAxis,
-  ApexTooltip
-} from "ng-apexcharts";
-import { dataSeries } from '../models/data-series';
-import { deviceListRes } from '../models/device-manage';
 import { DeviceDetailService } from '../service/device-detail/device-detail.service';
 import { Location } from '@angular/common';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DeviceHistoryDialogComponent } from '../dialog/device-history-dialog/device-history-dialog.component';
 import { IControlBattReq, IControlLoadReq } from '../models/device-detail';
+import { BatteryDataComponent } from '../charts/battery-data/battery-data.component';
 
 
 // import { IDataRecord } from './data-series';
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  title: ApexTitleSubtitle;
-  markers: ApexMarkers;
-  fill: ApexFill;
-  yaxis: ApexYAxis;
-  tooltip: ApexTooltip;
-  dataLabels: ApexDataLabels;
-};
 
 @Component({
   selector: 'app-device-detail',
@@ -39,6 +19,7 @@ export type ChartOptions = {
 })
 
 export class DeviceDetailComponent implements OnInit {
+  @ViewChild(BatteryDataComponent) batteryDataComponent!: BatteryDataComponent;
 
   deviceName: string = '';
   deviceUnitName: string = '';
@@ -55,6 +36,8 @@ export class DeviceDetailComponent implements OnInit {
   loadBatt: number = 0;
   loadMain: number = 0;
 
+  date = new FormControl(new Date());
+
   ngOnInit(): void {
     // this.getDeviceDetail();
     // 取得路由參數，這裡是取得 MacAddress
@@ -65,11 +48,21 @@ export class DeviceDetailComponent implements OnInit {
     this.getDeviceData();
   }
 
+  types: Type[] = [
+    { value: 'electricity', viewValue: '發電量' },
+    { value: 'carbon', viewValue: '節碳量' },
+  ]
+
+  selectedType: string = this.types[0].value;
+
   constructor(
     public route: ActivatedRoute,
     private devicedetailService: DeviceDetailService,
-    private location: Location
-  ) { }
+    private location: Location,
+    public dialog: MatDialog,
+  ) {
+
+  }
   // 沒有該API
   // getDeviceDetail() {
   //   this.devicedetailService.getDeviceDetail(this.deviceGuid).subscribe(res => {
@@ -136,16 +129,21 @@ export class DeviceDetailComponent implements OnInit {
     this.location.back();
   }
 
-  deviceDetail = {
-    deviceName: '阿爾卑斯山一號',
-    deviceUnitName: '中科大',
-    devicePlaceName: '頂樓',
-    batteryPower: 30,
-    battVoltage: 10,
-    battAmpere: 20,
-    battWatt: 0,
-    loadVoltage: 0,
-    loadAmpere: 0,
-    co2Reduce: 0
-  };
+  search(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DeviceHistoryDialogComponent, {
+      width: '400px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        deviceMacAddress: this.deviceMacAddress,
+        selectedType: this.selectedType,
+        date: this.date.value
+      }
+    });
+  }
+}
+
+interface Type {
+  value: string;
+  viewValue: string;
 }
