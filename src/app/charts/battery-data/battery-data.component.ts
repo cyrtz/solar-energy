@@ -76,7 +76,7 @@ export class BatteryDataComponent {
         curve: 'smooth'
       },
       title: {
-        text: '電池數據',
+        text: '今日狀態',
         align: 'center'
       },
       grid: {
