@@ -8,9 +8,10 @@ import { UserManageComponent } from './user-manage/user-manage.component';
 import { InteractiveMapComponent } from './interactive-map/interactive-map.component';
 import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ErrorDetectComponent } from './error-detect/error-detect.component';
 import { AuthGuard } from './auth/auth.guard';
 import { OperationRecordComponent } from './operation-record/operation-record.component';
+import { ErrorDeviceComponent } from './error-detection/error-device/error-device/error-device.component';
+import { ErrorSystemComponent } from './error-detection/error-system/error-system/error-system.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'app-login', pathMatch: 'full' },
@@ -25,7 +26,8 @@ const routes: Routes = [
       { path: 'app-device-detail/:deviceMacAddress', component: DeviceDetailComponent },
       { path: 'app-unit-manage', component: UnitManageComponent },
       { path: 'app-user-manage', component: UserManageComponent },
-      { path: 'app-error-detect', component: ErrorDetectComponent },
+      { path: 'app-error-device', component: ErrorDeviceComponent},
+      { path: 'app-error-system', component: ErrorSystemComponent},
       { path: 'app-operation-record', component: OperationRecordComponent },
     ], canActivateChild: [AuthGuard],
   },

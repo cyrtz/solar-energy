@@ -24,7 +24,6 @@ import { UnitManageComponent } from './unit-manage/unit-manage.component';
 import { NewUnitDialogComponent } from './dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from './dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ErrorDetectComponent } from './error-detect/error-detect.component';
 import { NewPlaceDialogComponent } from './dialog/new-place-dialog/new-place-dialog.component';
 import { StackedColumnsDayComponent } from './charts/stacked-columns-day/stacked-columns-day.component';
 import { StackedColumnsMonthComponent } from './charts/stacked-columns-month/stacked-columns-month.component';
@@ -66,7 +65,9 @@ import { InterceptorService } from './service/interceptor/interceptor.service';
 import { OperationRecordComponent } from './operation-record/operation-record.component';
 import { DeviceHistoryDialogComponent } from './dialog/device-history-dialog/device-history-dialog.component';
 import { BatteryDataComponent } from './charts/battery-data/battery-data.component';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ErrorDeviceComponent } from './error-detection/error-device/error-device/error-device.component';
+import { ErrorSystemComponent } from './error-detection/error-system/error-system/error-system.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,6 @@ import { BatteryDataComponent } from './charts/battery-data/battery-data.compone
     NewUnitDialogComponent,
     DeleteUnitDialogComponent,
     DashboardComponent,
-    ErrorDetectComponent,
     NewPlaceDialogComponent,
     StackedColumnsMonthComponent,
     StackedColumnsDayComponent,
@@ -103,6 +103,8 @@ import { BatteryDataComponent } from './charts/battery-data/battery-data.compone
     OperationRecordComponent,
     DeviceHistoryDialogComponent,
     BatteryDataComponent,
+    ErrorDeviceComponent,
+    ErrorSystemComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +137,8 @@ import { BatteryDataComponent } from './charts/battery-data/battery-data.compone
     MatNativeDateModule,
     MatListModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatExpansionModule
   ],
   providers: [
     {

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, AsyncValidator } from '@angular/forms';
 import { DeviceManageService } from '../../service/device-manage/device-manage.service';
 import { IAddDeviceRequest } from '../../models/device-manage';
-import { ActivatedRoute, Router } from '@angular/router';
 import { EventEmitter, Output } from '@angular/core';
-import { Observable, catchError, concatMap, debounceTime, delay, exhaustMap, first, map, of, pipe, switchMap } from 'rxjs';
+import { Observable, catchError, debounceTime, map, of, switchMap } from 'rxjs';
 import { UnitManageService } from '../../service/unit-manage/unit-manage.service';
 import { IPlaceListItem, IUnitListResponse } from 'src/app/models/unit-manage';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-new-device-dialog',
   templateUrl: './new-device-dialog.component.html',
@@ -14,14 +15,10 @@ import { IPlaceListItem, IUnitListResponse } from 'src/app/models/unit-manage';
 })
 
 export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
-
   // 定義一個"關閉事件"發布器
-  @Output() dialogClosed = new EventEmitter<void>();
-
-  ngOnInit(): void {
-    this.getUnitList();
-  }
-
+  @Output() dialogClosed = new EventEmitter<void>();  
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   isUnitSelected: boolean = false;
   placeList: string[] = [];
   unitData: IUnitListResponse[] = [];
@@ -64,8 +61,11 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
   constructor(
     private deviceService: DeviceManageService,
     private unitService: UnitManageService,
+    private _snackBar: MatSnackBar,
   ) { }
-  
+  ngOnInit(): void {
+    this.getUnitList();
+  }
   // 取得單位
   getUnitList() {
     this.unitService.getTotalUnits().subscribe(res => {
@@ -95,15 +95,22 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
       .subscribe(res => {
         if (res.isSuccess == false) {
           // 新增失敗訊息
-          alert(res.message);
+          this.openSnackBar('新增失敗');
           return;
         } else {
           // 新增成功訊息
-          alert('新增成功');
+          this.openSnackBar('新增成功');
           // 發布事件
           this.dialogClosed.emit();
         }
       });
+  }
+  openSnackBar(message: string): void {
+    this._snackBar.open(message, '關閉', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 5000,
+    });
   }
   // 驗證設備名稱是否重複
   validate(control: AbstractControl): Observable<ValidationErrors | null> {

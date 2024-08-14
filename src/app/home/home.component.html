@@ -17,7 +17,17 @@
                     <button mat-button [routerLink]="'../app-home/app-user-manage'">使用者管理</button>
                 </ng-container>
                 <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
-                    <button mat-button [routerLink]="'../app-home/app-error-detect'">異常檢測</button>
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    異常檢測
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <button mat-button [routerLink]="'../app-home/app-error-system'">系統異常</button>
+                            <button mat-button [routerLink]="'../app-home/app-error-device'">設備異常</button>
+                        </mat-expansion-panel>
+                    </mat-accordion>
                 </ng-container>
                 <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
                     <button mat-button [routerLink]="'../app-home/app-operation-record'">操作紀錄</button>

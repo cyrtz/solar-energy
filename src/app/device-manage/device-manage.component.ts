@@ -207,7 +207,6 @@ export class DeviceManageComponent implements OnInit {
     // 訂閱 dialogClosed 事件
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       // 事件觸發時重新取得設備列表
-      console.log('dialogClosed');
       this.getDevices(this.currentPage, 6).subscribe();
       this.getTotalPage();
     });
