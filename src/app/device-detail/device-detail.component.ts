@@ -4,7 +4,6 @@ import { DeviceDetailService } from '../service/device-detail/device-detail.serv
 import { Location } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DeviceHistoryDialogComponent } from '../dialog/device-history-dialog/device-history-dialog.component';
 import { IControlBattReq, IControlLoadReq } from '../models/device-detail';
 import { BatteryDataComponent } from '../charts/battery-data/battery-data.component';
 
@@ -127,19 +126,6 @@ export class DeviceDetailComponent implements OnInit {
 
   goBack() {
     this.location.back();
-  }
-
-  search(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(DeviceHistoryDialogComponent, {
-      width: '400px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-      data: {
-        deviceMacAddress: this.deviceMacAddress,
-        selectedType: this.selectedType,
-        date: this.date.value
-      }
-    });
   }
 }
 

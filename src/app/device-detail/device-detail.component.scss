@@ -1,12 +1,14 @@
 .header {
+  margin-bottom: 1rem;
   .device-detail {
+    margin: 1.3rem 2.6rem 0 1.3rem;
 
     .devicename {
       display: flex;
       justify-content: center;
       width: 250px;
       border-radius: 4px;
-      font-size: 30px;
+      font-size: 32px;
       margin-right: 10px;
       background: #82bbb5;
       color: white;
@@ -16,27 +18,18 @@
 
 .electricity-generated-card {
   width: 100%;
-  .cardTitle {
-    font-size: 24px;
-    background: #bae8e8;
-    border-radius: 4px 4px 0 0;
+  .mat-divider {
+    height: 8vh;
+    margin: 0 4px 4px 0;
   }
 }
 
 .batt-data-card{
   width: 100%;
-  margin: 10px 0 0 10px;
 }
 
 .control-card {
   width: 100%;
-  margin-top: 10px;
-
-  .cardTitle {
-    font-size: 24px;
-    background: #bae8e8;
-    border-radius: 4px 4px 0 0;
-  }
 }
 
 .data-div{
@@ -45,17 +38,4 @@
 
 .history-card {
   width: 100%;
-  margin: 10px 10px 0 10px;
-  .cardTitle {
-    font-size: 24px;
-    background: #bae8e8;
-    border-radius: 4px 4px 0 0;
-  }
-}
-
-.mat-divider.mat-divider-horizontal {
-  margin: 10px;
-  border-top-width: 4px;
-  border-color: #4E6E62;
-
 }

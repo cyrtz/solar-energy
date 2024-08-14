@@ -41,20 +41,20 @@ export class BatteryDataComponent {
     this.chartOptions = {
       series: [
         {
-          name: '電壓',
+          name: '電壓(V)',
           data: [12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9]
         },
         {
-          name: '電流',
+          name: '電流(A)',
           data: [1.1, 2.1, 4.3, 5.4, 6.2, 7.3, 8.6, 10.0, 11.0]
         },
         {
-          name: '功率',
+          name: '功率(W)',
           data: [1, 2, 3, 4, 5, 6, 7, 8, 9]
         }
       ],
       chart: {
-        height: 400,
+        height: 360,
         type: 'line',
         dropShadow: {
           enabled: true,

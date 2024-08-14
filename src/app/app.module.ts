@@ -63,11 +63,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { InterceptorService } from './service/interceptor/interceptor.service';
 import { OperationRecordComponent } from './operation-record/operation-record.component';
-import { DeviceHistoryDialogComponent } from './dialog/device-history-dialog/device-history-dialog.component';
 import { BatteryDataComponent } from './charts/battery-data/battery-data.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ErrorDeviceComponent } from './error-detection/error-device/error-device/error-device.component';
 import { ErrorSystemComponent } from './error-detection/error-system/error-system/error-system.component';
+import { ElectricityGeneratedComponent } from './charts/electricity-generated/electricity-generated.component';
+
 
 @NgModule({
   declarations: [
@@ -101,10 +102,10 @@ import { ErrorSystemComponent } from './error-detection/error-system/error-syste
     NewUserDialogComponent,
     DeleteUserDialogComponent,
     OperationRecordComponent,
-    DeviceHistoryDialogComponent,
     BatteryDataComponent,
     ErrorDeviceComponent,
     ErrorSystemComponent,
+    ElectricityGeneratedComponent,
   ],
   imports: [
     BrowserModule,
