@@ -82,12 +82,6 @@ export class OperationRecordComponent {
     });
   }
   getOperates(page: number, pageSize: number): Observable<any> {
-    // if (this.isSearch) {
-    //   return this.searchUser(this.userDepartmentFilter || '', this.userNameFilter || '', page, pageSize)
-    //     .pipe(
-    //       tap(() => this.getSearchTotalPage(this.userDepartmentFilter || '', this.userNameFilter || ''))
-    //     );
-    // } else {
       return this.recordservice.getOperates(page, pageSize)
         .pipe(
           tap(res => {
@@ -114,9 +108,6 @@ export class OperationRecordComponent {
       );
   }
   getTotalPage(): void {
-    // if (this.isSearch) {
-      // this.getSearchTotalPage(this.userDepartmentFilter || '', this.userNameFilter || '');
-    // } else{
       this.recordservice.getTotalCount()
         .subscribe(
           res => {

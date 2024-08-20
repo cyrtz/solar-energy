@@ -18,3 +18,13 @@ export interface ITotalPageRes {
     isSuccess: boolean;
     message: string;
 }
+// ErrorSystem
+export interface IErrorTypeList{
+    errorType: string,
+}
+export interface IErrorSystemListRes{
+    logUser: string,
+    logMessage: string,
+    userIdentity: string,
+    createTime: string,
+}
