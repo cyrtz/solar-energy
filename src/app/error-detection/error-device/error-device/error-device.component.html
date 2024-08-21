@@ -6,4 +6,59 @@
         </div>
         <div>設備異常</div>
     </div>
+    <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
+        <form [formGroup]="searchDeviceErrorForm">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
+                <mat-label>錯誤類型</mat-label>
+                <mat-select formControlName="userPermissionsFilter">
+                    <mat-option [value]="''">
+                        全部
+                    </mat-option>
+                    <mat-option *ngFor="let error of errorTypeList" [value]="error.errorType">
+                        {{error.errorType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
+                <mat-label>搜尋條件（輸入框）</mat-label>
+                <input matInput formControlName="userNameFilter">
+            </mat-form-field>
+        </form>
+    </div>
+</div>
+
+<div class="errorTable">
+    <table mat-table [dataSource]="dataSource">
+        <!-- deviceName Column -->
+        <ng-container matColumnDef="deviceName">
+            <th mat-header-cell *matHeaderCellDef class="centerAlign">設備名稱</th>
+            <td mat-cell *matCellDef="let element"> {{element.deviceName}} </td>
+        </ng-container>
+        <!-- deviceUnitName Column -->
+        <ng-container matColumnDef="deviceUnitName">
+            <th mat-header-cell *matHeaderCellDef class="centerAlign">單位</th>
+            <td mat-cell *matCellDef="let element"> {{element.deviceUnitName}} </td>
+        </ng-container>
+        <!-- devicePlaceName Column -->
+        <ng-container matColumnDef="devicePlaceName">
+            <th mat-header-cell *matHeaderCellDef class="centerAlign">地點</th>
+            <td mat-cell *matCellDef="let element"> {{element.devicePlaceName}} </td>
+        </ng-container>
+        <!-- errorType Column -->
+        <ng-container matColumnDef="errorType">
+            <th mat-header-cell *matHeaderCellDef class="centerAlign">錯誤類型</th>
+            <td mat-cell *matCellDef="let element"> {{element.errorType}} </td>
+        </ng-container>
+        <!-- createTime Column -->
+        <ng-container matColumnDef="createTime">
+            <th mat-header-cell *matHeaderCellDef class="centerAlign">發現時間</th>
+            <td mat-cell *matCellDef="let element"> {{element.createTime | date:"yyyy-MM-dd HH:mm:ss"}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+    </table>
+    <!-- [length]="totalCount" 需要返回參數 -->
+    <mat-paginator #paginator (page)="onPageChange($event)" [length]="this.totalPage" pageIndex="0" pageSize="6"
+        [pageSizeOptions]="[6,8,10]">
+    </mat-paginator>
 </div>

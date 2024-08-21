@@ -37,6 +37,11 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-account-dialog.component';
 import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
 import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog/delete-user-dialog.component';
+import { OperationRecordComponent } from './operation-record/operation-record.component';
+import { BatteryDataComponent } from './charts/battery-data/battery-data.component';
+import { ErrorDeviceComponent } from './error-detection/error-device/error-device/error-device.component';
+import { ErrorSystemComponent } from './error-detection/error-system/error-system/error-system.component';
+import { ElectricityGeneratedComponent } from './charts/electricity-generated/electricity-generated.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -60,14 +65,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { InterceptorService } from './service/interceptor/interceptor.service';
-import { OperationRecordComponent } from './operation-record/operation-record.component';
-import { BatteryDataComponent } from './charts/battery-data/battery-data.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { ErrorDeviceComponent } from './error-detection/error-device/error-device/error-device.component';
-import { ErrorSystemComponent } from './error-detection/error-system/error-system/error-system.component';
-import { ElectricityGeneratedComponent } from './charts/electricity-generated/electricity-generated.component';
+
+
 
 
 @NgModule({
@@ -139,7 +142,7 @@ import { ElectricityGeneratedComponent } from './charts/electricity-generated/el
     MatListModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   providers: [
     {

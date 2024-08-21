@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, tap } from 'rxjs';
-import { IErrorSystemListRes, IErrorTypeList } from 'src/app/models/record';
+import { IErrorSystemListRes, IErrorTypeList } from 'src/app/models/error-detection';
 import { ErrorSystemService } from 'src/app/service/error-detection/error-system/error-system.service';
 
 @Component({

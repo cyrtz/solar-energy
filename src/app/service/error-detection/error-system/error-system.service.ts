@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IErrorSystemListRes, IRecordRes, ITotalPageRes } from 'src/app/models/record';
+import { IErrorListRes, IErrorSystemListRes } from 'src/app/models/error-detection';
+import {  ITotalPageRes } from 'src/app/models/record';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,9 @@ export class ErrorSystemService {
   ) { }
   baseUrl = 'http://192.168.50.132:5142';
 
-  getOperates(pageIndex: number, pageSize: number): Observable<IRecordRes<IErrorSystemListRes>> {
+  getOperates(pageIndex: number, pageSize: number): Observable<IErrorListRes<IErrorSystemListRes>> {
     const ApiUrl = this.baseUrl + `///?pageindex=${pageIndex}&pagesize=${pageSize}`;
-    return this.http.get<IRecordRes<IErrorSystemListRes>>(ApiUrl);
+    return this.http.get<IErrorListRes<IErrorSystemListRes>>(ApiUrl);
   }
   getTotalCount(): Observable<ITotalPageRes> {
     const ApiUrl = this.baseUrl + '';

@@ -17,3 +17,27 @@
 
     // margin: 1.3rem 1.3rem 0 1.3rem;
 }
+
+.tableOperate {
+    margin: 1.3rem 1rem 0 0;
+    padding-left: 0rem;
+    button {
+        height: 56px;
+        width: 116px;
+        font-size: 16px;
+    }
+}
+.errorTable {
+    margin: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+    table th {
+        font-size: 20px;
+        background: #bae8e8;
+    }
+    table td {
+        font-size: 18px;
+    }
+}
+.centerAlign {
+    border-bottom: 1.5px solid #6b916b;
+}

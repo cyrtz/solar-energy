@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   weatheroverview = '';
   isShow: boolean = false;
   userRole: string = '';
+  showList: boolean = false;
 
   constructor(
     private WeatherdataService: WeatherdataService,
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit {
             this.weatheroverview = 'assets/img/weather/11.svg';
           } else if (this.weatheroverview === '陰有雨') {
             this.weatheroverview = 'assets/img/weather/14.svg';
-          } else if (this.weatheroverview === '陰有雷') {
+          } else if (this.weatheroverview === '陰有雷' || this.weatheroverview === '陰有雷雨') {
             this.weatheroverview = 'assets/img/weather/18.svg';
           }
           else {
@@ -69,5 +70,8 @@ export class HomeComponent implements OnInit {
     source.subscribe(() => {
       this.getWeatherData();
     });
+  }
+  openErrorDetection(){
+    this.showList = !this.showList;
   }
 }
