@@ -10,7 +10,7 @@
         <form [formGroup]="searchDeviceErrorForm">
             <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
                 <mat-label>錯誤類型</mat-label>
-                <mat-select formControlName="userPermissionsFilter">
+                <mat-select formControlName="deviceErrorTypeFilte">
                     <mat-option [value]="''">
                         全部
                     </mat-option>
@@ -21,7 +21,7 @@
             </mat-form-field>
             <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
                 <mat-label>搜尋條件（輸入框）</mat-label>
-                <input matInput formControlName="userNameFilter">
+                <input matInput formControlName="deviceErrorNameFilter">
             </mat-form-field>
         </form>
     </div>
