@@ -16,7 +16,6 @@ export class ErrorDeviceComponent {
     deviceErrorTypeFilter: new FormControl(''),
     deviceErrorNameFilter: new FormControl(''),
   })
-
   errorTypeList: IErrorTypeList[] = [{ errorType: '太陽能板異常' }, { errorType: '電箱異常' }, { errorType: '控制器異常' }];
   errorDeviceData: IErrorDeviceListRes[] = [];
   dataSource = new MatTableDataSource<IErrorDeviceListRes>(this.errorDeviceData);

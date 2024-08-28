@@ -2,6 +2,7 @@ import { Token } from '@angular/compiler';
 import { Component, EventEmitter, Inject, Output, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { IEditDeviceRequest, deviceListRes } from 'src/app/models/device-manage';
 import { IPlaceListItem, IUnitListResponse } from 'src/app/models/unit-manage';
@@ -14,7 +15,9 @@ import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.servi
   styleUrls: ['./edit-device-dialog.component.scss']
 })
 export class EditDeviceDialogComponent implements OnInit {
-  // 接收從父元件傳遞的設備數據
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   device: deviceListRes;
   selectedUnitGuid!: string;
   selectedPlaceGuid!: string;
@@ -43,6 +46,7 @@ export class EditDeviceDialogComponent implements OnInit {
   constructor(
     private deviceService: DeviceManageService,
     private unitService: UnitManageService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: deviceListRes
   ) {
     this.device = data;
@@ -119,8 +123,7 @@ export class EditDeviceDialogComponent implements OnInit {
     }
     this.deviceService.editDevice(value as unknown as IEditDeviceRequest)
       .subscribe(res => {
-        alert(res.message);
-        // 發布事件
+        this.openSnackBar(res.message, '關閉')
         this.dialogClosed.emit();
       });
   }
@@ -138,5 +141,12 @@ export class EditDeviceDialogComponent implements OnInit {
       }),
       catchError(() => of(null))
     );
+  }
+  openSnackBar(message: string, action: string): void {
+    this._snackBar.open(message, action, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 5000,
+    });
   }
 }

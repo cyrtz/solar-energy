@@ -15,16 +15,13 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 })
 
 export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
-  // 定義一個"關閉事件"發布器
-  @Output() dialogClosed = new EventEmitter<void>();  
+
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   isUnitSelected: boolean = false;
   placeList: string[] = [];
   unitData: IUnitListResponse[] = [];
   devicePlaceNameList: IPlaceListItem[] = [];
-
-  // 新增設備表單
   newDeviceForm = new FormGroup({
     deviceName: new FormControl('', {
       validators: [
@@ -52,7 +49,6 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
       ],
     }),
   })
-
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
   get deviceMacAddress() { return this.newDeviceForm.get('deviceMacAddress'); }
   get deviceUnitGuid() { return this.newDeviceForm.get('deviceUnitGuid'); }
@@ -63,6 +59,7 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
     private unitService: UnitManageService,
     private _snackBar: MatSnackBar,
   ) { }
+  @Output() dialogClosed = new EventEmitter<void>();  
   ngOnInit(): void {
     this.getUnitList();
   }
@@ -93,24 +90,14 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
     const value = this.newDeviceForm.getRawValue();
     this.deviceService.addDevice(value as unknown as IAddDeviceRequest)
       .subscribe(res => {
-        if (res.isSuccess == false) {
-          // 新增失敗訊息
-          this.openSnackBar('新增失敗');
-          return;
+        if (res.isSuccess == true) {
+          this.openSnackBar('新增成功', '關閉');
+          this.dialogClosed.emit();
         } else {
-          // 新增成功訊息
-          this.openSnackBar('新增成功');
-          // 發布事件
+          this.openSnackBar(res.message, '關閉');
           this.dialogClosed.emit();
         }
       });
-  }
-  openSnackBar(message: string): void {
-    this._snackBar.open(message, '關閉', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: 5000,
-    });
   }
   // 驗證設備名稱是否重複
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
@@ -130,5 +117,12 @@ export class NewDeviceDialogComponent implements AsyncValidator, OnInit {
       return of({ 'cannotEmpty': true });
     }
     return of(null);
+  }
+  openSnackBar(message: string, action: string): void {
+    this._snackBar.open(message, action, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 5000,
+    });
   }
 }

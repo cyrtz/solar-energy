@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { AbstractControl, AsyncValidator, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Observable, catchError, debounceTime, map, of, switchMap } from 'rxjs';
 import { IAddDeviceRequest } from 'src/app/models/device-manage';
 import { IPlaceListItem, IUnitListResponse } from 'src/app/models/unit-manage';
@@ -14,20 +15,14 @@ import { UnitManageService } from 'src/app/service/unit-manage/unit-manage.servi
 })
 export class NewDeviceByUnitDialogComponent implements OnInit{
   
-  @Output() dialogClosed = new EventEmitter<void>();
-  
-  ngOnInit(): void {
-    this.getUnitList();
-    this.getPlaceList(this.data.unitGuid);
-  }
-
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   unitName: string = '';
   unitGuid: string ='';
   isUnitSelected: boolean = false;
   placeList: string[] = [];
   unitData: IUnitListResponse[] = [];
   devicePlaceNameList: IPlaceListItem[] = [];
-
   newDeviceForm = new FormGroup({
     deviceName: new FormControl('', {
       validators: [
@@ -55,7 +50,6 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
       ],
     }),
   });
-
   get deviceName() { return this.newDeviceForm.get('deviceName'); }
   get deviceUnitGuid() { return this.newDeviceForm.get('deviceUnitGuid'); }
   get devicePlaceGuid() { return this.newDeviceForm.get('devicePlaceGuid'); }
@@ -64,9 +58,15 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
   constructor(
     private deviceService: DeviceManageService,
     private unitService: UnitManageService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: { unitGuid: string }
   ) { }
+  @Output() dialogClosed = new EventEmitter<void>();
 
+  ngOnInit(): void {
+    this.getUnitList();
+    this.getPlaceList(this.data.unitGuid);
+  }
   getUnitList() {
     this.unitService.getTotalUnits().subscribe(res => {
       this.unitData = res.data.unitList;
@@ -96,14 +96,11 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
     value.deviceUnitGuid = this.unitGuid
     this.deviceService.addDevice(value as unknown as IAddDeviceRequest)
       .subscribe(res => {
-        if (res.isSuccess == false) {
-          // 新增失敗訊息
-          alert(res.message);
-          return;
+        if (res.isSuccess == true) {
+          this.openSnackBar('新增成功', '關閉');
+          this.dialogClosed.emit();
         } else {
-          // 新增成功訊息
-          alert('新增成功');
-          // 發布事件
+          this.openSnackBar(res.message, '關閉');
           this.dialogClosed.emit();
         }
       });
@@ -126,5 +123,12 @@ export class NewDeviceByUnitDialogComponent implements OnInit{
       return of({ 'cannotEmpty': true });
     }
     return of(null);
+  }
+  openSnackBar(message: string, action: string): void {
+    this._snackBar.open(message, action, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 5000,
+    });
   }
 }

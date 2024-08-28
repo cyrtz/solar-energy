@@ -6,12 +6,11 @@
         </div>
         <div>系統異常</div>
     </div>
-    <!-- 搜尋表單 -->
     <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
         <form [formGroup]="searchSystemErrorForm">
             <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
                 <mat-label>錯誤類型</mat-label>
-                <mat-select formControlName="userPermissionsFilter">
+                <mat-select formControlName="errorSystemTypeFilter">
                     <mat-option [value]="''">
                         全部
                     </mat-option>
@@ -21,8 +20,8 @@
                 </mat-select>
             </mat-form-field>
             <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
-                <mat-label>搜尋條件（輸入框）</mat-label>
-                <input matInput formControlName="userNameFilter">
+                <mat-label>錯誤名稱</mat-label>
+                <input matInput formControlName="errorSystemNameFilter">
             </mat-form-field>
         </form>
     </div>

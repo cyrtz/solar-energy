@@ -6,11 +6,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IControlBattReq, IControlLoadReq } from '../models/device-detail';
 import { BatteryDataComponent } from '../charts/battery-data/battery-data.component';
-
-
-// import { IDataRecord } from './data-series';
-
-
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-device-detail',
   templateUrl: './device-detail.component.html',
@@ -18,8 +14,9 @@ import { BatteryDataComponent } from '../charts/battery-data/battery-data.compon
 })
 
 export class DeviceDetailComponent implements OnInit {
-  @ViewChild(BatteryDataComponent) batteryDataComponent!: BatteryDataComponent;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   deviceName: string = '';
   deviceUnitName: string = '';
   devicePlaceName: string = '';
@@ -34,44 +31,31 @@ export class DeviceDetailComponent implements OnInit {
   co2Reduce: number = 0;
   loadBatt: number = 0;
   loadMain: number = 0;
-
   date = new FormControl(new Date());
-
+  types: Type[] = [
+    { value: 'electricity', viewValue: '發電量' },
+    { value: 'carbon', viewValue: '節碳量' },
+  ]
+  selectedType: string = this.types[0].value;
+  constructor(
+    public route: ActivatedRoute,
+    private devicedetailService: DeviceDetailService,
+    private location: Location,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+  ) { }
+  
+  @ViewChild(BatteryDataComponent) batteryDataComponent!: BatteryDataComponent;
   ngOnInit(): void {
     // this.getDeviceDetail();
     // 取得路由參數，這裡是取得 MacAddress
     this.route.params.subscribe(params => {
       this.deviceMacAddress = params['deviceMacAddress'];
     });
-    // this.getDeviceDetail();
     this.getDeviceData();
   }
-
-  types: Type[] = [
-    { value: 'electricity', viewValue: '發電量' },
-    { value: 'carbon', viewValue: '節碳量' },
-  ]
-
-  selectedType: string = this.types[0].value;
-
-  constructor(
-    public route: ActivatedRoute,
-    private devicedetailService: DeviceDetailService,
-    private location: Location,
-    public dialog: MatDialog,
-  ) {
-
-  }
-  // 沒有該API
-  // getDeviceDetail() {
-  //   this.devicedetailService.getDeviceDetail(this.deviceGuid).subscribe(res => {
-  //     console.log(res);
-  //   });
-  // }
-
   getDeviceData() {
     this.devicedetailService.getDeviceData(this.deviceMacAddress).subscribe(res => {
-      // console.log(res);
       this.deviceName = res.data.deviceName;
       this.deviceUnitName = res.data.deviceUnitName;
       this.devicePlaceName = res.data.devicePlaceName;
@@ -100,7 +84,7 @@ export class DeviceDetailComponent implements OnInit {
       mqttTopic: ''
     }
     this.devicedetailService.controlBatt(params).subscribe(res => {
-      alert(res.message);
+      this.openSnackBar(res.message, '關閉');
     });
   }
   loadChange(checked: boolean) {
@@ -120,12 +104,18 @@ export class DeviceDetailComponent implements OnInit {
       mqttTopic: ''
     }
     this.devicedetailService.controlLoad(params).subscribe(res => {
-      alert(res.message);
+      this.openSnackBar(res.message, '關閉');
     });
   }
-
   goBack() {
     this.location.back();
+  }
+  openSnackBar(message: string, action: string): void {
+    this._snackBar.open(message, action, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 5000,
+    });
   }
 }
 

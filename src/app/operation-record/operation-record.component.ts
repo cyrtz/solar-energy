@@ -94,7 +94,6 @@ export class OperationRecordComponent {
             }
           })
         );
-    // }
   }
   searchOperates(userDepartmentFilter: string, userNameFilter: string, page: number, pageSize: number): Observable<any> {
     this.isSearch = true;
