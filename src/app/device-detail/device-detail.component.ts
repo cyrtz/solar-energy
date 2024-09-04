@@ -45,28 +45,41 @@ export class DeviceDetailComponent implements OnInit {
     private _snackBar: MatSnackBar,
   ) { }
   
-  @ViewChild(BatteryDataComponent) batteryDataComponent!: BatteryDataComponent;
+  // @ViewChild(BatteryDataComponent) batteryDataComponent!: BatteryDataComponent;
   ngOnInit(): void {
     // this.getDeviceDetail();
     // 取得路由參數，這裡是取得 MacAddress
     this.route.params.subscribe(params => {
       this.deviceMacAddress = params['deviceMacAddress'];
     });
-    this.getDeviceData();
+    this.getDeviceInfo();
+    this.getSunDetailData();
+    this.getBattPowerData();
   }
-  getDeviceData() {
+  getDeviceInfo() {
     this.devicedetailService.getDeviceData(this.deviceMacAddress).subscribe(res => {
       this.deviceName = res.data.deviceName;
       this.deviceUnitName = res.data.deviceUnitName;
       this.devicePlaceName = res.data.devicePlaceName;
-      this.battPower = res.data.battPower;
-      this.battVoltage = res.data.battVoltage;
-      this.battAmpere = res.data.battAmpere;
-      this.battWatt = res.data.battWatt;
-      this.battState = res.data.battState;
-      this.loadVoltage = res.data.loadVoltage;
-      this.loadAmpere = res.data.loadAmpere;
-      this.co2Reduce = res.data.co2Reduce;
+    });
+  }
+
+  getSunDetailData() {
+    this.devicedetailService.getSunDetailData(this.deviceMacAddress, "2024-08-21").subscribe(res => {
+      // console.log(res);
+      if (res.data.length > 0) {
+        this.battVoltage = res.data[0].dataV;
+        this.battAmpere = res.data[0].dataA;
+        this.battWatt = res.data[0].dataW;
+        this.battState = res.data[0].battState;
+      }
+    });
+  }
+
+  getBattPowerData(){
+    this.devicedetailService.getBattPowerData(this.deviceMacAddress).subscribe(res => {
+      // console.log(res);
+      this.battPower = res.data;
     });
   }
 
@@ -85,6 +98,7 @@ export class DeviceDetailComponent implements OnInit {
     }
     this.devicedetailService.controlBatt(params).subscribe(res => {
       this.openSnackBar(res.message, '關閉');
+      this.getSunDetailData();
     });
   }
   loadChange(checked: boolean) {
@@ -105,6 +119,7 @@ export class DeviceDetailComponent implements OnInit {
     }
     this.devicedetailService.controlLoad(params).subscribe(res => {
       this.openSnackBar(res.message, '關閉');
+      this.getSunDetailData();
     });
   }
   goBack() {

@@ -34,7 +34,11 @@
                 <ng-container *ngIf="userRole === 'Admin' || userRole === 'Editor'">
                     <button mat-button (click)="openErrorDetection()" fxLayoutAlign="start center">
                         <mat-icon>error</mat-icon>
-                        異常檢測
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            異常檢測
+                            <mat-icon *ngIf="!this.showList">arrow_drop_down</mat-icon>
+                            <mat-icon *ngIf="this.showList">arrow_drop_up</mat-icon>
+                        </div>
                     </button>
                     <div *ngIf="this.showList" style="background: #5DA88C;">
                         <button mat-button [routerLink]="'../app-home/app-error-system'">

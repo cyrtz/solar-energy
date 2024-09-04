@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { min } from 'moment';
 
 import {
   ChartComponent,
@@ -11,8 +12,10 @@ import {
   ApexYAxis,
   ApexGrid,
   ApexTitleSubtitle,
-  ApexLegend
+  ApexLegend,
+  ApexTooltip
 } from 'ng-apexcharts';
+import { DeviceDetailService } from 'src/app/service/device-detail/device-detail.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -26,6 +29,7 @@ export type ChartOptions = {
   grid: ApexGrid;
   legend: ApexLegend;
   title: ApexTitleSubtitle;
+  tooltip: ApexTooltip;
 };
 
 @Component({
@@ -33,24 +37,39 @@ export type ChartOptions = {
   templateUrl: './battery-data.component.html',
   styleUrls: ['./battery-data.component.scss']
 })
-export class BatteryDataComponent {
+export class BatteryDataComponent implements OnInit {
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
-  constructor() {
+  @Input() deviceMacAddress: string = '';
+
+  batteryData: any[] = [];
+  batteryDataV: number[] = [];
+  batteryDataA: number[] = [];
+  batteryDataW: number[] = [];
+  time: string[] = [];
+
+  ngOnInit(): void {
+    console.log(this.deviceMacAddress);
+    this.getBattInfoList();
+  }
+
+  constructor(
+    private deviceDetailService: DeviceDetailService,
+  ) {
     this.chartOptions = {
       series: [
         {
           name: '電壓(V)',
-          data: [12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9]
+          data: this.batteryDataV.reverse(),
         },
         {
           name: '電流(A)',
-          data: [1.1, 2.1, 4.3, 5.4, 6.2, 7.3, 8.6, 10.0, 11.0]
+          data: this.batteryDataA.reverse(),
         },
         {
           name: '功率(W)',
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+          data: this.batteryDataW.reverse(),
         }
       ],
       chart: {
@@ -90,7 +109,15 @@ export class BatteryDataComponent {
         size: 1
       },
       xaxis: {
-        categories: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'],
+        categories: this.time.reverse(),
+        type: 'datetime',
+        tickAmount: 6,
+        labels: {
+          formatter: function (val: any) {
+            let date = new Date(val);
+            return date.toTimeString().split(' ')[0];
+          }
+        },
         title: {
           text: '時間'
         }
@@ -105,5 +132,19 @@ export class BatteryDataComponent {
         offsetX: -5
       }
     }
+  }
+
+  getBattInfoList() {
+    this.deviceDetailService.getSunDetailData(this.deviceMacAddress, "2024-09-03").subscribe(res => {
+      this.batteryData = res.data;
+      // console.log(this.batteryData);
+      this.batteryData.forEach(element => {
+        this.batteryDataV.push(element.dataV);
+        this.batteryDataA.push(element.dataA);
+        this.batteryDataW.push(element.dataW);
+        this.time.push(element.createTime);
+      });
+      console.log(this.time);
+    });
   }
 }

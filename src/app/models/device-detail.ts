@@ -1,42 +1,27 @@
-export interface IDeviceDetailRequest {
+export interface IDeviceDetailReq {
     deviceGuid: string;
 }
 
-export interface IDeviceDetailResponse<T> {
+export interface IDeviceDetailRes<T> {
     data: T;
     isSuccess: boolean;
     message: string;
 }
 
-export interface IDeviceDetail {
-    deviceGuid: string;
+export interface IDeviceInfo {
     deviceName: string;
     deviceUnitName: string;
     devicePlaceName: string;
+}
+
+export interface IDeviceSunDetailData {
+    dataV: number;
+    dataA: number;
+    dataW: number;
+    battState: number;
     createTime: string;
-    updateTime: string;
 }
 
-export interface IDeviceDataResponse<T> {
-    data: T;
-    isSuccess: boolean;
-    message: string;
-}
-
-export interface IDeviceData {
-    deviceName: string
-    deviceUnitName: string
-    devicePlaceName: string
-    deviceMacAddress: string
-    battPower: number
-    battVoltage: number
-    battAmpere: number
-    battWatt: number
-    battState: number
-    loadVoltage: number
-    loadAmpere: number
-    co2Reduce: number
-}
 export interface IControlBattReq {
     macAddress: string
     battState: string
