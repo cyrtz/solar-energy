@@ -69,6 +69,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { InterceptorService } from './service/interceptor/interceptor.service';
+import { NotfoundComponent } from './notfound/notfound/notfound.component';
 
 
 
@@ -109,6 +110,7 @@ import { InterceptorService } from './service/interceptor/interceptor.service';
     ErrorDeviceComponent,
     ErrorSystemComponent,
     ElectricityGeneratedComponent,
+    NotfoundComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,7 +14,7 @@ export class ErrorSystemService {
   ) { }
   baseUrl = 'http://192.168.50.132:5142';
 
-  getOperates(pageIndex: number, pageSize: number): Observable<IErrorListRes<IErrorSystemListRes>> {
+  getSystemError(pageIndex: number, pageSize: number): Observable<IErrorListRes<IErrorSystemListRes>> {
     const ApiUrl = this.baseUrl + `///?pageindex=${pageIndex}&pagesize=${pageSize}`;
     return this.http.get<IErrorListRes<IErrorSystemListRes>>(ApiUrl);
   }
