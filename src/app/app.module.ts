@@ -42,6 +42,8 @@ import { BatteryDataComponent } from './charts/battery-data/battery-data.compone
 import { ErrorDeviceComponent } from './error-detection/error-device/error-device/error-device.component';
 import { ErrorSystemComponent } from './error-detection/error-system/error-system/error-system.component';
 import { ElectricityGeneratedComponent } from './charts/electricity-generated/electricity-generated.component';
+import { NotfoundComponent } from './notfound/notfound/notfound.component';
+import { ConnectLineNotifyDialogComponent } from './dialog/connect-line-notify-dialog/connect-line-notify-dialog.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -69,7 +71,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { InterceptorService } from './service/interceptor/interceptor.service';
-import { NotfoundComponent } from './notfound/notfound/notfound.component';
 
 
 
@@ -111,6 +112,7 @@ import { NotfoundComponent } from './notfound/notfound/notfound.component';
     ErrorSystemComponent,
     ElectricityGeneratedComponent,
     NotfoundComponent,
+    ConnectLineNotifyDialogComponent,
   ],
   imports: [
     BrowserModule,

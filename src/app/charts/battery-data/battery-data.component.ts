@@ -1,5 +1,4 @@
 import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
-import { min } from 'moment';
 
 import {
   ChartComponent,
@@ -137,14 +136,12 @@ export class BatteryDataComponent implements OnInit {
   getBattInfoList() {
     this.deviceDetailService.getSunDetailData(this.deviceMacAddress, "2024-09-03").subscribe(res => {
       this.batteryData = res.data;
-      // console.log(this.batteryData);
       this.batteryData.forEach(element => {
         this.batteryDataV.push(element.dataV);
         this.batteryDataA.push(element.dataA);
         this.batteryDataW.push(element.dataW);
         this.time.push(element.createTime);
       });
-      console.log(this.time);
     });
   }
 }

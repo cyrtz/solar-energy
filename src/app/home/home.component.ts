@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
             this.weatheroverview = 'assets/img/weather/01.svg';
           } else if (this.weatheroverview === '晴有霾' || this.weatheroverview === '晴有靄' || this.weatheroverview === '晴有霧') {
             this.weatheroverview = 'assets/img/weather/24.svg';
-          } else if (this.weatheroverview === '多雲') {
+          } else if (this.weatheroverview === '多雲' || this.weatheroverview === '多雲有霾' || this.weatheroverview === '多雲有靄' || this.weatheroverview === '多雲有霧') {
             this.weatheroverview = 'assets/img/weather/04.svg';
           } else if (this.weatheroverview === '陰') {
             this.weatheroverview = 'assets/img/weather/07.svg';

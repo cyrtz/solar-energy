@@ -8,6 +8,9 @@ import { LineWeekComponent } from '../charts/line-week/line-week.component';
 import { StackedColumnsDayComponent } from '../charts/stacked-columns-day/stacked-columns-day.component';
 import { StackedColumnsMonthComponent } from '../charts/stacked-columns-month/stacked-columns-month.component';
 import { StackedColumnsWeekComponent } from '../charts/stacked-columns-week/stacked-columns-week.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from '../service/account/account.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface Tab {
@@ -38,9 +41,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   errorDevice: number = 0;
   totalPower: number = 0;
   totalCarbon: number = 0;
-  
+  authorizeCode: string = '';
+
   constructor(
     private deviceService: DeviceManageService,
+    private accountService: AccountService,
+    private router: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.asyncPGTabs = new Observable((observer: Observer<Tab[]>) => {
       setTimeout(() => {
@@ -54,7 +61,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.asyncCRTabs = new Observable((observer: Observer<Tab[]>) => {
       setTimeout(() => {
         observer.next([
-          { label: '日結算', content: StackedColumnsDayComponent},
+          { label: '日結算', content: StackedColumnsDayComponent },
           { label: '週結算', content: StackedColumnsWeekComponent },
           { label: '月結算', content: StackedColumnsMonthComponent },
         ]);
@@ -70,6 +77,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.activeCRTab = tabs[0].content;
     });
     this.getTotalDeviceCount();
+    this.router.queryParams.subscribe(params => {
+      this.authorizeCode = params['code'];
+
+      if (this.authorizeCode) {
+        this.giveAccessToken(this.authorizeCode);
+      }
+    });
   }
   // 節碳選項卡切換
   onCRTabChange(event: MatTabChangeEvent) {
@@ -102,6 +116,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     if (this.tabCRSubscription) {
       this.tabCRSubscription.unsubscribe();
+    }
+  }
+
+  giveAccessToken(authorizeCode: string): void {
+    if (authorizeCode) {
+      this.snackBar.open('LINE NOTIFY連接成功', '關閉', {
+        duration: 5000,
+      })
+      this.accountService.getAccessToken(authorizeCode).subscribe((res) => {
+        console.log(res);
+      });
     }
   }
 }
