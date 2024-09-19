@@ -1,4 +1,5 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import {
   ChartComponent,
@@ -12,7 +13,8 @@ import {
   ApexGrid,
   ApexTitleSubtitle,
   ApexLegend,
-  ApexTooltip
+  ApexTooltip,
+  ApexFill
 } from 'ng-apexcharts';
 import { DeviceDetailService } from 'src/app/service/device-detail/device-detail.service';
 
@@ -29,6 +31,7 @@ export type ChartOptions = {
   legend: ApexLegend;
   title: ApexTitleSubtitle;
   tooltip: ApexTooltip;
+  fill: ApexFill;
 };
 
 @Component({
@@ -41,6 +44,8 @@ export class BatteryDataComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
 
   @Input() deviceMacAddress: string = '';
+  date = new Date();
+  getTodayDate = formatDate(this.date, 'yyyy-MM-dd', 'en-US', '+0800');
 
   batteryData: any[] = [];
   batteryDataV: number[] = [];
@@ -81,7 +86,7 @@ export class BatteryDataComponent implements OnInit {
           left: 7,
           blur: 10,
           opacity: 0.2
-        },
+      },
         toolbar: {
           show: false
         }
@@ -97,6 +102,16 @@ export class BatteryDataComponent implements OnInit {
         text: '今日狀態',
         align: 'center'
       },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 1,
+          type: 'horizontal',
+          opacityFrom: 0.5,
+          opacityTo: 0,
+          stops: [0, 90, 100]
+        },
+      },
       grid: {
         borderColor: '#e7e7e7',
         row: {
@@ -108,15 +123,18 @@ export class BatteryDataComponent implements OnInit {
         size: 1
       },
       xaxis: {
-        categories: this.time.reverse(),
         type: 'datetime',
-        tickAmount: 6,
+        categories: this.time,
+        tickAmount: 8,
+        tickPlacement: 'on',
         labels: {
           formatter: function (val: any) {
-            let date = new Date(val);
-            return date.toTimeString().split(' ')[0];
-          }
+            
+            return new Date(val).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+          },
         },
+        min: new Date(this.getTodayDate).getTime() - 2500 * 60 * 60,
+        max: new Date(this.getTodayDate).getTime() + 21500 * 60 * 60,
         title: {
           text: '時間'
         }
@@ -132,9 +150,9 @@ export class BatteryDataComponent implements OnInit {
       }
     }
   }
-
   getBattInfoList() {
-    this.deviceDetailService.getSunDetailData(this.deviceMacAddress, "2024-09-03").subscribe(res => {
+    this.deviceDetailService.getSunDetailData(this.deviceMacAddress, this.getTodayDate).subscribe(res => {
+      console.log(res);
       this.batteryData = res.data;
       this.batteryData.forEach(element => {
         this.batteryDataV.push(element.dataV);
@@ -142,6 +160,8 @@ export class BatteryDataComponent implements OnInit {
         this.batteryDataW.push(element.dataW);
         this.time.push(element.createTime);
       });
+      this.time = this.time.reverse();
+      console.log(this.time);
     });
   }
 }

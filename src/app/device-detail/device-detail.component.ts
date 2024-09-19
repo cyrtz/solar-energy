@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DeviceDetailService } from '../service/device-detail/device-detail.service';
-import { Location } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { IControlBattReq, IControlLoadReq } from '../models/device-detail';
@@ -31,7 +31,8 @@ export class DeviceDetailComponent implements OnInit {
   co2Reduce: number = 0;
   loadBatt: number = 0;
   loadMain: number = 0;
-  date = new FormControl(new Date());
+  date = new Date();
+  getTodayDate = formatDate(this.date, 'yyyy-MM-dd', 'en-US', '+0800');
   types: Type[] = [
     { value: 'electricity', viewValue: '發電量' },
     { value: 'carbon', viewValue: '節碳量' },
@@ -65,7 +66,7 @@ export class DeviceDetailComponent implements OnInit {
   }
 
   getSunDetailData() {
-    this.devicedetailService.getSunDetailData(this.deviceMacAddress, "2024-08-21").subscribe(res => {
+    this.devicedetailService.getSunDetailData(this.deviceMacAddress, this.getTodayDate).subscribe(res => {
       // console.log(res);
       if (res.data.length > 0) {
         this.battVoltage = res.data[0].dataV;
