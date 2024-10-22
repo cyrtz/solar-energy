@@ -21,11 +21,25 @@ export const AuthGuard: CanActivateFn = (route,state): Observable<boolean | UrlT
       }
       // 檢查 token 是否有權限存取或編輯當前頁面
       const userRole = payload.customRole;
-      const allowedPages = payload.pages || [];
+      // detail page的路徑會根據id變化，'app-device-detail/:deviceGuid'
+      const allowedPages = [
+        '/app-home/app-dashboard',
+        '/app-home/app-interactive-map',
+        /^\/app-home\/app-device-detail\/[^\/]+$/ // 匹配 /app-home/app-device-detail/ 後面跟著任意非斜杠字符的路徑
+      ];
       if (userRole == 'Admin' || userRole == 'Editor') {
         return true;
       } else if (userRole == 'Viewer') {
-        if (allowedPages.includes(route.routeConfig?.path)) {
+        const currentPath = route.routeConfig?.path || ''; // 提供預設值
+        const isAllowed = allowedPages.some(page => {
+          if (typeof page === 'string') {
+            return page === currentPath;
+          } else if (page instanceof RegExp) {
+            return page.test(currentPath);
+          }
+          return false;
+        });
+        if (isAllowed) {
           return true;
         } else {
           openSnackBar(_snackBar, '您無權訪問此頁面', '關閉');
