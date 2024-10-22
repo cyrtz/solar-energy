@@ -1,20 +1,17 @@
-.dialog-title{
-    display: flex;
-    justify-content: center;
+.title{
     width: 100%;
-    background-color: #6b916b;
-    h1 {
-        color: white;
-        font-size: 24px;
-    }
+    height: 56px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    background-color: #82bbb5;
 }
-.dialog-body{
-    font-size: 24px;
-    margin: 1rem;
+.content {
+    font-size: 1.3rem;
+    font-family: Arial, Helvetica, sans-serif;
 }
-.dialog-action{
-    display: flex;
-    justify-content: center;
-    padding-bottom: 2rem;
-    width: 100%;
+
+button{
+    font-size: 16px;
+    margin-bottom: 16px;
 }

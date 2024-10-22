@@ -22,8 +22,9 @@ export class DeleteUnitDialogComponent implements OnInit{
     this.device = data;
   };
   ngOnInit(): void {
-    this.unitService.getUnits(0, 6).subscribe(
+    this.unitService.getUnits(0, 15).subscribe(
       res => {
+        console.log(res);
         res.data.unitList.forEach(element => {
           if (element.deviceUnitGuid === this.device) {
             this.deviceUnitName = element.deviceUnitName;
@@ -32,15 +33,6 @@ export class DeleteUnitDialogComponent implements OnInit{
       }
     );
   }
-  // unitService.getUnits(0, 6).subscribe(
-  //   res => {
-  //     res.data.unitList.forEach(element => {
-  //       if (element.deviceUnitGuid === this.device) {
-  //         this.deviceUnitName = element.deviceUnitName;
-  //       }
-  //     });
-  //   }
-  // );
   delete(): void {
     
     const request: IDeleteUnitRequest = {

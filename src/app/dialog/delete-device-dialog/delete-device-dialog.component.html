@@ -1,16 +1,25 @@
-<div class="dialogOverrall">
-    <div class="dialogTitle">
-        <h1 mat-dialog-title>刪除設備</h1>
+<div fxLayout="column" fxLayoutAlign=" center" style="height: 320px;">
+    <div fxFlex="20" style="width: 100%;">
+        <div class="title" fxLayout="row" fxLayoutAlign="center center">刪除設備</div>
     </div>
-    <div class="dialogBodyOuter">
-        <div class="dialogBody">
-            <p><b>名稱：</b> {{this.device.deviceName}}</p>
-            <p><b>單位：</b> {{this.device.deviceUnitName}}</p>
-            <p><b>地點：</b> {{this.device.devicePlaceName}}</p>
-        </div>
+    <div fxFlex="60" class="content" fxLayout="column" fxLayoutAlign="space-around ">
+        <div><b>名稱：</b> {{this.device.deviceName}}</div>
+        <div><b>單位：</b> {{this.device.deviceUnitName}}</div>
+        <div><b>地點：</b> {{this.device.devicePlaceName}}</div>
     </div>
-    <div mat-dialog-actions class="dialogActions">
-        <button mat-raised-button mat-dialog-close>取消</button>
-        <button mat-raised-button [mat-dialog-close]="true" (click)="delete()" style="color: red;">確認刪除</button>
+    <div fxFlex="20" class="footer" fxLayout="row" fxLayoutAlign="space-evenly end">
+        <button mat-raised-button mat-dialog-close>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon>close</mat-icon>
+                取消
+            </div>
+        </button>
+        <button mat-raised-button [mat-dialog-close]="true" style="margin-left: 10px;"
+            (click)="delete()" color="warn">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon>delete</mat-icon>
+                刪除
+            </div>
+        </button>
     </div>
 </div>

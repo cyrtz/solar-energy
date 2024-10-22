@@ -8,7 +8,7 @@
     </div>
     <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
         <form [formGroup]="searchDeviceErrorForm">
-            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="primary" appearance="outline">
                 <mat-label>錯誤類型</mat-label>
                 <mat-select formControlName="deviceErrorTypeFilter">
                     <mat-option [value]="''">
@@ -19,7 +19,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="primary" appearance="outline">
                 <mat-label>搜尋條件（輸入框）</mat-label>
                 <input matInput formControlName="deviceErrorNameFilter">
             </mat-form-field>

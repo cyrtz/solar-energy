@@ -1,0 +1,86 @@
+<div fxLayout="column" fxLayooutAlign=" center" style="height: 600px;">
+    <div fxFlex="10" style="width: 100%;">
+        <div class="title" fxLayout="row" fxLayoutAlign="center center">新增使用者</div>
+    </div>
+    <div fxFlex="75" class="content" fxLayout="column" fxLayoutAlign="space-evenly ">
+        <form class="newUserForm" [formGroup]="newUserForm" fxLayout="column" fxLayoutAlign="space-around center">
+            <mat-form-field color="primary" appearance="outline" style="width: 60%; margin-top: 12px;">
+                <mat-label for="userAccount">帳號</mat-label>
+                <input matInput id="userAccount" formControlName="userAccount" />
+                <mat-error align="end">
+                    <span *ngIf="userAccount?.errors?.['required']">
+                        請輸入使用者帳號
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field  color="primary" appearance="outline" style="width: 60%;">
+                <mat-label for="userPassword">密碼</mat-label>
+                <input matInput id="userPassword" formControlName="userPassword" placeholder="abc123" />
+                <mat-error align="end">
+                    <span *ngIf="userPassword?.errors?.['required']">
+                        請輸入使用者密碼
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field  color="primary" appearance="outline" style="width: 60%;">
+                <mat-label for="userName">姓名</mat-label>
+                <input matInput id="userName" formControlName="userName" />
+                <mat-error align="end">
+                    <span *ngIf="userName?.errors?.['required']">
+                        請輸入使用者姓名
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field  color="primary" appearance="outline" style="width: 60%;">
+                <mat-label>權限</mat-label>
+                <mat-select formControlName="userIdentity">
+                    <mat-option *ngFor="let role of userRoleList" [value]="role">
+                        {{ role }}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end">
+                    <span *ngIf="userIdentity?.errors?.['required']">
+                        請輸入使用者權限
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field  color="primary" appearance="outline" style="width: 60%;">
+                <mat-label>行政/教學單位</mat-label>
+                <mat-select formControlName="userDepartment">
+                    <mat-option *ngFor="let department of userDepartmentList" [value]="department.departmentName">
+                        {{ department.departmentName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end">
+                    <span *ngIf="userDepartment?.errors?.['required']">
+                        請輸入使用者行政/教學單位
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field  color="primary" appearance="outline" style="width: 60%;">
+                <mat-label for="userPosition">職位</mat-label>
+                <input matInput id="userPosition" formControlName="userPosition" />
+                <mat-error align="end">
+                    <span *ngIf="userPosition?.errors?.['required']">
+                        請輸入使用者職位
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </form>
+    </div>
+    <div fxFlex="15" class="footer" fxLayout="row" fxLayoutAlign="space-evenly center">
+        <button mat-raised-button mat-dialog-close>
+            <div fxLayout="row" fxLayoutAlign="center center" style="color: red;">
+                <mat-icon>close</mat-icon>
+                取消
+            </div>
+        </button>
+        <button mat-raised-button [mat-dialog-close]="true" (click)="addUser()" style="margin-left: 10px; color: white;"
+            [disabled]="!newUserForm.valid" color="accent">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon>add</mat-icon>
+                新增
+            </div>
+        </button>
+    </div>
+</div>

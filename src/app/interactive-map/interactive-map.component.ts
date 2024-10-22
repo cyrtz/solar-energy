@@ -29,10 +29,6 @@ export class InteractiveMapComponent implements OnInit {
   tokenPayload = JSON.parse(window.atob(this.token.split('.')[1]));
   userRole = this.tokenPayload.customRole;
   unitList: IUnitListResponse[] = [];
-  test: {[key: string]: boolean} = {
-    'd9d91185-2853-4a90-98e3-db6ca860cab3': true,
-    'a19dd49c-fac0-4fc6-b2b0-c4a520a2e1e1': false,
-  };
   placeMapObj = {
     zhongShang: {
       id: 'd9d91185-2853-4a90-98e3-db6ca860cab3',
@@ -103,7 +99,6 @@ export class InteractiveMapComponent implements OnInit {
   getUnitList(): Observable<any> {
     return this.unitService.getTotalUnits().pipe(
       tap(res => {
-        console.log(res);
         if (res.data.unitList) {
           this.unitList = res.data.unitList;
         }
@@ -112,7 +107,6 @@ export class InteractiveMapComponent implements OnInit {
   }
   getDevice(unitGuid: string) {
     this.show = false;
-    console.log(unitGuid);
     this.getUnitGuid = unitGuid;
     this.unitList.forEach(element => {
       if (element.deviceUnitGuid === unitGuid) {
@@ -121,15 +115,10 @@ export class InteractiveMapComponent implements OnInit {
     });
     return this.unitService.searchDeviceByUnit(unitGuid).pipe(
       tap(res => {
-        console.log(res);
-        this.deviceData = res.data.deviceDataList;
+        this.deviceData = res.data.deviceDataList.reverse();
         this.deviceData.forEach((element, index) => {
           return element.Id = index + 1;
         });
-        // this.test.find(element => element.guid === unitGuid)?.show;
-        console.log(this.test);
-        // this.placeName = res.data.searchDeviceByPlaceList[0].devicePlaceName;
-        console.log(this.deviceData);
         this.deviceDataSource = new MatTableDataSource<ISearchDeviceByPlaceList>(this.deviceData);
       })
     ).subscribe();

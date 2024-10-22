@@ -1,11 +1,18 @@
-<div class="dialog-title">
-    <h1 mat-dialog-title>確定要刪除此單位嗎？</h1>
-</div>
-<div class="dialog-body" fxLayout="column" fxLayoutAlign="start center">
-    <div>名稱：{{data.devicePlaceName}} </div>
-    <div>id：{{data.devicePlaceGuid}} </div>
-</div>
-<div mat-dialog-actions class="dialog-action">
-    <button mat-raised-button mat-dialog-close style="font-size: 20px;">取消</button>
-    <button mat-raised-button [mat-dialog-close]="true" (click)="delete()" style="color: red; font-size: 20px;">確認刪除</button>
+<div fxLayout="column" fxLayoutAlign=" center" style="height: 240px;">
+    <div fxFlex="20" style="width: 100%;">
+        <div class="title" fxLayout="row" fxLayoutAlign="center center">刪除地點</div>
+    </div>
+    <div fxFlex="60" class="content" fxLayout="column" fxLayoutAlign="space-around ">
+        <div><b>名稱：</b>{{data.devicePlaceName}} </div>
+    </div>
+    <div fxFlex="20" class="footer" fxLayout="row" fxLayoutAlign="center center">
+        <button mat-raised-button mat-dialog-close style="margin-left: 10px;">
+            <mat-icon>close</mat-icon>
+            取消
+        </button>
+        <button mat-raised-button [mat-dialog-close]="true" style="margin-left: 10px; " color="warn" (click)="delete()">
+            <mat-icon>delete</mat-icon>
+            刪除
+        </button>
+    </div>
 </div>

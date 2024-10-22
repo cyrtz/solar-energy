@@ -9,7 +9,7 @@
     <!-- 搜尋表單 -->
     <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
         <form [formGroup]="searchOperateForm">
-            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="primary" appearance="outline">
                 <mat-label>權限</mat-label>
                 <mat-select formControlName="userPermissionsFilter">
                     <mat-option [value]="''">
@@ -20,7 +20,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="accent">
+            <mat-form-field style="margin-right: 20px;" fxFlex="50" color="primary" appearance="outline">
                 <mat-label>搜尋使用者名稱</mat-label>
                 <input matInput formControlName="userNameFilter">
             </mat-form-field>

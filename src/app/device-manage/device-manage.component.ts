@@ -201,7 +201,7 @@ export class DeviceManageComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteDeviceDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
-      width: '500px',
+      width: '400px',
       data: device,
     });
     // 訂閱 dialogClosed 事件

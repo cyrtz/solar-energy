@@ -6,8 +6,8 @@ import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/pag
 import { debounceTime, Observable, switchMap, tap } from 'rxjs';
 import { AccountService } from '../service/account/account.service';
 import { MatDialog } from '@angular/material/dialog';
-import { NewUserDialogComponent } from '../dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
-import { DeleteUserDialogComponent } from '../dialog/delete-user-dialog/delete-user-dialog/delete-user-dialog.component';
+import { NewUserDialogComponent } from '../dialog/new-user-dialog/new-user-dialog.component';
+import { DeleteUserDialogComponent } from '../dialog/delete-user-dialog/delete-user-dialog.component';
 
 @Component({
   selector: 'app-user-manage',
@@ -187,6 +187,7 @@ export class UserManageComponent  implements OnInit{
     const dialogRef = this.dialog.open(NewUserDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
+      width: '500px',
     });
     // 訂閱 dialogClosed 事件
     dialogRef.componentInstance.dialogClosed.subscribe(() => {

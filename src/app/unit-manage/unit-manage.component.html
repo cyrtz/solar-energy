@@ -1,25 +1,36 @@
 <div fxLayout="row" fxLayoutAlign="start center" class="pageheader">
   <div fxLayout="row" class="pagetitle" fxLayoutAlign="start center" fxFlex="40">
-    <div fxLayoutAlign="start center" class="title-icon">
+    <div fxLayoutAlign="end center" class="title-icon">
       <mat-icon>domain_add</mat-icon>
       <mat-icon>remove</mat-icon>
     </div>
     <div>單位管理</div>
   </div>
-  <div class="tableOperate" fxLayoutAlign="end start" fxFlex="60">
+  <div class="tableOperate" fxLayoutAlign="end start" fxFlex="40">
     <form [formGroup]="searchUnitForm">
-      <mat-form-field style="margin-right: 20px;" color="accent">
+      <mat-form-field color="primary" appearance="outline">
         <mat-label>搜尋單位名稱</mat-label>
-        <input matInput formControlName="unitNameFilter">  
-        <!-- <input matInput (input)="onSearchUnitChange(filter.value)" #filter>   -->
+        <input matInput formControlName="unitNameFilter">
       </mat-form-field>
     </form>
-    <button mat-raised-button color="primary" style="color: black; margin-right: 8px;"
-      (click)="newUnitDialog('0ms', '0ms')">新增單位</button>
-    <button mat-raised-button color="primary" style="color: black;" (click)="newPlaceDialog('0ms', '0ms')">新增地點</button>
+  </div>
+  <div fxFlex="20" fxLayout="row" fxLayoutAlign="space-evenly center">
+    <button mat-raised-button style="font-weight: bold; color: white; background: #efd74d; height: 56px; width: 120px; font-size: 16px;"
+      (click)="newUnitDialog('0ms', '0ms')">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon>add</mat-icon>
+        新增單位
+      </div>
+    </button>
+    <button mat-raised-button style="font-weight: bold; color: white; background: #efd74d; height: 56px; width: 120px; font-size: 16px;"
+      (click)="newPlaceDialog('0ms', '0ms')">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon>add</mat-icon>
+        新增地點
+      </div>
+    </button>
   </div>
 </div>
-<!-- <div class="test"> -->
 <div class="card-div">
   <mat-card *ngFor="let element of placeList" class="unit-card">
     <mat-card-header fxLayoutAlign="center center" class="card-title">
@@ -31,7 +42,6 @@
       </div>
     </mat-card-header>
     <mat-card-content class="place-table">
-      <!-- <div *ngFor="let data of element.data">{{data.devicePlaceName}}</div> -->
       <table mat-table [dataSource]="element.data" multiTemplateDataRows>
         <ng-container matColumnDef="Id">
           <th mat-header-cell *matHeaderCellDef> No. </th>

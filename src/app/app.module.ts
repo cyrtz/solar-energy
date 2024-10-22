@@ -35,8 +35,8 @@ import { DeletePlaceDialogComponent } from './dialog/delete-place-dialog/delete-
 import { NewDeviceByUnitDialogComponent } from './dialog/new-device-by-unit-dialog/new-device-by-unit-dialog.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { EditAccountDialogComponent } from './dialog/edit-account-dialog/edit-account-dialog.component';
-import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog/new-user-dialog.component';
-import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog/delete-user-dialog.component';
+import { NewUserDialogComponent } from './dialog/new-user-dialog/new-user-dialog.component';
+import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component';
 import { OperationRecordComponent } from './operation-record/operation-record.component';
 import { BatteryDataComponent } from './charts/battery-data/battery-data.component';
 import { ErrorDeviceComponent } from './error-detection/error-device/error-device/error-device.component';

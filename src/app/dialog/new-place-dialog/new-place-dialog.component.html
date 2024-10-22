@@ -1,21 +1,19 @@
-<div class="dialog-title">
-    <h1 mat-dialog-title>新增單位</h1>
-</div>
-<div mat-dialog-content>
-    <form class="newUnitForm" [formGroup]="newPlaceForm">
-        <mat-form-field style="margin-right: 20px;" fxFlex="50" >
-            <mat-label>單位</mat-label>
-            <mat-select formControlName="deviceUnitGuid">
-                <mat-option [value]="''">
-                    請選擇單位
-                </mat-option>
-                <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
-                    {{unit.deviceUnitName}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div class="formInput">
-            <mat-form-field appearance="outline">
+<div fxLayout="column" fxLayoutAlign=" center" style="height: 400px;">
+    <div fxFlex="15" class="title" fxLayout="column" fxLayoutAlign="center center">新增地點</div>
+    <div fxFlex="70" class="content" fxLayout="column" fxLayoutAlign="space-around ">
+        <form class="newPlaceForm" [formGroup]="newPlaceForm" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <mat-form-field color="primary" appearance="outline" style="width: 60%;">
+                <mat-label>單位</mat-label>
+                <mat-select formControlName="deviceUnitGuid">
+                    <mat-option [value]="''">
+                        請選擇單位
+                    </mat-option>
+                    <mat-option *ngFor="let unit of unitData" [value]="unit.deviceUnitGuid">
+                        {{unit.deviceUnitName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field color="primary" appearance="outline" style="width: 60%;">
                 <mat-label for="devicePlaceName"> 地點名稱 </mat-label>
                 <input matInput id="devicePlaceName" formControlName="devicePlaceName" required />
                 <mat-error align="end">
@@ -33,13 +31,21 @@
                     </span>
                 </mat-error>
             </mat-form-field>
-        </div>
-    </form>
-</div>
-<div mat-dialog-actions class="dialog-action">
-    <button mat-raised-button mat-dialog-close>取消</button>
-    <button mat-raised-button color="accent" [mat-dialog-close]="true" (click)="addPlace()">新增</button>
-    <!-- <button mat-raised-button [mat-dialog-close]="true" [disabled]="!newUnitForm.valid" color="accent"
-        (click)="addUnit()">新增</button> -->
-
+        </form>
+    </div>
+    <div fxFlex="15" class="footer" fxLayout="row" fxLayoutAlign="space-evenly center">
+        <button mat-raised-button mat-dialog-close>
+            <div fxLayout="row" fxLayoutAlign="center center" style="color: red;">
+                <mat-icon>close</mat-icon>
+                取消
+            </div>
+        </button>
+        <button mat-raised-button [mat-dialog-close]="true" (click)="addPlace()"
+            style="margin-left: 10px; color: white;" [disabled]="!newPlaceForm.valid" color="accent">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon>add</mat-icon>
+                新增
+            </div>
+        </button>
+    </div>
 </div>
