@@ -14,16 +14,6 @@ import { RegisterDialogComponent } from '../dialog/register-dialog/register-dial
   styleUrls: ['./login.component.scss']
 })
 
-// export class SnackBarAnnotated{
-//   durationInSeconds = 5;
-
-//   constructor(private _snackBar: MatSnackBar) { }
-
-//   openSnackBar() { 
-//     this._snackBar
-//   }
-// }
-
 export class LoginComponent implements OnInit{
   hide = true;
   loginForm = new FormGroup({
@@ -83,15 +73,10 @@ export class LoginComponent implements OnInit{
       if (res.isSuccess === true) {
         localStorage.setItem('token', res.data);
         this.router.navigate(['/app-home']);
-        // console.log(res);
       } else {
         this.opneLoginDialog('0ms', '0ms');
       }
     });
-    // this.router.navigate(['/app-home'])
-
-    // this.opneDialog('0ms', '0ms');
-    // this.router.navigate(['/app-home'])
   };
 
   register() {
@@ -107,32 +92,22 @@ export class LoginComponent implements OnInit{
         });
       }
     });
-  }
+  };
+
   opneLoginDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(DialogComponent, {
-      width: '250px',
+      width: '300px',
       enterAnimationDuration,
       exitAnimationDuration
     });
-
   };
+
   openRegisterDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(RegisterDialogComponent, {
-      width: '250px',
+      width: '300px',
       enterAnimationDuration,
       exitAnimationDuration
     });
   };
 }
-// onSubmit(): void {
-//   console.log(this.signinForm?.value);
-// }
-// 取得 FormArray
-// get formArray(): FormArray {
-//   return this.signinForm?.get('memberList')! as FormArray;
-// }
-// 判斷表單是否無效
-// get isFormInvalid(): boolean {
-//   return this.formArray.controls.length ===0 || this.signinForm!.invalid;
-// }
 

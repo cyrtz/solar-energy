@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NewUnitDialogComponent } from '../dialog/new-unit-dialog/new-unit-dialog.component';
 import { DeleteUnitDialogComponent } from '../dialog/delete-unit-dialog/delete-unit-dialog.component';
 import { UnitManageService } from '../service/unit-manage/unit-manage.service';
-import { IPlaceList, IPlaceListItem, IUnitList, IUnitListResponse } from '../models/unit-manage';
+import { IPlaceListItem, IUnitListResponse } from '../models/unit-manage';
 import { debounceTime, Observable, of, switchMap, tap } from 'rxjs';
 import { NewPlaceDialogComponent } from '../dialog/new-place-dialog/new-place-dialog.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -27,14 +26,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class UnitManageComponent {
   unitDisplayedColumns: string[] = ['Id', 'deviceUnitName', 'operation'];
   placeDisplayedColumns: string[] = ['Id', 'devicePlaceName', 'operation'];
-  // expandedDisplayedColumns: string[] = ['Id','devicePlaceName', 'operation'];
   expandedElement!: IPlaceListItem | null;
-  // columnsToDisplayWithExpand = [ 'expand',...this.unitDisplayedColumns];
   // 單位列表
   unitData: IUnitListResponse[] = [];
   // 地點列表
   placeData: IPlaceListItem[] = [];
-  // dataSource = ELEMENT_DATA;
   unitDataSource = new MatTableDataSource<IUnitListResponse>(this.unitData);
   placeDataSource = new MatTableDataSource<IPlaceListItem>(this.placeData);
   currentPage: number = 0;
@@ -61,7 +57,6 @@ export class UnitManageComponent {
         this.getPlaceList().subscribe();
       })
     ).subscribe();
-    // this.getPlaceList().subscribe();
     this.onSearchUnitChange();
   }
   
@@ -70,17 +65,9 @@ export class UnitManageComponent {
     return this.unitService.getTotalUnits().pipe(
       tap(res => {
         this.unitData = res.data.unitList;
-        // console.log(this.unitData);
-        // this.unitGuidList = [];
-        // console.log(this.unitData)
         this.unitData.forEach(element => {
           this.unitGuidList.push({ unitGuid: element.deviceUnitGuid, name: element.deviceUnitName });
         })
-        //   if (pageIndex === 0) {
-        //     this.currentPage = 0;
-        //   } else {
-        //     this.currentPage = pageIndex;
-        //   }
       })
     );
   }
@@ -105,17 +92,11 @@ export class UnitManageComponent {
     const dialogRef = this.dialog.open(NewUnitDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
-      width: '500px',
+      width: '400px',
     });
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
       this.unitGuidList = [];
-      // this.getUnitList(this.currentPage, 6).pipe(
-      //   tap(() => {
-      //     this.placeList = [];
-      //     this.getPlaceList().subscribe();
-      //   })
-      // ).subscribe();
       this.getUnitList().pipe(
         tap(() => {
           this.placeList = [];
@@ -129,17 +110,11 @@ export class UnitManageComponent {
     const dialogRef = this.dialog.open(NewPlaceDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
-      width: '500px',
+      width: '400px',
     });
     dialogRef.componentInstance.dialogClosed.subscribe(() => {
       console.log('dialogClosed');
       this.unitGuidList = [];
-      // this.getUnitList(this.currentPage, 6).pipe(
-      //   tap(() => {
-      //     this.placeList = [];
-      //     this.getPlaceList().subscribe();
-      //   })
-      // ).subscribe();
       this.getUnitList().pipe(
         tap(() => {
           this.placeList = [];
@@ -153,7 +128,7 @@ export class UnitManageComponent {
     const dialogRef = this.dialog.open(DeleteUnitDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
-      width: '500px',
+      width: '400px',
       data: unit
     });
     // 訂閱 dialogClosed 事件
@@ -161,12 +136,7 @@ export class UnitManageComponent {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.unitGuidList = [];
-      // this.getUnitList(this.currentPage, 6).pipe(
-      //   tap(() => {
-      //     this.placeList = [];
-      //     this.getPlaceList().subscribe();
-      //   })
-      // ).subscribe();
+ 
       this.getUnitList().pipe(
         tap(() => {
           this.placeList = [];
@@ -180,7 +150,7 @@ export class UnitManageComponent {
     const dialogRef = this.dialog.open(DeletePlaceDialogComponent, {
       enterAnimationDuration,
       exitAnimationDuration,
-      width: '500px',
+      width: '400px',
       data: place
     });
     // 訂閱 dialogClosed 事件
@@ -188,12 +158,7 @@ export class UnitManageComponent {
       // 事件觸發時重新取得設備列表
       console.log('dialogClosed');
       this.unitGuidList = [];
-      // this.getUnitList(this.currentPage, 6).pipe(
-      //   tap(() => {
-      //     this.placeList = [];
-      //     this.getPlaceList().subscribe();
-      //   })
-      // ).subscribe();
+
       this.getUnitList().pipe(
         tap(() => {
           this.placeList = [];
@@ -225,23 +190,4 @@ export class UnitManageComponent {
     ).subscribe();  // 確保你有訂閱這個 Observable
   }
   
-  // this.searchUnitForm.valueChanges.pipe(
-  //   debounceTime(500),
-  //   switchMap(value => {
-  //     if (value.unitNameFilter?.trim() != '') {
-  //       this.unitNameFilter = value.unitNameFilter;
-  //       return this.searchUnit(this.unitNameFilter || '');
-  //     } else {
-  //       return this.getUnitList();
-  //     }
-  //   })
-  // )
-  // 搜尋單位 
-  // searchUnit(unitNameFilter: string): Observable<any> {
-  //   return this.unitService.searchUnit(unitNameFilter).pipe(
-  //     tap(res =>
-  //       this.unitData = res.data.unitList
-  //     )
-  //   )
-  // }
 }

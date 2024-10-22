@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
             this.weatheroverview = 'assets/img/weather/28.svg';
           } else if (this.weatheroverview === '雨') {
             this.weatheroverview = 'assets/img/weather/11.svg';
-          } else if (this.weatheroverview === '陰有雨') {
+          } else if (this.weatheroverview === '陰有雨' || this.weatheroverview === '多雲有雨') {
             this.weatheroverview = 'assets/img/weather/14.svg';
           } else if (this.weatheroverview === '陰有雷' || this.weatheroverview === '陰有雷雨') {
             this.weatheroverview = 'assets/img/weather/18.svg';
