@@ -33,11 +33,8 @@ export class DeviceDetailComponent implements OnInit {
   loadMain: number = 0;
   date = new Date();
   getTodayDate = formatDate(this.date, 'yyyy-MM-dd', 'en-US', '+0800');
-  types: Type[] = [
-    { value: 'electricity', viewValue: '發電量' },
-    { value: 'carbon', viewValue: '節碳量' },
-  ]
-  selectedType: string = this.types[0].value;
+  predictionPower: number = 0;
+  predictionCo2Reduce: number = 0;
   constructor(
     public route: ActivatedRoute,
     private devicedetailService: DeviceDetailService,
@@ -45,8 +42,7 @@ export class DeviceDetailComponent implements OnInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
   ) { }
-  
-  // @ViewChild(BatteryDataComponent) batteryDataComponent!: BatteryDataComponent;
+
   ngOnInit(): void {
     // this.getDeviceDetail();
     // 取得路由參數，這裡是取得 MacAddress
@@ -55,7 +51,8 @@ export class DeviceDetailComponent implements OnInit {
     });
     this.getDeviceInfo();
     this.getSunDetailData();
-    this.getBattPowerData();
+    this.getDateTotalGen();
+    this.getPredictionPower(10);
   }
   getDeviceInfo() {
     this.devicedetailService.getDeviceData(this.deviceMacAddress).subscribe(res => {
@@ -66,7 +63,7 @@ export class DeviceDetailComponent implements OnInit {
   }
 
   getSunDetailData() {
-    this.devicedetailService.getSunDetailData(this.deviceMacAddress, this.getTodayDate).subscribe(res => {
+    this.devicedetailService.getSunDetailData(this.deviceMacAddress, "2024-09-03").subscribe(res => {
       // console.log(res);
       if (res.data.length > 0) {
         this.battVoltage = res.data[0].dataV;
@@ -77,10 +74,17 @@ export class DeviceDetailComponent implements OnInit {
     });
   }
 
-  getBattPowerData(){
-    this.devicedetailService.getBattPowerData(this.deviceMacAddress).subscribe(res => {
-      // console.log(res);
-      this.battPower = res.data;
+  getDateTotalGen() {
+    this.devicedetailService.getDateTotalGen(this.deviceMacAddress, "2024-10-10").subscribe(res => {
+      this.battPower = res.data.totalGeneration;
+      this.co2Reduce = res.data.carbonEmissions;
+    });
+  }
+
+  getPredictionPower(solarRadiation: number) {
+    this.devicedetailService.getPredictionPower(solarRadiation).subscribe(res => {
+      this.predictionPower = res.data;
+      this.predictionCo2Reduce = res.data * 0.495;
     });
   }
 

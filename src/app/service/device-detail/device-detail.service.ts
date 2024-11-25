@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { IControlBattReq, IControlBattRes, IControlLoadReq, IDeviceDetailRes, IDeviceInfo, IDeviceSunDetailData } from 'src/app/models/device-detail';
+import { IControlBattReq, IControlBattRes, IControlLoadReq, IDeviceDetailRes, IDeviceInfo, IDeviceSunDetailData, IGetDateTotalGenRes } from 'src/app/models/device-detail';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,18 @@ export class DeviceDetailService {
     const ApiUrl = this.baseUrl + `/DeviceManage/DeviceDetail/GetBattPowerData?macAddress=${macAddress}`;
     return this.http.get<IDeviceDetailRes<number>>(ApiUrl);
   }
-  
+
+  getDateTotalGen(macAddress: string, date: string): Observable<IDeviceDetailRes<IGetDateTotalGenRes>> {
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceDetail/GetDateTotalGeneration?macAddress=${macAddress}&getDate=${date}`;
+    return this.http.get<IDeviceDetailRes<IGetDateTotalGenRes>>(ApiUrl);
+
+  }
+
+  getPredictionPower(solarRadiation: number): Observable<IDeviceDetailRes<number>> {
+    const ApiUrl = this.baseUrl + `/DeviceManage/DeviceDetail/PredictionPower`;
+    return this.http.post<IDeviceDetailRes<number>>(ApiUrl, solarRadiation);
+  }
+
   controlBatt(params: IControlBattReq): Observable<IControlBattRes> {
     const ApiUrl = this.baseUrl + `/MQTT/MQTTSetting/ControlBatt`;
     params.mqttIp = this.mqttip;

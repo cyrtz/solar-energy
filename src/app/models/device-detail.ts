@@ -42,3 +42,8 @@ export interface IControlLoadReq {
     mqttPort: number
     mqttTopic: string
 }
+
+export interface IGetDateTotalGenRes {
+    totalGeneration: number
+    carbonEmissions: number
+}
