@@ -11,7 +11,7 @@ export class ErrorDeviceService {
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = 'http://192.168.50.132:5142';
+  baseUrl = 'http://192.168.50.248:5142';
 
   getDeviceError(pageIndex: number, pageSize: number): Observable<IErrorListRes<IErrorDeviceListRes>> {
     const ApiUrl = this.baseUrl + `///?pageindex=${pageIndex}&pagesize=${pageSize}`;

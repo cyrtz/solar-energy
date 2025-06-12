@@ -10,7 +10,8 @@ import { IAddDeviceRequest, IAddDeviceResponse, IDeleteDeviceRequest, IDeleteDev
 export class DeviceManageService {
   [x: string]: any;
 
-  private baseUrl = 'http://192.168.50.132:5142' // URL to web api
+  private   baseUrl = 'http://192.168.50.248:5142';
+  // URL to web api
 
   constructor(
     private http: HttpClient,

@@ -12,7 +12,7 @@ export class ErrorSystemService {
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = 'http://192.168.50.132:5142';
+  baseUrl = 'http://192.168.50.248:5142';
 
   getSystemError(pageIndex: number, pageSize: number): Observable<IErrorListRes<IErrorSystemListRes>> {
     const ApiUrl = this.baseUrl + `///?pageindex=${pageIndex}&pagesize=${pageSize}`;

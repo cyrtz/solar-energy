@@ -12,7 +12,7 @@ export class AccountService {
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = 'http://192.168.50.132:5142';
+  baseUrl = 'http://192.168.50.248:5142';
 
   // 取得使用者資訊 
   getAccountInfo(): Observable<IAccountResponse<IAccountInfo>> {

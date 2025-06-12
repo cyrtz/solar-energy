@@ -8,7 +8,8 @@ import { IControlBattReq, IControlBattRes, IControlLoadReq, IDeviceDetailRes, ID
 })
 export class DeviceDetailService {
 
-  private baseUrl = 'http://192.168.50.132:5142' // URL to web api
+  baseUrl = 'http://192.168.50.248:5142';
+  // URL to web api
   private mqttip = '163.17.136.69';
   private mqttPort = 1883;
 
